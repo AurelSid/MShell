@@ -12,18 +12,6 @@
 
 #include "../include/minishell.h"
 
-void	ft_print_tokens(t_program_data *data)
-{
-	int	i;
-
-	i = 0;
-	printf("Token array\n");
-	while (data->tokens[i])
-	{
-		printf("token:%d : %s\n", i, data->tokens[i]);
-		i++;
-	}
-}
 void	ft_print_tokens_list(t_program_data data)
 {
 	printf("Token List\n");

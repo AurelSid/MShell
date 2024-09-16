@@ -12,65 +12,75 @@
 
 #include "../include/minishell.h"
 
-int	ft_get_type(char *token)
+char	*ft_strndup(int start, int end, const char *s1)
 {
-	char	*quote;
+	char	*s2;
+	int		i;
 
-	quote = "'";
-	if (token == quote)
-		return (SINGLE_QUOTE);
-	return (0);
+	s2 = malloc(sizeof(char) * (end - start) + 1);
+	if (!s2)
+		return (NULL);
+	i = start;
+	while (i < end - start)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
 }
-void	ft_add_node(t_token **top, t_token *new)
-{
-	t_token	*current;
-
-	if (!top || !new)
-		return ;
-	if (!(*top))
-	{
-		*top = new;
-		return ;
-	}
-	current = *top;
-	while (current->next)
-	{
-		current = current->next;
-	}
-	current->next = new;
-}
-int	ft_new_token(char *token_name, t_program_data *data)
-{
-	t_token	*new_token;
-
-	new_token = malloc(sizeof(t_token));
-	if (new_token == NULL)
-		return (1);
-	new_token->content = token_name;
-	new_token->type = ft_get_type(token_name);
-	if (data->token_top == NULL)
-	{
-		new_token->next = NULL;
-		new_token->prev = NULL;
-		data->token_top = new_token;
-	}
-	else
-	{
-		ft_add_node(&data->token_top, new_token);
-	}
-	return (0);
-}
-int	ft_tokens_fill_list(t_program_data *data)
+int	ft_handle_quotes(char type, t_program_data *data, int index)
 {
 	int	i;
 
+	i = index;
+	while (i < (int)ft_strlen(data->input) && data->input[i] != type)
+		i++;
+	if (i >= (int)ft_strlen(data->input))
+		return (printf("ERROR"));
+	return (i);
+}
+
+int	ft_tokens_fill_list(t_program_data *data)
+{
+	int	i;
+	int	j;
+
+	j = 0;
 	i = 0;
-	while (data->tokens[i])
+	while (i < (int)ft_strlen(data->input))
 	{
-		ft_new_token(data->tokens[i], data);
+		if (data->input[i] == '>')
+		{
+			if (data->input[i + 1] == '>')
+			{
+				ft_new_token(">>", data);
+				i++;
+			}
+			else
+				ft_new_token(">", data);
+		}
+		else if (data->input[i] == '<')
+		{
+			if (data->input[i + 1] == '<')
+			{
+				ft_new_token("<<", data);
+				i++;
+			}
+			else
+				ft_new_token("<", data);
+		}
+		else if (data->input[i] == '|')
+			ft_new_token("|", data);
+		else if (data->input[i] == '"')
+		{
+			j = i;
+			i = ft_handle_quotes('"', data, i);
+			ft_new_token(ft_strndup(j, i, data->input), data);
+		}
+		printf("char checked\n");
 		i++;
 	}
-	ft_print_tokens(data);
 	return (0);
 }
 int	main(int argc, char **argv)
@@ -85,8 +95,9 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	rl = readline("$> ");
-	data.tokens = ft_split(rl, ' ');
+	data.input = rl;
 	ft_tokens_fill_list(&data);
+	printf("Printing tokens...");
 	ft_print_tokens_list(data);
 	return (0);
 }

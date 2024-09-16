@@ -17,7 +17,7 @@
 
 NAME	= minishell
 CC 		= clang -g3
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror 
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= Asideris Vpelc
 DATE	= 31/05/2024
@@ -36,7 +36,7 @@ INCLUDE_PATH	= ./include
 
 SRCS			= 
 					
-MAIN			= main.c debug_utils.c
+MAIN			= main.c debug_utils.c nodes.c
 
 LIBFT 			= libft/libft.a
 
@@ -73,7 +73,7 @@ ifeq ($(UNAME_S), Darwin)
     ifeq ($(shell test -d /Users/$(USER)/.brew && echo yes), yes)
         # User-specific Homebrew path
         READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
-        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
+
     else
         # Default Homebrew path
         READLINE_INCLUDE := /opt/homebrew/opt/readline/include

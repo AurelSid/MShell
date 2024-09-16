@@ -54,9 +54,12 @@ typedef struct s_program_data
 	t_command			first_cmd;
 	t_command			last_cmd;
 	char				**tokens;
+	char				*input;
 }						t_program_data;
 void					ft_print_tokens(t_program_data *data);
 void					ft_print_tokens_list(t_program_data data);
+int						ft_new_token(char *token_name, t_program_data *data);
+void					ft_add_node(t_token **top, t_token *new);
 
 typedef enum s_token_type
 {
