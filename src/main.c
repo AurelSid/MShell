@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roko <roko@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/03 16:41:13 by roko             ###   ########.fr       */
+/*   Updated: 2024/09/17 13:38:09 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ int	ft_handle_quotes(char type, t_program_data *data, int index)
 	int	i;
 
 	i = index;
-	while (i < (int)ft_strlen(data->input) && data->input[i] != type)
+	while (data->input[i] != type)
+	{
 		i++;
+	}
 	if (i >= (int)ft_strlen(data->input))
 		return (printf("ERROR"));
-	return (i);
+	return (i - index);
 }
 
 int	ft_tokens_fill_list(t_program_data *data)
@@ -75,11 +77,13 @@ int	ft_tokens_fill_list(t_program_data *data)
 		else if (data->input[i] == '"')
 		{
 			j = i;
-			i = ft_handle_quotes('"', data, i);
-			ft_new_token(ft_strndup(j, i, data->input), data);
+			i++;
+			i += ft_handle_quotes('"', data, i);
+			ft_new_token(ft_strndup(j, i + 1, data->input), data);
+			i++;
 		}
-		printf("char checked\n");
-		i++;
+		else
+			i++;
 	}
 	return (0);
 }
@@ -97,7 +101,6 @@ int	main(int argc, char **argv)
 	rl = readline("$> ");
 	data.input = rl;
 	ft_tokens_fill_list(&data);
-	printf("Printing tokens...");
 	ft_print_tokens_list(data);
 	return (0);
 }

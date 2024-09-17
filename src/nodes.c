@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   nodes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roko <roko@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/03 16:41:13 by roko             ###   ########.fr       */
+/*   Updated: 2024/09/17 12:39:28 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	ft_add_node(t_token **top, t_token *new)
 	}
 	current->next = new;
 }
+
 int	ft_new_token(char *token_name, t_program_data *data)
 {
-	t_token *new_token;
+	t_token	*new_token;
 
 	new_token = malloc(sizeof(t_token));
 	if (new_token == NULL)
 		return (1);
 	new_token->content = ft_strdup(token_name);
-	printf("added token: %s\n", new_token->content);
 	new_token->type = 1;
 	if (data->token_top == NULL)
 	{

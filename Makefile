@@ -1,13 +1,12 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brahimb <brahimb@student.42.fr>            +#+  +:+       +#+         #
+#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/08/06 14:58:36 by brahimb          ###   ########.fr        #
+#    Updated: 2024/09/17 12:20:16 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +16,9 @@
 
 NAME	= minishell
 CC 		= clang -g3
-CFLAGS	= -Wall -Wextra -Werror 
+CFLAGS	= -Wall -Wextra -Werror
 DFLAGS	= -MMD -MF $(@:.o=.d)
-AUTHOR	= Asideris Vpelc
+AUTHOR	= ksainte_bbouaiss
 DATE	= 31/05/2024
 
 NOVISU 	= 1
@@ -34,9 +33,9 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= 
+SRCS			= debug_utils.c nodes.c
 					
-MAIN			= main.c debug_utils.c nodes.c
+MAIN			= main.c
 
 LIBFT 			= libft/libft.a
 
@@ -73,7 +72,7 @@ ifeq ($(UNAME_S), Darwin)
     ifeq ($(shell test -d /Users/$(USER)/.brew && echo yes), yes)
         # User-specific Homebrew path
         READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
-
+        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
     else
         # Default Homebrew path
         READLINE_INCLUDE := /opt/homebrew/opt/readline/include
