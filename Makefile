@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/17 12:20:16 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/17 14:55:00 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= debug_utils.c nodes.c
+SRCS			= debug_utils.c nodes.c redirections.c  
 					
 MAIN			= main.c
 

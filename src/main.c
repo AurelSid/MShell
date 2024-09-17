@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/17 13:38:09 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:30:40 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_handle_quotes(char type, t_program_data *data, int index)
 		return (printf("ERROR"));
 	return (i - index);
 }
-
+// Check token identoty and add a new token to the list
 int	ft_tokens_fill_list(t_program_data *data)
 {
 	int	i;
@@ -100,7 +100,8 @@ int	main(int argc, char **argv)
 	}
 	rl = readline("$> ");
 	data.input = rl;
-	ft_tokens_fill_list(&data);
+	ft_fake_list(&data);
+	// ft_tokens_fill_list(&data);
 	ft_print_tokens_list(data);
 	return (0);
 }
