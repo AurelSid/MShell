@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/17 15:30:40 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:28:34 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,30 @@ int	ft_tokens_fill_list(t_program_data *data)
 		{
 			if (data->input[i + 1] == '>')
 			{
-				ft_new_token(">>", data);
+				ft_new_token(">>", data, 1);
 				i++;
 			}
 			else
-				ft_new_token(">", data);
+				ft_new_token(">", data, 1);
 		}
 		else if (data->input[i] == '<')
 		{
 			if (data->input[i + 1] == '<')
 			{
-				ft_new_token("<<", data);
+				ft_new_token("<<", data, 1);
 				i++;
 			}
 			else
-				ft_new_token("<", data);
+				ft_new_token("<", data, 1);
 		}
 		else if (data->input[i] == '|')
-			ft_new_token("|", data);
+			ft_new_token("|", data, 1);
 		else if (data->input[i] == '"')
 		{
 			j = i;
 			i++;
 			i += ft_handle_quotes('"', data, i);
-			ft_new_token(ft_strndup(j, i + 1, data->input), data);
+			ft_new_token(ft_strndup(j, i + 1, data->input), data, 1);
 			i++;
 		}
 		else
@@ -101,7 +101,10 @@ int	main(int argc, char **argv)
 	rl = readline("$> ");
 	data.input = rl;
 	ft_fake_list(&data);
+	ft_fake_command(&data);
+	ft_fake_command(&data);
 	// ft_tokens_fill_list(&data);
 	ft_print_tokens_list(data);
+	ft_print_commands(data);
 	return (0);
 }

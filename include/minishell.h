@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/17 15:31:20 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:48:43 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_redirection
 {
 	char					*filename;
 	struct s_redirection	*next;
+	struct s_redirection	*prev;
+	int						type;
 }							t_redirection;
 
 typedef struct s_command
@@ -43,7 +45,7 @@ typedef struct s_command
 	struct s_command		*next;
 	char					*args;
 	char					*options;
-	t_redirection			*redirection_list_top;
+	t_redirection			*redirection_list;
 }							t_command;
 typedef struct s_token
 {
@@ -56,16 +58,24 @@ typedef struct s_token
 typedef struct s_program_data
 {
 	t_token					*token_top;
-	t_command				first_cmd;
+	t_command				*command_top;
+	t_command				*first_cmd;
 	char					*input;
 }							t_program_data;
 
+int							ft_new_redirection(char *redirection_filename,
+								t_command *command, int type);
 void						ft_print_tokens(t_program_data *data);
 void						ft_print_tokens_list(t_program_data data);
-int							ft_new_token(char *token_name,
-								t_program_data *data);
+int							ft_new_token(char *token_name, t_program_data *data,
+								int type);
 void						ft_add_node(t_token **top, t_token *new);
 int							ft_fake_list(t_program_data *data);
+t_command					*ft_new_command(char *command_name,
+								t_program_data *data, char *args,
+								char *options);
+void						ft_print_commands(t_program_data data);
+int							ft_fake_command(t_program_data *data);
 
 typedef enum s_token_type
 {

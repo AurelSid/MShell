@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nodes.c                                            :+:      :+:    :+:   */
+/*   add_redirection_node.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/17 12:39:28 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:53:43 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_add_node(t_token **top, t_token *new)
+void	ft_add_redirection(t_redirection **top, t_redirection *new)
 {
-	t_token	*current;
+	t_redirection	*current;
 
 	if (!top || !new)
 		return ;
@@ -31,24 +31,24 @@ void	ft_add_node(t_token **top, t_token *new)
 	current->next = new;
 }
 
-int	ft_new_token(char *token_name, t_program_data *data)
+int	ft_new_redirection(char *redirection_filename, t_command *command, int type)
 {
-	t_token	*new_token;
+	t_redirection	*new_redirection;
 
-	new_token = malloc(sizeof(t_token));
-	if (new_token == NULL)
+	new_redirection = malloc(sizeof(t_redirection));
+	if (new_redirection == NULL)
 		return (1);
-	new_token->content = ft_strdup(token_name);
-	new_token->type = 1;
-	if (data->token_top == NULL)
+	new_redirection->filename = ft_strdup(redirection_filename);
+	new_redirection->type = type;
+	if (command->redirection_list == NULL)
 	{
-		new_token->next = NULL;
-		new_token->prev = NULL;
-		data->token_top = new_token;
+		new_redirection->next = NULL;
+		new_redirection->prev = NULL;
+		command->redirection_list = new_redirection;
 	}
 	else
 	{
-		ft_add_node(&data->token_top, new_token);
+		ft_add_redirection(&command->redirection_list, new_redirection);
 	}
 	return (0);
 }
