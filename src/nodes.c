@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/17 16:28:49 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/18 15:37:59 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ void	ft_add_node(t_token **top, t_token *new)
 	}
 	current = *top;
 	while (current->next)
-	{
-		current = current->next;
-	}
+	current = current->next;
+
 	current->next = new;
 	new->prev = current;
 }
@@ -41,15 +40,13 @@ int	ft_new_token(char *token_name, t_program_data *data, int type)
 		return (1);
 	new_token->content = ft_strdup(token_name);
 	new_token->type = type;
+	new_token->next = NULL;
+	new_token->prev = NULL;
 	if (data->token_top == NULL)
 	{
-		new_token->next = NULL;
-		new_token->prev = NULL;
 		data->token_top = new_token;
 	}
 	else
-	{
 		ft_add_node(&data->token_top, new_token);
-	}
 	return (0);
 }

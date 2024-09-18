@@ -6,7 +6,7 @@
 #    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/17 15:55:19 by vpelc            ###   ########.fr        #
+#    Updated: 2024/09/18 15:30:46 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME	= minishell
 CC 		= clang -g3
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= ksainte_bbouaiss
 DATE	= 31/05/2024
@@ -33,7 +33,7 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= debug_utils.c nodes.c
+SRCS			= debug_utils.c nodes.c token.c
 					
 MAIN			= main.c
 

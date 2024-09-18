@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/17 16:00:17 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/18 13:39:09 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 typedef struct s_command
 {
 	char				*cmd_name;
-	int					type;
-	struct s_command	*next;
 	char				**comd_args;
+	char				*options;
+	struct s_command	*next;	
 }						t_command;
 typedef struct s_token
 {
@@ -56,8 +56,9 @@ typedef struct s_program_data
 	char				**tokens;
 	char				*input;
 }						t_program_data;
-void					ft_print_tokens(t_program_data *data);
+//void					ft_print_tokens(t_program_data *data);
 void					ft_print_tokens_list(t_program_data data);
+int						ft_tokens_fill_list(t_program_data *data);
 int						ft_new_token(char *token_name, t_program_data *data,
 							int type);
 void					ft_add_node(t_token **top, t_token *new);
