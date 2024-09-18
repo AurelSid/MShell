@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/18 15:37:59 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:48:20 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_add_node(t_token **top, t_token *new)
 	current = *top;
 	while (current->next)
 	current = current->next;
-
 	current->next = new;
 	new->prev = current;
 }

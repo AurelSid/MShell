@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/18 16:51:16 by vpelc            ###   ########.fr       */
+/*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
+/*   Updated: 2024/09/18 18:02:32 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	ft_env_copy(char **env)
 {
-	char			*rl;
-	t_program_data	data;
+	t_env	*env_top;
+	t_env	*env_node;
+	int		i;
+	int		len;
 
-	data.token_top = NULL;
-	if (argc != 1 || argv[1])
+	i = 0;
+	env_node = malloc(sizeof(t_env));
+	env_top = env_node;
+	while (env[i])
 	{
-		write(2, "Arg err\n", 8);
-		return (0);
+		len = ft_strlen(env[i]) - ft_strlen(ft_strchr(env[i], '='));
+		env_node->var_name = ft_substr(env[i], 0, len);
+		env_node->content = ft_strdup(ft_strchr(env[i], '=') + 1);
+		if (i == 0)
+			env_node->next = NULL;
+		else
+			ft_lstlast(env_top)->next = env_node;
+		
+		i++;
 	}
-	rl = readline("$> ");
-	data.input = rl;
-	ft_tokens_fill_list(&data);
-	//ft_print_tokens_list(data);
-	return (0);
+	
 }

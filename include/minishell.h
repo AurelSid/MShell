@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/18 13:39:09 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:25:54 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+typedef struct s_env
+{
+	char				*var_name;
+	char				*content;
+	struct s_env		*next;
+}	t_env;
 
 typedef struct s_command
 {
