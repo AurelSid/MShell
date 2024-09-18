@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
+#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/17 12:20:16 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/17 15:55:19 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,8 +71,8 @@ ifeq ($(UNAME_S), Darwin)
     # macOS
     ifeq ($(shell test -d /Users/$(USER)/.brew && echo yes), yes)
         # User-specific Homebrew path
-        READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
-        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
+#        READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
+#        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
     else
         # Default Homebrew path
         READLINE_INCLUDE := /opt/homebrew/opt/readline/include
