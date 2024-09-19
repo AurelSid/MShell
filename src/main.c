@@ -6,87 +6,13 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/18 17:28:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:39:46 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_strndup(int start, int end, const char *s1)
-{
-	char	*s2;
-	int		i;
 
-	s2 = malloc(sizeof(char) * (end - start) + 1);
-	if (!s2)
-		return (NULL);
-	i = start;
-	while (i < end - start)
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-int	ft_handle_quotes(char type, t_program_data *data, int index)
-{
-	int	i;
-
-	i = index;
-	while (data->input[i] != type)
-	{
-		i++;
-	}
-	if (i >= (int)ft_strlen(data->input))
-		return (printf("ERROR"));
-	return (i - index);
-}
-// Check token identoty and add a new token to the list
-int	ft_tokens_fill_list(t_program_data *data)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (i < (int)ft_strlen(data->input))
-	{
-		if (data->input[i] == '>')
-		{
-			if (data->input[i + 1] == '>')
-			{
-				ft_new_token(">>", data, 1);
-				i++;
-			}
-			else
-				ft_new_token(">", data, 1);
-		}
-		else if (data->input[i] == '<')
-		{
-			if (data->input[i + 1] == '<')
-			{
-				ft_new_token("<<", data, 1);
-				i++;
-			}
-			else
-				ft_new_token("<", data, 1);
-		}
-		else if (data->input[i] == '|')
-			ft_new_token("|", data, 1);
-		else if (data->input[i] == '"')
-		{
-			j = i;
-			i++;
-			i += ft_handle_quotes('"', data, i);
-			ft_new_token(ft_strndup(j, i + 1, data->input), data, 1);
-			i++;
-		}
-		else
-			i++;
-	}
-	return (0);
-}
 int	main(int argc, char **argv)
 {
 	char			*rl;
@@ -100,10 +26,14 @@ int	main(int argc, char **argv)
 	}
 	rl = readline("$> ");
 	data.input = rl;
+	//FAKE STRUCT TEST
+	//-------------------------
 	ft_fake_list(&data);
 	ft_fake_command(&data);
 	ft_fake_command(&data);
+	//-------------------------
 	// ft_tokens_fill_list(&data);
+	//-------------------------
 	ft_print_tokens_list(data);
 	ft_print_commands(data);
 	return (0);

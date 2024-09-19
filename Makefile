@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/18 15:56:26 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/19 12:39:21 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME	= minishell
 CC 		= clang -g3
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror 
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= ksainte_bbouaiss
 DATE	= 31/05/2024
@@ -33,7 +33,7 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= debug_utils.c add_token_node.c fake_structs.c  add_command_node.c add_redirection_node.c
+SRCS			= debug_utils.c add_token_node.c fake_structs.c  add_command_node.c add_redirection_node.c token.c #env.c
 					
 MAIN			= main.c
 
@@ -71,8 +71,8 @@ ifeq ($(UNAME_S), Darwin)
     # macOS
     ifeq ($(shell test -d /Users/$(USER)/.brew && echo yes), yes)
         # User-specific Homebrew path
-        READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
-        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
+#        READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
+#        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
     else
         # Default Homebrew path
         READLINE_INCLUDE := /opt/homebrew/opt/readline/include
