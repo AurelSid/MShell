@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/19 14:17:26 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/19 16:28:44 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int							ft_fake_command(t_program_data *data, char *name,
 int							ft_tokens_fill_list(t_program_data *data);
 void						ft_print_env(t_program_data data);
 int							ft_env_copy(char **env, t_program_data *data);
+void						ft_commands_fill_list(t_program_data *data);
+int							ft_init_data(t_program_data *data);
 
 typedef enum s_token_type
 {
