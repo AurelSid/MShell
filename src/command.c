@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/19 12:33:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:39:30 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_commands_fill_list(t_program_data *data)
 		args = ft_strjoin(args, tmp->content);
 		tmp = tmp->next;
 	}
+	
 	/* 	if (tmp->type == 4 || tmp->type == 5 || tmp->type == 6
 			|| tmp->type == 7)
 			//add_redirection(ft_new_command(data->token_top->content, data,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 12:28:50 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:55:38 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,9 @@ void	ft_print_commands(t_program_data data)
 		cmd = cmd->next;
 		printf("\n");
 	}
+}
 
+void	ft_print_env(t_program_data data)
+{
+	
 }

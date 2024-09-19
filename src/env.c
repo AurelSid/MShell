@@ -6,13 +6,32 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/18 18:02:32 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/19 12:51:36 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_env_copy(char **env)
+void	ft_add_env(t_env **lst, t_env *new)
+{
+	t_env	*current;
+
+	if (!lst || !new)
+		return ;
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	current = *lst;
+	while (current->next)
+	{
+		current = current->next;
+	}
+	current->next = new;
+}
+
+int	ft_env_copy(char **env)
 {
 	t_env	*env_top;
 	t_env	*env_node;
@@ -30,9 +49,8 @@ void	ft_env_copy(char **env)
 		if (i == 0)
 			env_node->next = NULL;
 		else
-			ft_lstlast(env_top)->next = env_node;
-		
+			ft_add_env(&env_top, env_node);
 		i++;
 	}
-	
+	return (0);
 }
