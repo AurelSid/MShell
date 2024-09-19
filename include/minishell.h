@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/19 13:33:00 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:17:26 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,20 @@ typedef struct s_token
 	struct s_token			*next;
 
 }							t_token;
-typedef struct s_program_data
-{
-	t_token					*token_top;
-	t_command				*command_top;
-	t_command				*first_cmd;
-	char					*input;
-}							t_program_data;
-
 typedef struct s_env
 {
 	char					*var_name;
 	char					*content;
 	struct s_env			*next;
 }							t_env;
+typedef struct s_program_data
+{
+	t_token					*token_top;
+	t_command				*command_top;
+	t_command				*first_cmd;
+	char					*input;
+	t_env					*env;
+}							t_program_data;
 
 int							ft_new_redirection(char *redirection_filename,
 								t_command *command, int type);
@@ -87,6 +87,8 @@ void						ft_print_commands(t_program_data data);
 int							ft_fake_command(t_program_data *data, char *name,
 								char *options, char *args);
 int							ft_tokens_fill_list(t_program_data *data);
+void						ft_print_env(t_program_data data);
+int							ft_env_copy(char **env, t_program_data *data);
 
 typedef enum s_token_type
 {

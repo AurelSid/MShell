@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 13:46:14 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/19 14:33:37 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,14 @@ void	ft_print_commands(t_program_data data)
 
 void	ft_print_env(t_program_data data)
 {
-	
+	t_env	*env;
+
+	printf("\n------------------------------\n");
+	printf("\n   Env copy list\n");
+	env = data.env;
+	while (env)
+	{
+		printf("%-30s : %s\n", env->var_name, env->content);
+		env = env->next;
+	}
 }
