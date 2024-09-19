@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 13:25:57 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:22:02 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,76 @@
 
 void	ft_print_tokens_list(t_program_data data)
 {
-	printf("\nToken List\n\n");
-	while (data.token_top->next)
+	t_token	*current;
+	int		frame_width;
+
+	current = data.token_top;
+	frame_width = 50;
+	printf("\n");
+	printf("+");
+	for (int i = 0; i < frame_width - 2; i++)
+		printf("-");
+	printf("+\n");
+	printf("| %-46s |\n", "Token List");
+	printf("|");
+	for (int i = 0; i < frame_width - 2; i++)
+		printf("-");
+	printf("|\n");
+	while (current)
 	{
-		printf("Token content: %s  || Token type: %d\n",
-			data.token_top->content, data.token_top->type);
-		data.token_top = data.token_top->next;
+		printf("| Token content: %-30s || Type: %-2d |\n", current->content,
+			current->type);
+		current = current->next;
 	}
-	printf("Token content: %s  || Token type: %d\n", data.token_top->content,
-		data.token_top->type);
+	printf("+");
+	for (int i = 0; i < frame_width - 2; i++)
+		printf("-");
+	printf("+\n");
 }
 
 void	ft_print_commands(t_program_data data)
 {
 	t_command		*cmd;
 	t_redirection	*redir;
+	int				frame_width;
 
-	printf("\n---------------------------\n");
-	printf("\nCommands List\n\n");
+	frame_width = 50;
+	printf("\n");
+	printf("+");
+	for (int i = 0; i < frame_width - 2; i++)
+		printf("-");
+	printf("+\n");
+	printf("| %-46s |\n", "Commands List");
+	printf("|");
+	for (int i = 0; i < frame_width - 2; i++)
+		printf("-");
+	printf("|\n");
 	cmd = data.command_top;
 	while (cmd)
 	{
-		printf("%-15s : %s\n", "Command Name", cmd->name);
-		printf("%-15s : %s\n", "Arguments", cmd->args);
-		printf("%-15s : %s\n", "Options", cmd->options);
+		printf("| %-15s : %-30s |\n", "Command Name", cmd->name);
+		printf("| %-15s : %-30s |\n", "Arguments", cmd->args);
+		printf("| %-15s : %-30s |\n", "Options", cmd->options);
 		redir = cmd->redirection_list;
 		if (redir)
 		{
-			printf("%-15s :\n", "Redirections");
+			printf("| %-15s : \n", "Redirections");
 			while (redir)
 			{
-				printf("  - %s\n", redir->filename);
+				printf("|    - %-44s |\n", redir->filename);
 				redir = redir->next;
 			}
 		}
 		else
-			printf("%-15s : No redirections\n", "Redirections");
+			printf("| %-15s : %-30s |\n", "Redirections", "No redirections");
 		cmd = cmd->next;
-		printf("\n");
+		printf("|");
+		for (int i = 0; i < frame_width - 2; i++)
+			printf("-");
+		printf("|\n");
 	}
+	printf("+");
+	for (int i = 0; i < frame_width - 2; i++)
+		printf("-");
+	printf("+\n");
 }

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/19 13:33:00 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:29:12 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ void						ft_print_commands(t_program_data data);
 int							ft_fake_command(t_program_data *data, char *name,
 								char *options, char *args);
 int							ft_tokens_fill_list(t_program_data *data);
+int							ft_apply_redir(t_command *command);
+void						ft_check_all_access(t_program_data *data,
+								char **env);
 
 typedef enum s_token_type
 {
