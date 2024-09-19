@@ -6,12 +6,11 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 12:39:46 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:20:15 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 int	main(int argc, char **argv)
 {
@@ -26,11 +25,11 @@ int	main(int argc, char **argv)
 	}
 	rl = readline("$> ");
 	data.input = rl;
-	//FAKE STRUCT TEST
+	// FAKE STRUCT TEST
 	//-------------------------
 	ft_fake_list(&data);
-	ft_fake_command(&data);
-	ft_fake_command(&data);
+	ft_fake_command(&data, "cat", "test.txt", "-n -b");
+	ft_fake_command(&data, "ls", "", "-la");
 	//-------------------------
 	// ft_tokens_fill_list(&data);
 	//-------------------------

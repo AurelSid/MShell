@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 12:33:30 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:35:05 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_command	*ft_new_command(char *command_name, t_program_data *data,
 	new_command->args = ft_strdup(args);
 	new_command->options = ft_strdup(options);
 	new_command->redirection_list = NULL;
+	new_command->input_fd = 0;
+	new_command->output_fd = 1;
 	new_command->next = NULL;
 	if (data->token_top == NULL)
 	{

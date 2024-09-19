@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 12:28:50 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:25:57 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ void	ft_print_commands(t_program_data data)
 	cmd = data.command_top;
 	while (cmd)
 	{
-		printf("Command Name: %s\n", cmd->name);
+		printf("%-15s : %s\n", "Command Name", cmd->name);
+		printf("%-15s : %s\n", "Arguments", cmd->args);
+		printf("%-15s : %s\n", "Options", cmd->options);
 		redir = cmd->redirection_list;
 		if (redir)
 		{
-			printf("Redirections:\n");
+			printf("%-15s :\n", "Redirections");
 			while (redir)
 			{
 				printf("  - %s\n", redir->filename);
@@ -47,9 +49,8 @@ void	ft_print_commands(t_program_data data)
 			}
 		}
 		else
-			printf("No redirections\n");
+			printf("%-15s : No redirections\n", "Redirections");
 		cmd = cmd->next;
 		printf("\n");
 	}
-
 }

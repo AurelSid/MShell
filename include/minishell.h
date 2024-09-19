@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/19 12:37:49 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:33:00 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_command
 	char					*args;
 	char					*options;
 	t_redirection			*redirection_list;
+	int						output_fd;
+	int						input_fd;
 }							t_command;
 typedef struct s_token
 {
@@ -82,7 +84,8 @@ t_command					*ft_new_command(char *command_name,
 								t_program_data *data, char *args,
 								char *options);
 void						ft_print_commands(t_program_data data);
-int							ft_fake_command(t_program_data *data);
+int							ft_fake_command(t_program_data *data, char *name,
+								char *options, char *args);
 int							ft_tokens_fill_list(t_program_data *data);
 
 typedef enum s_token_type
