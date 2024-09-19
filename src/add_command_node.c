@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 16:14:28 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:42:32 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	ft_add_command(t_command **top, t_command *new)
 	}
 	current = *top;
 	while (current->next)
-	{
 		current = current->next;
-	}
 	current->next = new;
 }
 
@@ -47,12 +45,8 @@ t_command	*ft_new_command(char *command_name, t_program_data *data,
 	new_command->output_fd = 1;
 	new_command->next = NULL;
 	if (data->command_top == NULL)
-	{
 		data->command_top = new_command;
-	}
 	else
-	{
 		ft_add_command(&data->command_top, new_command);
-	}
 	return (new_command);
 }

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 15:22:02 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:41:44 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,18 @@ void	ft_print_commands(t_program_data data)
 	for (int i = 0; i < frame_width - 2; i++)
 		printf("-");
 	printf("+\n");
+}
+
+void	ft_print_env(t_program_data data)
+{
+	t_env	*env;
+
+	printf("\n------------------------------\n");
+	printf("\n   Env copy list\n");
+	env = data.env;
+	while (env)
+	{
+		printf("%-30s : %s\n", env->var_name, env->content);
+		env = env->next;
+	}
 }

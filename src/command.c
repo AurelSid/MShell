@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/19 12:33:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:53:31 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 
 void	ft_commands_fill_list(t_program_data *data)
 {
-	t_token	*tmp;
-	char	*opt;
-	char	*args;
+	t_token		*tmp;
+	t_command	*cmd;
+	char		*opt;
+	char		*args;
 
 	if (data->token_top->type != WORD)
 		printf("ERROR\n");
@@ -32,20 +33,28 @@ void	ft_commands_fill_list(t_program_data *data)
 		return ;
 	tmp = data->token_top;
 	tmp = tmp->next;
-	while (tmp->next && (tmp->type == 1 && tmp->content[0] == '-'))
+	while (tmp && (tmp->type == 1 && tmp->content[0] == '-'))
 	{
-		opt = ft_strjoin(opt, ' ');
+		opt = ft_strjoin(opt, " ");
 		opt = ft_strjoin(opt, tmp->content);
 		tmp = tmp->next;
 	}
-	while (tmp->next && tmp->type == 1)
+	while (tmp && tmp->type == 1)
 	{
-		args = ft_strjoin(args, ' ');
+		args = ft_strjoin(args, " ");
 		args = ft_strjoin(args, tmp->content);
 		tmp = tmp->next;
 	}
-	/* 	if (tmp->type == 4 || tmp->type == 5 || tmp->type == 6
-			|| tmp->type == 7)
-			//add_redirection(ft_new_command(data->token_top->content, data,
-					args, opt));*/
+	cmd = ft_new_command(data->token_top->content, data, args, opt);
+	printf("coucou\n");
+	while ((tmp && tmp->next) && tmp->type != PIPE)
+	{
+		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
+				|| tmp->type == REDIRECT_HEREDOC
+				|| tmp->type == REDIRECT_APPEND) && tmp->next->type == WORD)
+			ft_new_redirection(tmp->next->content, cmd, tmp->type);
+		else
+			printf("ERROR\n");
+		tmp = tmp->next->next;
+	}
 }
