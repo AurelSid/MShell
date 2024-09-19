@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/18 16:53:43 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:41:37 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	ft_new_redirection(char *redirection_filename, t_command *command, int type)
 		return (1);
 	new_redirection->filename = ft_strdup(redirection_filename);
 	new_redirection->type = type;
+	new_redirection->next = NULL;
+	new_redirection->prev = NULL;
 	if (command->redirection_list == NULL)
 	{
-		new_redirection->next = NULL;
-		new_redirection->prev = NULL;
 		command->redirection_list = new_redirection;
 	}
 	else
