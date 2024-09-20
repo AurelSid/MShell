@@ -16,7 +16,7 @@
 
 NAME	= minishell
 CC 		= clang -g3
-CFLAGS	= -Wall -Wextra -Werror 
+CFLAGS	= -Wall 
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= ksainte_bbouaiss
 DATE	= 31/05/2024

@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	ft_init_data(&data);
 	ft_env_copy(env, &data);
+	// ft_print_env(data);
 	rl = readline("$> ");
 	data.input = rl;
 	// FAKE STRUCT TEST
@@ -36,6 +37,5 @@ int	main(int argc, char **argv, char **env)
 	ft_commands_fill_list(&data);
 	ft_print_commands(data);
 	ft_check_all_access(&data);
-	ft_print_env(data);
 	return (0);
 }

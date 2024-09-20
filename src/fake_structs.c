@@ -14,9 +14,6 @@
 
 int	ft_fake_list(t_program_data *data)
 {
-	int	i;
-
-	i = 0;
 	ft_new_token("cat", data, 1);
 	ft_new_token("\"hello\"", data, 1);
 	ft_new_token("|", data, 1);

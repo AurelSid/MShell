@@ -88,7 +88,7 @@ int							ft_fake_command(t_program_data *data, char *name,
 								char *options, char *args);
 int							ft_tokens_fill_list(t_program_data *data);
 int							ft_apply_redir(t_command *command);
-void						ft_check_all_access(t_program_data *data);
+int							ft_check_all_access(t_program_data *data);
 void						ft_print_env(t_program_data data);
 int							ft_env_copy(char **env, t_program_data *data);
 void						ft_commands_fill_list(t_program_data *data);
