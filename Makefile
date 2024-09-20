@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/19 16:41:14 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/20 17:09:18 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME	= minishell
 CC 		= clang -g3
-CFLAGS	= -Wall 
+CFLAGS	= -Wall -Werror -Wextra
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= ksainte_bbouaiss
 DATE	= 31/05/2024
