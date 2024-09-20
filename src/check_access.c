@@ -1,58 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_access.c                                     :+:      :+:    :+:   */
+/*   fake_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/19 15:25:39 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/20 13:43:41 by asideris         ###   ########.fr       */
+/*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
+/*   Updated: 2024/09/19 16:23:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_try_paths(t_program_data data, char *cmd_name)
+int	ft_check_all_access(t_program_data *data)
 {
+	t_env		*env;
+	char		*full_path;
+	char		**split_paths;
 	char		*cmd_path;
-	t_env	*tmp_env;
+	t_command	*cmd;
+	int			i;
 
-	tmp_env = data.env;
-	while (tmp_env)
-	{
-		//LEAKS!!!
-		cmd_path = ft_strjoin(tmp_env->content, "/");
-		cmd_path = ft_strjoin(cmd_path, cmd_name);
-		if (access(cmd_path, F_OK) == 0)
-			return (1);
-		tmp_env = tmp_env->next;
-	}
-	return (0);
-}
-
-void	ft_check_cmd_access(t_program_data *data, char *cmd_name)
-{
-	printf("\n--------------------------\n");
-	if (ft_try_paths(*data, cmd_name) == 0)
-	{
-		// ft_free_split(cmd_split);
-		// ft_error_exit(cmd_name);
-		printf("\nCant access command\n");
-		// EXIT ERROR//
-	}
-	else
-		printf("\nCommand accessed success\n");
-	printf("\n--------------------------\n");
-	// ft_free_split(cmd_split);
-}
-
-void	ft_check_all_access(t_program_data *data)
-{
-	t_command *cmd;
 	cmd = data->command_top;
+	i = 0;
+	env = data->env;
+	while (env)
+	{
+		if (strcmp(env->var_name, "PATH") == 0)
+		{
+			full_path = env->content;
+		}
+		env = env->next;
+	}
+	split_paths = ft_split(full_path, ':');
 	while (cmd)
 	{
-		ft_check_cmd_access(data, cmd->name);
+		i = 0;
+		while (split_paths[i])
+		{
+			cmd_path = ft_strjoin(split_paths[i], "/");
+			cmd_path = ft_strjoin(cmd_path, cmd->name);
+			if (access(cmd_path, F_OK) == 0)
+			{
+				printf("Command access ok!\n");
+				return (1);
+			}
+			i++;
+		}
 		cmd = cmd->next;
 	}
+	printf("\nCommand access fail!\n\n");
+	return (0);
 }
