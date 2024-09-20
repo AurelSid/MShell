@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_structs.c                                     :+:      :+:    :+:   */
+/*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 16:23:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:23:50 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ int	ft_check_all_access(t_program_data *data)
 			if (access(cmd_path, F_OK) == 0)
 			{
 				printf("Command access ok!\n");
-				return (1);
+				break ;
 			}
 			i++;
 		}
 		cmd = cmd->next;
 	}
-	printf("\nCommand access fail!\n\n");
 	return (0);
 }

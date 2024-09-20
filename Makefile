@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/20 17:18:25 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/20 17:20:24 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS_PATH		= ./src
 INCLUDE_PATH	= ./include
 
 SRCS			= debug_utils.c add_token_node.c fake_structs.c  add_command_node.c add_redirection_node.c\
- 					token.c apply_redirections.c check_access.c command.c init_data.c env.c
+ 					token.c apply_redirections.c check_access.c command.c init_data.c env.c quotes.c
 
 					
 MAIN			= main.c
