@@ -6,7 +6,7 @@
 #    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/19 16:29:18 by vpelc            ###   ########.fr        #
+#    Updated: 2024/09/20 17:09:58 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS_PATH		= ./src
 INCLUDE_PATH	= ./include
 
 SRCS			= debug_utils.c add_token_node.c fake_structs.c  add_command_node.c add_redirection_node.c \
-						token.c apply_redirections.c env.c command.c init_data.c
+						token.c apply_redirections.c env.c command.c init_data.c quotes.c
 					
 MAIN			= main.c
 
