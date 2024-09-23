@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 17:12:17 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:55:31 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		rl = readline("$> ");
-		// if (rl_eof_found == 0)
+		 if (rl_eof_found != 0)
+		 	return(0);
 		// 	printf("%s\n", rl_line_buffer);
 		// rl = "cat \"coucou $USER\"";
 		data.input = rl;
