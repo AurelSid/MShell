@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
+#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/20 17:20:24 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/23 17:06:14 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@
 ################################################################################
 
 NAME	= minishell
-CC 		= clang -g3
+CC 		= clang -g3 
 CFLAGS	= -Wall -Werror -Wextra
-DFLAGS	= -MMD -MF $(@:.o=.d)
+DFLAGS	= -MMD -MF $(@:.o=.d) 
 AUTHOR	= ksainte_bbouaiss
 DATE	= 31/05/2024
 
@@ -34,14 +34,14 @@ SRCS_PATH		= ./src
 INCLUDE_PATH	= ./include
 
 SRCS			= debug_utils.c add_token_node.c fake_structs.c  add_command_node.c add_redirection_node.c\
- 					token.c apply_redirections.c check_access.c command.c init_data.c env.c quotes.c
+ 					token.c apply_redirections.c check_access.c command.c init_data.c env.c quotes.c signals.c
 
 					
 MAIN			= main.c
 
 LIBFT 			= libft/libft.a
 
-UNAME_S 		:= $(shell uname -s)
+UNAME_S 		:= $(shell uname)
 
 ################################################################################
 #                                  Makefile  objs                              #
@@ -73,17 +73,17 @@ ifeq ($(UNAME_S), Darwin)
     # macOS
     ifeq ($(shell test -d /Users/$(USER)/.brew && echo yes), yes)
         # User-specific Homebrew path
-#        READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
-#        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
+        READLINE_INCLUDE := /Users/$(USER)/.brew/opt/readline/include
+        READLINE_LIB := /Users/$(USER)/.brew/opt/readline/lib
     else
         # Default Homebrew path
-        READLINE_INCLUDE := /opt/homebrew/opt/readline/include
-        READLINE_LIB := /opt/homebrew/opt/readline/lib
+#        READLINE_INCLUDE := /opt/homebrew/opt/readline/include
+#        READLINE_LIB := /opt/homebrew/opt/readline/lib
     endif
 else
     # Add other OS-specific paths if needed
-        READLINE_INCLUDE := /opt/homebrew/opt/readline/include
-        READLINE_LIB := /opt/homebrew/opt/readline/lib
+#        READLINE_INCLUDE := /opt/homebrew/opt/readline/include
+#        READLINE_LIB := /opt/homebrew/opt/readline/lib
 endif
 
 HASH	= 
@@ -248,6 +248,7 @@ endif
 
 $(NAME):	$(LIBFT) ${OBJS} ${OBJ_MAIN}
 			@$(call display_progress_bar)
+#			@echo "$(READLINE_INCLUDE) $(READLINE_LIB)"
 			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I$(READLINE_INCLUDE) -L$(READLINE_LIB) -lreadline -L./include/libft -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} -lft)
 
 # @$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline -L./include/libft -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} -lft)
