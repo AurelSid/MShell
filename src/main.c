@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 17:01:45 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/23 19:59:00 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ int	main(int argc, char **argv, char **env)
 	ft_init_data(&data);
 	ft_env_copy(env, &data);
 	// ft_print_env(data);
-	while (1)
-	{
-		rl = readline("$> ");
-		// if (rl_eof_found == 0)
-		// 	printf("%s\n", rl_line_buffer);
-		// rl = "cat \"coucou $USER\"";
+//	while (1)
+//	{
+		//rl = readline("$> ");
+		rl = "echo \"hello\"";
 		data.input = rl;
 		// FAKE STRUCT TEST
 		// ft_fake_list(&data);
@@ -44,6 +42,6 @@ int	main(int argc, char **argv, char **env)
 		ft_commands_fill_list(&data);
 		ft_print_commands(data);
 		ft_check_all_access(&data);
-	}
+//	}
 	return (0);
 }

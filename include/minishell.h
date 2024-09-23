@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/23 14:43:53 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/23 20:05:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_redirection
 typedef struct s_command
 {
 	char					*name;
+	char					**input;
 	struct s_command		*next;
 	char					*args;
 	char					*options;
@@ -97,6 +98,7 @@ void						ft_db_quotes(t_token *token, t_program_data data);
 void						ft_handle_signals(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
 void						rl_replace_line(const char *text, int clear_undo);
+char						*ft_strjoin_free(char *s1, char *s2);
 
 typedef enum s_token_type
 {
