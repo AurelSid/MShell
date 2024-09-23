@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/20 17:20:24 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/23 16:33:26 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME	= minishell
 CC 		= clang -g3
 CFLAGS	= -Wall -Werror -Wextra
 DFLAGS	= -MMD -MF $(@:.o=.d)
-AUTHOR	= ksainte_bbouaiss
+AUTHOR	= Asideris_Vpelc
 DATE	= 31/05/2024
 
 NOVISU 	= 1
@@ -33,8 +33,8 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= debug_utils.c add_token_node.c fake_structs.c  add_command_node.c add_redirection_node.c\
- 					token.c apply_redirections.c check_access.c command.c init_data.c env.c quotes.c
+SRCS			= debug_utils.c add_token_node.c fake_structs.c  add_command_node.c add_redirection_node.c exec_command.c\
+ 					token.c apply_redirections.c check_access.c command.c init_data.c env.c quotes.c here_doc.c
 
 					
 MAIN			= main.c
