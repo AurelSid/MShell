@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/20 13:44:14 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:00:08 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_redirection
 	struct s_redirection	*next;
 	struct s_redirection	*prev;
 	int						type;
+	int						direction;
 }							t_redirection;
 
 typedef struct s_command
@@ -48,11 +49,13 @@ typedef struct s_command
 	t_redirection			*redirection_list;
 	int						output_fd;
 	int						input_fd;
+	char					*path;
 }							t_command;
 typedef struct s_token
 {
 	char					*content;
 	int						type;
+	char					*path;
 	struct s_token			*prev;
 	struct s_token			*next;
 
@@ -93,6 +96,9 @@ void						ft_print_env(t_program_data data);
 int							ft_env_copy(char **env, t_program_data *data);
 void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
+void						ft_db_quotes(t_token *token, t_program_data data);
+char						**ft_args_to_line(t_command *cmd);
+int							ft_exec_cmd(t_command *cmd,char **env);
 
 typedef enum s_token_type
 {

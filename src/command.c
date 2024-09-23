@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/19 16:46:49 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:44:08 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,11 @@ void	ft_commands_fill_list(t_program_data *data)
 			printf("ERROR\n");
 		tmp = tmp->next->next;
 	}
+	if ((tmp && tmp->next) && tmp->type == PIPE)
+	{
+		tmp = tmp->next;
+		data->token_top = tmp;
+		ft_commands_fill_list(data);
+	}
 }
+

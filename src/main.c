@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/20 13:43:51 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:00:35 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ int	main(int argc, char **argv, char **env)
 	// ft_fake_command(&data, "cat", "test.txt", "-n -b");
 	// ft_fake_command(&data, "ls", "", "-la");
 	ft_tokens_fill_list(&data);
-	ft_print_tokens_list(data);
+	// ft_print_tokens_list(data);
 	ft_commands_fill_list(&data);
-	ft_print_commands(data);
 	ft_check_all_access(&data);
+	ft_args_to_line(data.command_top);
+	ft_print_commands(data);
+	ft_exec_cmd(data.command_top, env);
 	return (0);
 }
