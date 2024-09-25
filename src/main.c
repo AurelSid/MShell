@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 19:59:00 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/25 15:54:19 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ int	main(int argc, char **argv, char **env)
 //	while (1)
 //	{
 		//rl = readline("$> ");
-		rl = "echo \"hello\"";
+		rl = "export";
+		if (rl == NULL)
+			return (0);
 		data.input = rl;
 		// FAKE STRUCT TEST
 		// ft_fake_list(&data);
 		// ft_fake_command(&data, "cat", "test.txt", "-n -b");
 		// ft_fake_command(&data, "ls", "", "-la");
+		if (!ft_strcmp(rl, "export"))
+			ft_export(NULL, &data);
 		ft_tokens_fill_list(&data);
 		ft_print_tokens_list(data);
 		ft_commands_fill_list(&data);

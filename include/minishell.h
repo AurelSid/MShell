@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/23 20:05:12 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/25 15:48:27 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ void						ft_handle_signals(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
 void						rl_replace_line(const char *text, int clear_undo);
 char						*ft_strjoin_free(char *s1, char *s2);
+
+void						ft_cd(char *arg);
+void						ft_echo(int opt, char *arg);
+void						ft_export(char *arg, t_program_data *data);
+void						ft_pwd(void);
 
 typedef enum s_token_type
 {

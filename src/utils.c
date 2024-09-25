@@ -6,12 +6,11 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/23 20:05:10 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/25 17:00:50 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 char	*ft_strjoin_free(char *s1, char *s2)
 {
@@ -37,3 +36,15 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	join[i + j] = '\0';
 	return (free(&s1), join);
 }
+
+/* void	ft_env_sort(t_program_data *data)
+{
+	t_env	*cpy;
+	t_env	*tmp;
+
+	cpy = tmp;
+	while (tmp)
+	{
+		if ()
+	}
+} */

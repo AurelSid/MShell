@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 20:09:10 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/25 13:10:39 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	ft_check_all_access(t_program_data *data)
 	while (env)
 	{
 		if (strcmp(env->var_name, "PATH") == 0)
-		{
 			full_path = env->content;
-		}
 		env = env->next;
 	}
 	split_paths = ft_split(full_path, ':');
