@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 17:01:23 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:33:10 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@ char	**ft_args_to_line(t_command *cmd)
 	int		i;
 
 	i = 0;
-	tmp_line = ft_strjoin(cmd->options, " ");
+	tmp_line = ft_strjoin(cmd->name, " ");
+	tmp_line = ft_strjoin(tmp_line, cmd->options);
+	tmp_line = ft_strjoin(tmp_line, " ");
 	line = ft_strjoin(tmp_line, cmd->args);
 	free(tmp_line);
 	line_split = ft_split(line, ' ');
 	free(line);
 	while (line_split[i])
 	{
+		printf("Args: [%s]\n", line_split[i]);
 		i++;
 	}
 	return (line_split);
@@ -47,6 +50,37 @@ void	ft_free_split(char **strs)
 
 int	ft_exec_cmd(t_command *cmd, char **env)
 {
-	execve(cmd->path, ft_args_to_line(cmd), env);
+	pid_t	process_id;
+
+	process_id = fork();
+	if (process_id == 0)
+	{
+		execve(cmd->path, ft_args_to_line(cmd), env);
+	}
+	wait(0);
 	return (0);
+}
+
+void	ft_exec_pipe(t_command *cmd, char **env)
+{
+	int		pipe_fd[2];
+	pid_t	process_id;
+
+	cmd->input_fd = 0;
+	cmd->output_fd = 1;
+	if (pipe(pipe_fd) == -1)
+		exit(0);
+	process_id = fork();
+	if (process_id == 0)
+	{
+		dup2(pipe_fd[1], 1);
+		close(pipe_fd[0]);
+		execve(cmd->path, ft_args_to_line(cmd), env);
+	}
+	else
+	{
+		close(pipe_fd[1]);
+		dup2(pipe_fd[0], 0);
+	}
+	wait(0);
 }

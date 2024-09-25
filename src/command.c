@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/23 16:44:08 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:38:24 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ void	ft_commands_fill_list(t_program_data *data)
 		opt = ft_strjoin(opt, tmp->content);
 		tmp = tmp->next;
 	}
-	while (tmp && tmp->type == 1)
+	while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE))
 	{
 		args = ft_strjoin(args, " ");
 		args = ft_strjoin(args, tmp->content);
 		tmp = tmp->next;
 	}
 	cmd = ft_new_command(data->token_top->content, data, args, opt);
+	cmd->path = NULL;
 	while ((tmp && tmp->next) && tmp->type != PIPE)
 	{
 		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
@@ -63,4 +64,3 @@ void	ft_commands_fill_list(t_program_data *data)
 		ft_commands_fill_list(data);
 	}
 }
-
