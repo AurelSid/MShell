@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/26 12:16:26 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:50:13 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void						ft_exec_pipe(t_command *cmd, char **env);
 void						ft_handle_signals(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
 void						rl_replace_line(const char *text, int clear_undo);
+void						ft_limiter_exec(t_redirection *in);
 
 typedef enum s_token_type
 {

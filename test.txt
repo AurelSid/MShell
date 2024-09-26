@@ -1,3 +1,1 @@
-Args: [echo]
-Args: [helloreda]
-helloreda
+helloooo

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/25 14:33:10 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:18:34 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**ft_args_to_line(t_command *cmd)
 	free(line);
 	while (line_split[i])
 	{
-		printf("Args: [%s]\n", line_split[i]);
+		// printf("Args: [%s]\n", line_split[i]);
 		i++;
 	}
 	return (line_split);
@@ -55,6 +55,7 @@ int	ft_exec_cmd(t_command *cmd, char **env)
 	process_id = fork();
 	if (process_id == 0)
 	{
+		
 		execve(cmd->path, ft_args_to_line(cmd), env);
 	}
 	wait(0);

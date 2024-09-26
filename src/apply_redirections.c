@@ -6,13 +6,13 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/25 17:13:52 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:37:09 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_set_redir_type(t_command *cmd)
+void	ft_set_redir_direction(t_command *cmd)
 {
 	t_redirection	*redir;
 
@@ -21,15 +21,46 @@ void	ft_set_redir_type(t_command *cmd)
 	{
 		if (redir->type == REDIRECT_IN)
 			redir->direction = 1;
-		else if (redir->direction == REDIRECT_HEREDOC)
+		else if (redir->type == REDIRECT_HEREDOC)
 			redir->direction = 1;
-		else if (redir->direction == REDIRECT_OUT)
+		else if (redir->type == REDIRECT_OUT)
 			redir->direction = 2;
-		else if (redir->direction == REDIRECT_APPEND)
+		else if (redir->type == REDIRECT_APPEND)
 			redir->direction = 2;
 		redir = redir->next;
 	}
 }
+int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
+{
+	// if (in && in->type == REDIRECT_IN)
+	// {
+	// 	cmd->input_fd = open(in->filename, O_RDONLY);
+	// 	dup2(cmd->input_fd, 0);
+	// }
+	if (in && in->type == REDIRECT_HEREDOC)
+	{
+		printf("executing limiter\n");
+		ft_limiter_exec(in);
+	}
+	else if (out && out->type == REDIRECT_OUT)
+	{
+		cmd->output_fd = open(out->filename, O_WRONLY | O_TRUNC | O_CREAT,
+				0644);
+		dup2(cmd->output_fd, 1);
+	}
+	// else if (out && out->type == REDIRECT_APPEND)
+	// {
+	// 	cmd->output_fd = open(out->filename, O_WRONLY | O_TRUNC | O_CREAT,
+	// 			0644);
+	// 	dup2(cmd->output_fd, 1);
+	// }
+	if (cmd->input_fd < 0)
+		printf("Error opening file");
+	if (cmd->input_fd < 0)
+		printf("Error opening file");
+	return (0);
+}
+
 int	ft_apply_redir(t_command *command)
 {
 	t_redirection	*redir;
@@ -41,7 +72,9 @@ int	ft_apply_redir(t_command *command)
 	if (command->redirection_list == NULL)
 		return (0);
 	redir = command->redirection_list;
-	ft_set_redir_type(command);
+	printf("Setting redir types..\n");
+	ft_set_redir_direction(command);
+	printf("Opening files..\n");
 	printf("Starting redirections...\n");
 	while (redir)
 	{
@@ -51,9 +84,9 @@ int	ft_apply_redir(t_command *command)
 			last_out = redir;
 		redir = redir->next;
 	}
-	
 	printf("Last in: %s || Last out: %s\n",
 		last_in ? last_in->filename : "None",
 		last_out ? last_out->filename : "None");
+	ft_open_file(last_in, last_out, command);
 	return (0);
 }

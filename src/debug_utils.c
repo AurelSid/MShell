@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 16:41:39 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:44:31 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	ft_print_commands(t_program_data data)
 			printf("| %-15s : \n", "Redirections");
 			while (redir)
 			{
-				printf("| 	name: %-10s  tyoe:%-3d\n |", redir->filename, redir->type);
+				printf("| 	name: %-10s  tyoe:%-3d file:%-3s\n |",
+						redir->filename, redir->type, redir->filename);
 				redir = redir->next;
 			}
 		}
