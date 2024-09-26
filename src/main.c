@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/25 16:04:36 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:18:11 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int argc, char **argv, char **env)
 	t_program_data	data;
 	t_command		*tmp_cmd;
 
+	signal(SIGINT, ft_handle_signals);
+	signal(SIGQUIT, SIG_IGN);
 	data.token_top = NULL;
 	if (argc != 1 || argv[1])
 	{
@@ -28,6 +30,8 @@ int	main(int argc, char **argv, char **env)
 	ft_init_data(&data);
 	ft_env_copy(env, &data);
 	rl = readline("$> ");
+	// if (rl_eof_found != 0)
+	// 	return (0);
 	data.input = rl;
 	ft_tokens_fill_list(&data);
 	ft_print_tokens_list(data);
