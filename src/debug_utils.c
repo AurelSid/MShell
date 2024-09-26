@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/26 12:44:31 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:51:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,28 @@ void	ft_print_env(t_program_data data)
 		printf("%-30s : %s\n", env->var_name, env->content);
 		env = env->next;
 	}
+}
+
+void	list_open_file_descriptors(void)
+{
+	struct rlimit	rl;
+
+	// Get the maximum number of file descriptors allowed
+	if (getrlimit(RLIMIT_NOFILE, &rl) == -1)
+	{
+		perror("getrlimit");
+		return ;
+	}
+	printf("Open file descriptors:\n");
+	// Use rlim_t for the loop variable to avoid sign comparison warning
+	for (rlim_t fd = 0; fd < rl.rlim_cur; fd++)
+	{
+		// Check if the file descriptor is open
+		if (fcntl(fd, F_GETFD) != -1)
+		{
+			// It is open, print its value
+			printf("File Descriptor %llu is open\n", (unsigned long long)fd);
+		}
+	}
+	printf("\nClosed file descriptors cannot be listed since they are not accessible.\n");
 }
