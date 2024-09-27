@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/26 18:00:31 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:55:17 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,26 @@ int	main(int argc, char **argv, char **env)
 	tmp_cmd = data.command_top;
 	while (tmp_cmd)
 	{
+		// check_stdio_fds();
 		ft_apply_redir(tmp_cmd);
 		if (tmp_cmd->next != NULL)
 		{
+			fprintf(stderr, "\n\n--executing pipe--\n\n");
 			ft_exec_pipe(tmp_cmd, env);
 		}
 		else
 		{
-			printf("executing comd\n");
+			fprintf(stderr, "executing cmd\n");
 			ft_exec_cmd(tmp_cmd, env);
 		}
-		close(tmp_cmd->input_fd);
-		close(tmp_cmd->output_fd);
+		printf("closing fds..\n");
+		// close(tmp_cmd->input_fd);
+		// close(tmp_cmd->output_fd);
 		tmp_cmd = tmp_cmd->next;
+		// }
+		// check_stdio_fds();
+		fprintf(stderr, "\n\n------------END OF COMMAND--------\n\n");
+		// list_open_file_descriptors();
 	}
-	// }
-	list_open_file_descriptors();
 	return (0);
 }
-// echo "Hello World" | wc - c

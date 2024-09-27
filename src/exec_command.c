@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/26 13:18:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:55:14 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ int	ft_exec_cmd(t_command *cmd, char **env)
 
 	process_id = fork();
 	if (process_id == 0)
-	{
-		
 		execve(cmd->path, ft_args_to_line(cmd), env);
-	}
 	wait(0);
 	return (0);
 }
@@ -75,13 +72,14 @@ void	ft_exec_pipe(t_command *cmd, char **env)
 	if (process_id == 0)
 	{
 		dup2(pipe_fd[1], 1);
-		close(pipe_fd[0]);
 		execve(cmd->path, ft_args_to_line(cmd), env);
 	}
 	else
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
+		//check_stdio_fds();
+		close(pipe_fd[0]);
 	}
 	wait(0);
 }

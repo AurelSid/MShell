@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/26 17:51:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:43:57 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,33 @@ void	list_open_file_descriptors(void)
 		}
 	}
 	printf("\nClosed file descriptors cannot be listed since they are not accessible.\n");
+}
+void	check_stdio_fds(void)
+{
+	struct stat stdin_stat, stdout_stat;
+	// Check stdin
+	if (fstat(fileno(stdin), &stdin_stat) == -1)
+	{
+		perror("fstat(stdin)");
+		return ;
+	}
+	// Check stdout
+	if (fstat(fileno(stdout), &stdout_stat) == -1)
+	{
+		perror("fstat(stdout)");
+		return ;
+	}
+	// Print information for stdin
+	fprintf(stderr, "Standard Input (fd: %d):\n", fileno(stdin));
+	fprintf(stderr, "  Type: %s\n",
+		S_ISREG(stdin_stat.st_mode) ? "Regular file" : S_ISCHR(stdin_stat.st_mode) ? "Character device" : "Other");
+	fprintf(stderr, "  Inode: %lu\n", (unsigned long)stdin_stat.st_ino);
+	fprintf(stderr, "  Size: %lld bytes\n", (long long)stdin_stat.st_size);
+	// Print information for stdout
+	fprintf(stderr, "Standard Output (fd: %d):\n", fileno(stdout));
+	fprintf(stderr, "  Type: %s\n",
+		S_ISREG(stdout_stat.st_mode) ? "Regular file" : S_ISCHR(stdout_stat.st_mode) ? "Character device" : "Other");
+	fprintf(stderr, "  Inode: %lu\n", (unsigned long)stdout_stat.st_ino);
+	fprintf(stderr, "  Size: %lld bytes\n", (long long)stdout_stat.st_size);
+	fprintf(stderr, " \n---------------------------------- \n");
 }

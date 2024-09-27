@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/26 17:50:28 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:05:28 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_program_data
 	t_command				*command_top;
 	t_command				*first_cmd;
 	char					*input;
+
 	t_env					*env;
 }							t_program_data;
 
@@ -105,6 +106,7 @@ int							ft_strcmp(const char *s1, const char *s2);
 void						rl_replace_line(const char *text, int clear_undo);
 void						ft_limiter_exec(t_redirection *in);
 void						list_open_file_descriptors(void);
+void						check_stdio_fds(void);
 
 typedef enum s_token_type
 {

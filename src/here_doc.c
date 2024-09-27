@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:37:09 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/26 17:42:29 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:45:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in)
 			free(line);
 			exit(0);
 		}
-	
 		write(pipe_fd[1], line, ft_strlen(line));
+		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
 	close(pipe_fd[0]);
@@ -47,6 +47,7 @@ void	ft_limiter_exec(t_redirection *in)
 	if (pipe(pipe_fd) == -1)
 		exit(0);
 	process_id = fork();
+	dup2(pipe_fd[0], 0);
 	printf("PID:%d\n", process_id);
 	if (process_id == -1)
 		exit(0);
@@ -57,7 +58,6 @@ void	ft_limiter_exec(t_redirection *in)
 	else
 	{
 		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
 		close(pipe_fd[0]);
 		wait(0);
 	}
