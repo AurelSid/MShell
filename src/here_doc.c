@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:37:09 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/27 16:45:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:05:51 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in)
 	limiter = in->filename;
 	while (1)
 	{
-		line = readline("Here_doc->");
+		line = readline(">");
 		if (line == NULL)
 			break ;
 		if (ft_strlen(limiter) == 0 && line[0] == '\n')
@@ -29,34 +29,33 @@ void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in)
 				ft_strlen(limiter)) == 0)
 		{
 			free(line);
-			exit(0);
+			break ;
 		}
 		write(pipe_fd[1], line, ft_strlen(line));
 		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
-	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	exit(0);
 }
 
 void	ft_limiter_exec(t_redirection *in)
 {
-	int pipe_fd[2];
-	pid_t process_id;
+	int		pipe_fd[2];
+	pid_t	process_id;
 
-	process_id = 0;
 	if (pipe(pipe_fd) == -1)
-		exit(0);
+		exit(1);
 	process_id = fork();
-	dup2(pipe_fd[0], 0);
-	printf("PID:%d\n", process_id);
 	if (process_id == -1)
-		exit(0);
+		exit(1);
 	else if (process_id == 0)
 	{
 		ft_gnl_to_fd(pipe_fd, in);
 	}
 	else
 	{
+		dup2(pipe_fd[0], 0);
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);
 		wait(0);

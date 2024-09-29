@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/26 12:16:37 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:40:47 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_commands_fill_list(t_program_data *data)
 	char		*opt;
 	char		*args;
 
-	if (data->token_top->type != WORD)
+	if (data->token_top->type == WORD)
 		printf("ERROR\n");
 	opt = ft_calloc(1, 1);
 	if (!opt)

@@ -6,12 +6,37 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/27 16:55:14 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:02:33 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+char	**ft_env_to_tab(t_program_data *data)
+{
+	int		i;
+	t_env	*tmp_env;
+	char	**env_tab;
+
+	i = 0;
+	tmp_env = data->env;
+	while (tmp_env)
+	{
+		i++;
+		tmp_env = tmp_env->next;
+	}
+	env_tab = malloc(sizeof(char *) * i);
+	if (!env_tab)
+		return (0);
+	tmp_env = data->env;
+	i = 0;
+	while (tmp_env)
+	{
+		env_tab[i] = tmp_env->content;
+		tmp_env = tmp_env->next;
+	}
+	return (env_tab);
+}
 char	**ft_args_to_line(t_command *cmd)
 {
 	char	*tmp_line;
@@ -27,11 +52,6 @@ char	**ft_args_to_line(t_command *cmd)
 	free(tmp_line);
 	line_split = ft_split(line, ' ');
 	free(line);
-	while (line_split[i])
-	{
-		// printf("Args: [%s]\n", line_split[i]);
-		i++;
-	}
 	return (line_split);
 }
 
@@ -50,6 +70,7 @@ void	ft_free_split(char **strs)
 
 int	ft_exec_cmd(t_command *cmd, char **env)
 {
+	char	**env_tab;
 	pid_t	process_id;
 
 	process_id = fork();
@@ -78,7 +99,7 @@ void	ft_exec_pipe(t_command *cmd, char **env)
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
-		//check_stdio_fds();
+		// check_stdio_fds();
 		close(pipe_fd[0]);
 	}
 	wait(0);

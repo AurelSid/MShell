@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/27 14:51:25 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/29 13:45:37 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int	ft_apply_redir(t_command *command)
 	if (command->redirection_list == NULL)
 		return (0);
 	redir = command->redirection_list;
-	printf("Setting redir types..\n");
 	ft_set_redir_direction(command);
-	printf("Opening files..\n");
-	printf("Starting redirections...\n");
 	while (redir)
 	{
 		if (redir->direction == 1)
