@@ -6,11 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/30 13:13:46 by asideris         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/25 17:54:14 by vpelc            ###   ########.fr       */
->>>>>>> origin/vpelc
+/*   Updated: 2024/09/30 14:07:32 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +109,8 @@ void						rl_replace_line(const char *text, int clear_undo);
 void						ft_limiter_exec(t_redirection *in);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
-int							ft_check_built_ins(t_command *cmd, t_program_data *data);
+int							ft_check_built_ins(t_command *cmd,
+								t_program_data *data);
 char						*ft_strjoin_free(char *s1, char *s2);
 
 void						ft_cd(char *arg);

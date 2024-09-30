@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/30 14:04:10 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/30 14:15:32 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS			= debug_utils.c add_token_node.c fake_structs.c  \
  				apply_redirections.c check_access.c command.c env.c \
 				init_data.c quotes.c signals.c utils.c \
 				builtins/cd.c builtins/echo.c builtins/pwd.c \
-				builtins/export.c  here_doc.c
+				builtins/export.c  here_doc.c exec_command.c
 
 MAIN			= main.c
 

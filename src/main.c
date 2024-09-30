@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/30 14:02:54 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:20:30 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	main(int argc, char **argv, char **env)
 	// {
 	data.input = rl;
 	ft_tokens_fill_list(&data);
-	// ft_print_tokens_list(data);
+	ft_print_tokens_list(data);
 	ft_commands_fill_list(&data);
+	ft_print_commands(data);
 	ft_check_all_access(&data);
 	tmp_cmd = data.command_top;
 	while (tmp_cmd)
@@ -53,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 		fprintf(stderr, "\n-- [%s] OK --\n\n", tmp_cmd->name);
 		tmp_cmd = tmp_cmd->next;
 		// }
-		check_stdio_fds();
+		// check_stdio_fds();
 		// list_open_file_descriptors();
 	}
 	return (0);
