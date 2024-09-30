@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/20 17:02:47 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/26 13:24:41 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	ft_tokens_fill_list(t_program_data *data)
 	int	len;
 
 	i = 0;
-	// while (i < (int)ft_strlen(data->input))
 	while (data->input[i])
 	{
 		len = 0;

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 16:41:39 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:43:57 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	ft_print_commands(t_program_data data)
 			printf("| %-15s : \n", "Redirections");
 			while (redir)
 			{
-				printf("| 	name: %-10s  tyoe:%-3d\n |", redir->filename, redir->type);
+				printf("| 	name: %-10s  tyoe:%-3d file:%-3s\n |",
+						redir->filename, redir->type, redir->filename);
 				redir = redir->next;
 			}
 		}
@@ -101,4 +102,57 @@ void	ft_print_env(t_program_data data)
 		printf("%-30s : %s\n", env->var_name, env->content);
 		env = env->next;
 	}
+}
+
+void	list_open_file_descriptors(void)
+{
+	struct rlimit	rl;
+
+	// Get the maximum number of file descriptors allowed
+	if (getrlimit(RLIMIT_NOFILE, &rl) == -1)
+	{
+		perror("getrlimit");
+		return ;
+	}
+	printf("Open file descriptors:\n");
+	// Use rlim_t for the loop variable to avoid sign comparison warning
+	for (rlim_t fd = 0; fd < rl.rlim_cur; fd++)
+	{
+		// Check if the file descriptor is open
+		if (fcntl(fd, F_GETFD) != -1)
+		{
+			// It is open, print its value
+			printf("File Descriptor %llu is open\n", (unsigned long long)fd);
+		}
+	}
+	printf("\nClosed file descriptors cannot be listed since they are not accessible.\n");
+}
+void	check_stdio_fds(void)
+{
+	struct stat stdin_stat, stdout_stat;
+	// Check stdin
+	if (fstat(fileno(stdin), &stdin_stat) == -1)
+	{
+		perror("fstat(stdin)");
+		return ;
+	}
+	// Check stdout
+	if (fstat(fileno(stdout), &stdout_stat) == -1)
+	{
+		perror("fstat(stdout)");
+		return ;
+	}
+	// Print information for stdin
+	fprintf(stderr, "Standard Input (fd: %d):\n", fileno(stdin));
+	fprintf(stderr, "  Type: %s\n",
+		S_ISREG(stdin_stat.st_mode) ? "Regular file" : S_ISCHR(stdin_stat.st_mode) ? "Character device" : "Other");
+	fprintf(stderr, "  Inode: %lu\n", (unsigned long)stdin_stat.st_ino);
+	fprintf(stderr, "  Size: %lld bytes\n", (long long)stdin_stat.st_size);
+	// Print information for stdout
+	fprintf(stderr, "Standard Output (fd: %d):\n", fileno(stdout));
+	fprintf(stderr, "  Type: %s\n",
+		S_ISREG(stdout_stat.st_mode) ? "Regular file" : S_ISCHR(stdout_stat.st_mode) ? "Character device" : "Other");
+	fprintf(stderr, "  Inode: %lu\n", (unsigned long)stdout_stat.st_ino);
+	fprintf(stderr, "  Size: %lld bytes\n", (long long)stdout_stat.st_size);
+	fprintf(stderr, " \n---------------------------------- \n");
 }

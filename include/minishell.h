@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/25 16:27:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:13:46 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_program_data
 	t_command				*command_top;
 	t_command				*first_cmd;
 	char					*input;
+
 	t_env					*env;
 }							t_program_data;
 
@@ -100,6 +101,13 @@ void						ft_db_quotes(t_token *token, t_program_data data);
 char						**ft_args_to_line(t_command *cmd);
 int							ft_exec_cmd(t_command *cmd, char **env);
 void						ft_exec_pipe(t_command *cmd, char **env);
+void						ft_handle_signals(int signal);
+int							ft_strcmp(const char *s1, const char *s2);
+void						rl_replace_line(const char *text, int clear_undo);
+void						ft_limiter_exec(t_redirection *in);
+void						list_open_file_descriptors(void);
+void						check_stdio_fds(void);
+int							ft_check_built_ins(t_command *cmd, t_program_data *data);
 
 typedef enum s_token_type
 {
