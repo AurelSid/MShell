@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/29 13:45:37 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:53:13 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	ft_set_redir_direction(t_command *cmd)
 }
 int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
 {
-	// if (in && in->type == REDIRECT_IN)
-	// {
-	// 	cmd->input_fd = open(in->filename, O_RDONLY);
-	// 	dup2(cmd->input_fd, 0);
-	// }
+	if (in && in->type == REDIRECT_IN)
+	{
+		cmd->input_fd = open(in->filename, O_RDONLY);
+		dup2(cmd->input_fd, 0);
+	}
 	if (in && in->type == REDIRECT_HEREDOC)
 	{
 		printf("executing limiter\n");
@@ -48,12 +48,12 @@ int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
 				0644);
 		dup2(cmd->output_fd, 1);
 	}
-	// else if (out && out->type == REDIRECT_APPEND)
-	// {
-	// 	cmd->output_fd = open(out->filename, O_WRONLY | O_TRUNC | O_CREAT,
-	// 			0644);
-	// 	dup2(cmd->output_fd, 1);
-	// }
+	else if (out && out->type == REDIRECT_APPEND)
+	{
+		cmd->output_fd = open(out->filename, O_WRONLY | O_APPEND | O_CREAT,
+				0644);
+		dup2(cmd->output_fd, 1);
+	}
 	if (cmd->input_fd < 0)
 		printf("Error opening file");
 	if (cmd->input_fd < 0)
