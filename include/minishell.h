@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/30 14:07:32 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:10:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_redirection
 typedef struct s_command
 {
 	char					*name;
-	char					**input;
+//	char					**input;
 	struct s_command		*next;
 	char					*args;
 	char					*options;
@@ -114,7 +114,7 @@ int							ft_check_built_ins(t_command *cmd,
 char						*ft_strjoin_free(char *s1, char *s2);
 
 void						ft_cd(char *arg);
-void						ft_echo(int opt, char *arg);
+void						ft_echo(char **arg, char *opt);
 void						ft_export(t_program_data *data, char *arg);
 void						ft_pwd(void);
 

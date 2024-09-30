@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
+#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/30 14:15:32 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/30 15:15:11 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -251,7 +251,7 @@ endif
 
 $(NAME):	$(LIBFT) ${OBJS} ${OBJ_MAIN}
 			@$(call display_progress_bar)
-			@echo "$(READLINE_INCLUDE) $(READLINE_LIB)"
+#			@echo "$(READLINE_INCLUDE) $(READLINE_LIB)"
 			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I$(READLINE_INCLUDE) -L$(READLINE_LIB) -lreadline -L./include/libft -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} -lft)
 
 # @$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline -L./include/libft -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} -lft)
