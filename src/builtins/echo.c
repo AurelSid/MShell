@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 13:52:59 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/23 18:01:07 by vpelc            ###   ########.fr       */
+/*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
+/*   Updated: 2024/09/25 13:21:34 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-void	ft_handle_signals(int signal)
+void	ft_echo(int opt, char *arg)
 {
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	if (opt == 0)
+		printf("%s\n", arg);
+	else
+		printf("%s", arg);
 }

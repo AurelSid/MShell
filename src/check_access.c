@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/23 15:58:52 by asideris         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/25 13:10:39 by vpelc            ###   ########.fr       */
+>>>>>>> origin/vpelc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +61,7 @@ int	ft_check_all_access(t_program_data *data)
 		while (split_paths[i])
 		{
 			cmd_path = ft_strjoin(split_paths[i], "/");
-			cmd_path = ft_strjoin(cmd_path, cmd->name);
+			cmd_path = ft_strjoin(cmd_path, cmd->name);			//THERE SOULD BE LEAKS BUT CANNOT USE STRJOIN FREE
 			if (access(cmd_path, F_OK) == 0)
 			{
 				printf("Access ok!\n");
