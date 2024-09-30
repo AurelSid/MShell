@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/30 13:19:16 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:41:00 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 	while (tmp_cmd)
 	{
 		ft_apply_redir(tmp_cmd);
-		ft_check_built_ins(tmp_cmd,&data);
+		ft_check_built_ins(tmp_cmd, &data);
 		if (tmp_cmd->next != NULL)
 		{
 			fprintf(stderr, "\n\n-- executing [%s] pipe --\n\n", tmp_cmd->name);
@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **env)
 		fprintf(stderr, "\n-- [%s] OK --\n\n", tmp_cmd->name);
 		tmp_cmd = tmp_cmd->next;
 		// }
+		check_stdio_fds();
 		// list_open_file_descriptors();
 	}
 	return (0);
