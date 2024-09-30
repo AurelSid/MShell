@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/23 20:05:29 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/09/30 14:19:43 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 /*
 		/!\ LEAKS ON STRJOIN /!\
-		 	 | NOT ANYMORE | 
-			  <> NORMALLY <>
 */
 
 void	ft_commands_fill_list(t_program_data *data)
 {
-	t_token		*tmp;
-	t_command	*cmd;
-	char		*opt;
-	char		*args;
+	t_token *tmp;
+	t_command *cmd;
+	char *opt;
+	char *args;
 
 	if (data->token_top->type != WORD)
 		printf("ERROR\n");
@@ -37,17 +35,19 @@ void	ft_commands_fill_list(t_program_data *data)
 	tmp = tmp->next;
 	while (tmp && (tmp->type == 1 && tmp->content[0] == '-'))
 	{
-		opt = ft_strjoin_free(opt, " ");
-		opt = ft_strjoin_free(opt, tmp->content);
+		opt = ft_strjoin(opt, " ");
+		opt = ft_strjoin(opt, tmp->content);
 		tmp = tmp->next;
 	}
-	while (tmp && tmp->type == 1)
+	while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
+			|| tmp->type == DOUBLE_QUOTE))
 	{
-		args = ft_strjoin_free(args, " ");
-		args = ft_strjoin_free(args, tmp->content);
+		args = ft_strjoin(args, " ");
+		args = ft_strjoin(args, tmp->content);
 		tmp = tmp->next;
 	}
 	cmd = ft_new_command(data->token_top->content, data, args, opt);
+	cmd->path = NULL;
 	while ((tmp && tmp->next) && tmp->type != PIPE)
 	{
 		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
@@ -65,4 +65,3 @@ void	ft_commands_fill_list(t_program_data *data)
 		ft_commands_fill_list(data);
 	}
 }
-
