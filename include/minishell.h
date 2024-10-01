@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/30 18:19:55 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:52:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ typedef struct s_program_data
 {
 	t_token					*token_top;
 	t_command				*command_top;
-
+	int						stdin;
+	int						stdout;
 	char					*input;
 
 	t_env					*env;

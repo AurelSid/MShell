@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/30 16:21:13 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:56:13 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	ft_exec_cmd(t_command *cmd, char **env, t_program_data *data)
 		if (ft_check_built_ins(cmd, data) == 1)
 			execve(cmd->path, ft_args_to_line(cmd), env);
 	}
+	
 	wait(0);
 	return (0);
 }
