@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 14:41:39 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 16:42:11 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,6 @@ void	ft_export(t_program_data *data, char *arg)
 			}
 			i++;
 		}
-		i = 0;
-		while (split[i])
-		{
-			free(split[i]);
-			i++;
-		}
-		free(split);
+		ft_free_split(split);
 	}
 }

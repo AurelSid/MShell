@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 16:20:39 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 16:41:16 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ t_env	*ft_env_sort(t_env *env)
 		else
 			ft_add_env(&sort, min);
 	}
+	//free(cpy);
 	return (sort);
 }

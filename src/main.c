@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/01 16:22:38 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 17:06:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int	main(int argc, char **argv, char **env)
 	rl = readline("$> ");
 	// while (1)
 	// {
+	if (rl)
+		add_history(rl);
+	if (rl == NULL)
+		return (0);
 	data.input = rl;
 	ft_tokens_fill_list(&data);
 	ft_print_tokens_list(data);

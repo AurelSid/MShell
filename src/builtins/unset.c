@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 13:06:36 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 16:38:25 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,22 @@ void	ft_unset(char *arg, t_program_data *data)
 		}
 		i++;
 	}
-	i = 0;
+	ft_free_split(split_arg);
+	tmp->prev->next = tmp->next;
+	free(tmp->var_name);
+	free(tmp->content);
+	free(tmp);
+	tmp = NULL;
+}
+/* 	i = 0;
 	while (split_arg[i])
 	{
 		free(split_arg[i]);
 		i++;
 	}
+	free(split_arg);
 	tmp->prev->next = tmp->next;
 	free(tmp->var_name);
 	free(tmp->content);
-	free(split_arg);
 	free(tmp);
-	tmp = NULL;
-}
+	tmp = NULL; */
