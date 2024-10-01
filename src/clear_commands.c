@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/01 12:51:21 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:56:18 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_free_commands(t_program_data *data)
 	cmd = data->command_top;
 	while (cmd)
 	{
+		// fprintf(stderr, "freeing\n");
 		to_free = cmd;
 		cmd = cmd->next;
 		free(to_free);

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/30 14:06:14 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:02:26 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,14 @@ int	ft_check_all_access(t_program_data *data)
 		while (split_paths[i])
 		{
 			cmd_path = ft_strjoin(split_paths[i], "/");
-			cmd_path = ft_strjoin(cmd_path, cmd->name);			//THERE SOULD BE LEAKS BUT CANNOT USE STRJOIN FREE
+			cmd_path = ft_strjoin(cmd_path, cmd->name);
+				// THERE SOULD BE LEAKS BUT CANNOT USE STRJOIN FREE
 			if (access(cmd_path, F_OK) == 0)
 			{
-				printf("Access ok!\n");
 				ft_set_cmd_path(data, cmd->name, cmd_path);
 				found_working_path = 1;
 				break ;
 			}
-			else
-				printf(".");
 			i++;
 		}
 		if (!found_working_path)

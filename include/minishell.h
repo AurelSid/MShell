@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/01 13:52:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:35:49 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,9 @@ typedef struct s_program_data
 {
 	t_token					*token_top;
 	t_command				*command_top;
-	int						stdin;
-	int						stdout;
-	char					*input;
 
+	char					*input;
+	int						original_stdin;
 	t_env					*env;
 }							t_program_data;
 
@@ -101,9 +100,8 @@ void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
 void						ft_db_quotes(t_token *token, t_program_data data);
 char						**ft_args_to_line(t_command *cmd);
-int							ft_exec_cmd(t_command *cmd, char **env,
-								t_program_data *data);
-int							ft_exec_pipe(t_command *cmd, char **env,
+
+int							ft_exec(t_command *cmd, char **env,
 								t_program_data *data);
 void						ft_handle_signals(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
