@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 13:52:59 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/23 18:01:07 by vpelc            ###   ########.fr       */
+/*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
+/*   Updated: 2024/09/30 14:09:22 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-void	ft_handle_signals(int signal)
+void	ft_cd(char *arg)
 {
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	if (arg[0] == '~' || ft_strcmp(arg, "-") == 0)
+		perror("Shortcuts are not supported\n");
+	if (chdir(arg) == -1)
+		perror("Directory change error \n");
 }
