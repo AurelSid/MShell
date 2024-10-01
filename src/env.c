@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 12:56:10 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 14:04:26 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,25 @@ int	ft_env_copy(char **env, t_program_data *data)
 		// printf("top : %p, current : %p\n", data->env, env_node);
 	}
 	return (0);
+}
+
+t_env	*ft_env_copy_2(t_env *env)
+{
+	t_env	*env_cpy;
+	t_env	*env_node;
+
+	while (env)
+	{
+		env_node = malloc(sizeof(t_env));
+		env_node->var_name = ft_strdup(env->var_name);
+		env_node->content = ft_strdup(env->content);
+		env_node->next = NULL;
+		env_node->prev = NULL;
+		if (env->prev == NULL)
+			env_cpy = env_node;
+		else
+			ft_add_env(&env_cpy, env_node);
+		env = env->next;
+	}
+	return (env_cpy);
 }

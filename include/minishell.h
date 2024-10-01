@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/01 12:54:50 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 14:41:56 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_redirection
 typedef struct s_command
 {
 	char					*name;
-//	char					**input;
+	//	char					**input;
 	struct s_command		*next;
 	char					*args;
 	char					*options;
@@ -98,6 +98,8 @@ int							ft_check_all_access(t_program_data *data);
 void						ft_print_env(t_program_data data);
 void						ft_add_env(t_env **lst, t_env *new);
 int							ft_env_copy(char **env, t_program_data *data);
+t_env						*ft_env_copy_2(t_env *env);
+t_env						*ft_env_sort(t_env *env);
 void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
 void						ft_db_quotes(t_token *token, t_program_data data);
