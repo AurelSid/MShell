@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/30 18:10:48 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 12:54:50 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_env
 	char					*var_name;
 	char					*content;
 	struct s_env			*next;
+	struct s_env			*prev;
 }							t_env;
 typedef struct s_program_data
 {

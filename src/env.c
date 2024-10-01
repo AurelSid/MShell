@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/20 13:02:57 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:56:10 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_add_env(t_env **lst, t_env *new)
 	while (current->next)
 		current = current->next;
 	current->next = new;
+	new->prev = current;
 }
 
 int	ft_env_copy(char **env, t_program_data *data)
@@ -43,6 +44,7 @@ int	ft_env_copy(char **env, t_program_data *data)
 		env_node->var_name = ft_substr(env[i], 0, len);
 		env_node->content = ft_strdup(ft_strchr(env[i], '=') + 1);
 		env_node->next = NULL;
+		env_node->prev = NULL;
 		if (i == 0)
 			data->env = env_node;
 		else

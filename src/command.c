@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/30 18:29:03 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/01 12:37:13 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp)
 	args = ft_calloc(1, 1);
 	if (!args)
 		return ;
-
 	tmp = tmp->next;
 	while (tmp && (tmp->type == 1 && tmp->content[0] == '-'))
 	{
@@ -111,8 +110,7 @@ void	ft_commands_fill_list(t_program_data *data)
 	t_token	*tmp;
 
 	tmp = data->token_top;
-	if (tmp->type >= REDIRECT_IN
-		&& tmp->type <= REDIRECT_APPEND)
+	if (tmp->type >= REDIRECT_IN && tmp->type <= REDIRECT_APPEND)
 		ft_commands_fill_list_r(data, tmp);
 	else if (tmp->type == WORD)
 		ft_commands_fill_list_c(data, tmp);
