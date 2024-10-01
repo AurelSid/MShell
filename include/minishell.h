@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/09/30 14:07:32 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:19:55 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_token
 {
 	char					*content;
 	int						type;
-	char					*path;
 	struct s_token			*prev;
 	struct s_token			*next;
 
@@ -71,7 +70,7 @@ typedef struct s_program_data
 {
 	t_token					*token_top;
 	t_command				*command_top;
-	t_command				*first_cmd;
+
 	char					*input;
 
 	t_env					*env;
@@ -101,8 +100,10 @@ void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
 void						ft_db_quotes(t_token *token, t_program_data data);
 char						**ft_args_to_line(t_command *cmd);
-int							ft_exec_cmd(t_command *cmd, char **env);
-void						ft_exec_pipe(t_command *cmd, char **env);
+int							ft_exec_cmd(t_command *cmd, char **env,
+								t_program_data *data);
+int							ft_exec_pipe(t_command *cmd, char **env,
+								t_program_data *data);
 void						ft_handle_signals(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
 void						rl_replace_line(const char *text, int clear_undo);
@@ -117,6 +118,9 @@ void						ft_cd(char *arg);
 void						ft_echo(int opt, char *arg);
 void						ft_export(t_program_data *data, char *arg);
 void						ft_pwd(void);
+void						ft_clean_tokens(t_program_data *data);
+void						ft_clean_commands(t_program_data *data);
+void						ft_clean_redirections(t_command *cmd);
 
 typedef enum s_token_type
 {

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/30 14:09:21 by asideris         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:34:55 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ void	ft_echo(int opt, char *arg)
 		printf("%s\n", arg);
 	else
 		printf("%s", arg);
+	exit(0);
 }

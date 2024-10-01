@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/09/30 14:15:32 by asideris         ###   ########.fr        #
+#    Updated: 2024/09/30 17:54:36 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS			= debug_utils.c add_token_node.c fake_structs.c  \
  				apply_redirections.c check_access.c command.c env.c \
 				init_data.c quotes.c signals.c utils.c \
 				builtins/cd.c builtins/echo.c builtins/pwd.c \
-				builtins/export.c  here_doc.c exec_command.c
+				builtins/export.c  here_doc.c exec_command.c clear_commands.c
 
 MAIN			= main.c
 
@@ -251,7 +251,7 @@ endif
 
 $(NAME):	$(LIBFT) ${OBJS} ${OBJ_MAIN}
 			@$(call display_progress_bar)
-			@echo "$(READLINE_INCLUDE) $(READLINE_LIB)"
+#			@echo "$(READLINE_INCLUDE) $(READLINE_LIB)"
 			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I$(READLINE_INCLUDE) -L$(READLINE_LIB) -lreadline -L./include/libft -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} -lft)
 
 # @$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline -L./include/libft -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} -lft)

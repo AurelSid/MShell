@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/30 14:20:30 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:50:57 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,37 @@ int	main(int argc, char **argv, char **env)
 	}
 	ft_init_data(&data);
 	ft_env_copy(env, &data);
-	rl = readline("$> ");
-	// while (1)
-	// {
-	data.input = rl;
-	ft_tokens_fill_list(&data);
-	ft_print_tokens_list(data);
-	ft_commands_fill_list(&data);
-	ft_print_commands(data);
-	ft_check_all_access(&data);
-	tmp_cmd = data.command_top;
-	while (tmp_cmd)
+	while (1)
 	{
-		ft_apply_redir(tmp_cmd);
-		ft_check_built_ins(tmp_cmd, &data);
-		if (tmp_cmd->next != NULL)
+		rl = readline("$> ");
+		data.input = rl;
+		ft_tokens_fill_list(&data);
+		ft_print_tokens_list(data);
+		ft_commands_fill_list(&data);
+		ft_check_all_access(&data);
+		tmp_cmd = data.command_top;
+		while (tmp_cmd)
 		{
-			fprintf(stderr, "\n\n-- executing [%s] pipe --\n\n", tmp_cmd->name);
-			ft_exec_pipe(tmp_cmd, env);
+			ft_apply_redir(tmp_cmd);
+			if (tmp_cmd->next != NULL)
+			{
+				fprintf(stderr, "\n\n-- executing [%s] pipe --\n\n",
+					tmp_cmd->name);
+				ft_exec_pipe(tmp_cmd, env, &data);
+			}
+			else
+			{
+				fprintf(stderr, "\n\n-- executing [%s]  --\n\n", tmp_cmd->name);
+				ft_exec_cmd(tmp_cmd, env, &data);
+			}
+			fprintf(stderr, "\n-- [%s] OK --\n\n", tmp_cmd->name);
+			tmp_cmd = tmp_cmd->next;
 		}
-		else
-		{
-			fprintf(stderr, "\n\n-- executing [%s]  --\n\n", tmp_cmd->name);
-			ft_exec_cmd(tmp_cmd, env);
-		}
-		fprintf(stderr, "\n-- [%s] OK --\n\n", tmp_cmd->name);
-		tmp_cmd = tmp_cmd->next;
-		// }
-		// check_stdio_fds();
-		// list_open_file_descriptors();
+		ft_clean_tokens(&data);
+		ft_clean_commands(&data);
+		check_stdio_fds();
+		// ft_print_tokens_list(data);
+		// ft_print_commands(data);
 	}
 	return (0);
 }
