@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 12:47:31 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:29:02 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp)
 		return ;
 	tmp = tmp->next;
 	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
-				&& tmp->type == SINGLE_QUOTE && tmp->type == DOUBLE_QUOTE)))
+				|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 	{
 		opt = ft_strjoin(opt, tmp->content);
 		tmp = tmp->next;
