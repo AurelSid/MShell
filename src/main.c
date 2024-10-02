@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/01 19:01:01 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:26:06 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		rl = readline("$> ");
 		if (!rl)
-			exit(fprintf(stderr, "ERROR: Readline empty\n"));
+			return (0);
+		else
+			add_history(rl);
 		data.input = rl;
 		ft_tokens_fill_list(&data);
 		ft_commands_fill_list(&data);

@@ -6,11 +6,18 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/25 17:00:50 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 12:21:11 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	send_error(char *error)
+{
+	write(2, "\033[1;31mError!\033[0m", 17);
+	write(2, error, ft_strlen(error));
+	exit(1);
+}
 
 char	*ft_strjoin_free(char *s1, char *s2)
 {
@@ -37,14 +44,39 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (free(&s1), join);
 }
 
-/* void	ft_env_sort(t_program_data *data)
+/*	LEAKS ON ENV COPY	*/
+t_env	*ft_env_sort(t_env *env)
 {
 	t_env	*cpy;
 	t_env	*tmp;
+	t_env	*sort;
+	t_env	*min;
 
-	cpy = tmp;
-	while (tmp)
+	cpy = ft_env_copy_2(env);
+	while (cpy)
 	{
-		if ()
+		tmp = cpy;
+		min = tmp;
+		tmp = tmp->next;
+		while (tmp)
+		{
+			if (strcmp(min->var_name, tmp->var_name) > 0)
+				min = tmp;
+			tmp = tmp->next;
+		}
+		if (min->prev == NULL)
+			cpy = min->next;
+		else
+			min->prev->next = min->next;
+		if (min->next != NULL)
+			min->next->prev = min->prev;
+		min->prev = NULL;
+		min->next = NULL;
+		if (sort == NULL)
+			sort = min;
+		else
+			ft_add_env(&sort, min);
 	}
-} */
+	//free(cpy);
+	return (sort);
+}

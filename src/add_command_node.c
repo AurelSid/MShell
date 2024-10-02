@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/01 16:09:48 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:26:40 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ t_command	*ft_new_command(char *command_name, t_program_data *data,
 	t_command	*new_command;
 
 	new_command = malloc(sizeof(t_command));
-	new_command->input = malloc(sizeof(char *) * 4);
+	//new_command->input = malloc(sizeof(char *) * 4);
 	if (new_command == NULL)
 		return (NULL);
 	new_command->name = ft_strdup(command_name);
 	new_command->options = ft_strdup(options);
 	new_command->args = ft_strdup(args);
-	new_command->input[0] = ft_strdup(command_name);
-	new_command->input[1] = ft_strdup(options);
-	new_command->input[2] = ft_strdup(args);
-	new_command->input[3] = NULL;
+	//new_command->input[0] = ft_strdup(command_name);
+	//new_command->input[1] = ft_strdup(options);
+	//new_command->input[2] = ft_strdup(args);
+	//new_command->input[3] = NULL;
 	new_command->redirection_list = NULL;
 	new_command->next = NULL;
 	new_command->input_fd = -1;

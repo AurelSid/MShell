@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/30 14:09:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:42:11 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_export(t_program_data *data, char *arg)
 
 	if (!arg)
 	{
-		tmp = data->env;
+		tmp = ft_env_sort(data->env);
 		while (tmp)
 		{
 			printf("declare -x %s", tmp->var_name);
@@ -31,27 +31,31 @@ void	ft_export(t_program_data *data, char *arg)
 			tmp = tmp->next;
 		}
 	}
-	i = 0;
-	split = ft_split(arg, ' ');
-	while (split[i])
+	else
 	{
-		if (ft_strchr(split[i], '='))
+		i = 0;
+		split = ft_split(arg, ' ');
+		while (split[i])
 		{
-			tmp = malloc(sizeof(t_env));
-			len = ft_strlen(split[i]) - ft_strlen(ft_strchr(split[i], '='));
-			tmp->var_name = ft_substr(split[i], 0, len);
-			tmp->content = ft_strdup(ft_strchr(split[i], '=') + 1);
-			tmp->next = NULL;
-			ft_add_env(&data->env, tmp);
+			if (ft_strchr(split[i], '='))
+			{
+				tmp = malloc(sizeof(t_env));
+				len = ft_strlen(split[i]) - ft_strlen(ft_strchr(split[i], '='));
+				tmp->var_name = ft_substr(split[i], 0, len);
+				tmp->content = ft_strdup(ft_strchr(split[i], '=') + 1);
+				tmp->next = NULL;
+				ft_add_env(&data->env, tmp);
+			}
+			else
+			{
+				tmp = malloc(sizeof(t_env));
+				tmp->var_name = ft_strdup(split[i]);
+				tmp->content = NULL;
+				tmp->next = NULL;
+				ft_add_env(&data->env, tmp);
+			}
+			i++;
 		}
-		else
-		{
-			tmp = malloc(sizeof(t_env));
-			tmp->var_name = ft_strdup(split[i]);
-			tmp->content = NULL;
-			tmp->next = NULL;
-			ft_add_env(&data->env, tmp);
-		}
-		i++;
+		ft_free_split(split);
 	}
 }
