@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 15:23:40 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 16:15:00 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 		/!\ LEAKS ON STRJOIN /!\
 */
 
-void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
+t_token	*ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
 				char **args, char **opt)
 {
 	t_command	*cmd;
@@ -47,9 +47,10 @@ void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
 			printf("ERROR\n");
 		tmp = tmp->next->next;
 	}
+	return (tmp);
 }
 
-void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
+t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 				char **args, char **opt)
 {
 	t_command	*cmd;
@@ -64,7 +65,7 @@ void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		r_arg = tmp->content;					// <----- check file
 	tmp = tmp->next;
 	if (!tmp || tmp->type == PIPE)
-		return ;
+		return (tmp);
 	if (tmp->type == WORD)
 		cmd_n = tmp->content;
 	tmp = tmp->next;
@@ -94,6 +95,7 @@ void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 			printf("ERROR\n");
 		tmp = tmp->next->next;
 	}
+	return (tmp);
 }
 
 void	ft_commands_fill_list(t_program_data *data)
@@ -110,9 +112,9 @@ void	ft_commands_fill_list(t_program_data *data)
 		return ;
 	tmp = data->token_top;
 	if (tmp->type >= REDIRECT_IN && tmp->type <= REDIRECT_APPEND)
-		ft_commands_fill_list_r(data, tmp, &args, &opt);
+		tmp = ft_commands_fill_list_r(data, tmp, &args, &opt);
 	else if (tmp->type == WORD)
-		ft_commands_fill_list_c(data, tmp, &args, &opt);
+		tmp = ft_commands_fill_list_c(data, tmp, &args, &opt);
 	else
 		printf("ERROR\n");
 	if ((tmp && tmp->next) && tmp->type == PIPE)
