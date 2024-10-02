@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/09/27 16:43:57 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:00:36 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,46 +48,47 @@ void	ft_print_commands(t_program_data data)
 	int				frame_width;
 
 	frame_width = 50;
-	printf("\n");
-	printf("+");
+	fprintf(stderr, "\n");
+	fprintf(stderr, "+");
 	for (int i = 0; i < frame_width - 2; i++)
-		printf("-");
-	printf("+\n");
-	printf("| %-46s |\n", "Commands List");
-	printf("|");
+		fprintf(stderr, "-");
+	fprintf(stderr, "+\n");
+	fprintf(stderr, "| %-46s |\n", "Commands List");
+	fprintf(stderr, "|");
 	for (int i = 0; i < frame_width - 2; i++)
-		printf("-");
-	printf("|\n");
+		fprintf(stderr, "-");
+	fprintf(stderr, "|\n");
 	cmd = data.command_top;
 	while (cmd)
 	{
-		printf("| %-15s : %-30s |\n", "Command Name", cmd->name);
-		printf("| %-15s : %-30s |\n", "Arguments", cmd->args);
-		printf("| %-15s : %-30s |\n", "Options", cmd->options);
-		printf("| %-15s : %-30s |\n", "Path", cmd->path);
+		fprintf(stderr, "| %-15s : %-30s |\n", "Command Name", cmd->name);
+		fprintf(stderr, "| %-15s : %-30s |\n", "Arguments", cmd->args);
+		fprintf(stderr, "| %-15s : %-30s |\n", "Options", cmd->options);
+		fprintf(stderr, "| %-15s : %-30s |\n", "Path", cmd->path);
 		redir = cmd->redirection_list;
 		if (redir)
 		{
-			printf("| %-15s : \n", "Redirections");
+			fprintf(stderr, "| %-15s : \n", "Redirections");
 			while (redir)
 			{
-				printf("| 	name: %-10s  tyoe:%-3d file:%-3s\n |",
+				fprintf(stderr, "| 	name: %-10s  type:%-3d file:%-3s\n |",
 						redir->filename, redir->type, redir->filename);
 				redir = redir->next;
 			}
 		}
 		else
-			printf("| %-15s : %-30s |\n", "Redirections", "No redirections");
+			fprintf(stderr, "| %-15s : %-30s |\n", "Redirections",
+				"No redirections");
 		cmd = cmd->next;
-		printf("|");
+		fprintf(stderr, "|");
 		for (int i = 0; i < frame_width - 2; i++)
-			printf("-");
-		printf("|\n");
+			fprintf(stderr, "-");
+		fprintf(stderr, "|\n");
 	}
-	printf("+");
+	fprintf(stderr, "+");
 	for (int i = 0; i < frame_width - 2; i++)
-		printf("-");
-	printf("+\n");
+		fprintf(stderr, "-");
+	fprintf(stderr, "+\n");
 }
 
 void	ft_print_env(t_program_data data)

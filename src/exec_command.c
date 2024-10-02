@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/30 13:14:50 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:54:40 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,26 @@
 
 int	ft_check_built_ins(t_command *cmd, t_program_data *data)
 {
-	if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
+	if (!ft_strcmp(cmd->name, "env"))
 		ft_print_env(*data);
-	else if (!ft_strncmp(cmd->name, "echo", ft_strlen(cmd->name)))
+	else if (!ft_strcmp(cmd->name, "echo"))
+		ft_echo(0, cmd->args);
+	else if (!ft_strcmp(cmd->name, "cd"))
 		printf("env detected\n");
-	else if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
+	else if (!ft_strcmp(cmd->name, "pwd"))
 		printf("env detected\n");
-	else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
+	else if (!ft_strcmp(cmd->name, "export"))
 		printf("env detected\n");
-	else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
+	else if (!ft_strcmp(cmd->name, "unset"))
 		printf("env detected\n");
-	else if (!ft_strncmp(cmd->name, "unset", ft_strlen(cmd->name)))
+	else if (!ft_strcmp(cmd->name, "exit"))
 		printf("env detected\n");
-	else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
-		printf("env detected\n");
+	else
+	{
+		return (1);
+		fprintf(stderr, "Not built in\n");
+	}
+	fprintf(stderr, "\n** Built in **\n");
 	return (0);
 }
 char	**ft_args_to_line(t_command *cmd)
@@ -66,38 +72,42 @@ void	ft_free_split(char **strs)
 	free(strs);
 }
 
-int	ft_exec_cmd(t_command *cmd, char **env)
-{
-	pid_t	process_id;
-
-	process_id = fork();
-	if (process_id == 0)
-		execve(cmd->path, ft_args_to_line(cmd), env);
-	wait(0);
-	return (0);
-}
-
-void	ft_exec_pipe(t_command *cmd, char **env)
+int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
 	int		pipe_fd[2];
 	pid_t	process_id;
 
-	cmd->input_fd = 0;
-	cmd->output_fd = 1;
-	if (pipe(pipe_fd) == -1)
-		exit(0);
-	process_id = fork();
-	if (process_id == 0)
+	if (cmd->next == NULL)
 	{
-		dup2(pipe_fd[1], 1);
-		execve(cmd->path, ft_args_to_line(cmd), env);
+		process_id = fork();
+		if (process_id == 0)
+		{
+			if (ft_check_built_ins(cmd, data) == 1)
+				execve(cmd->path, ft_args_to_line(cmd), env);
+		}
+		dup2(data->original_stdin, STDIN_FILENO);
+		wait(0);
 	}
 	else
 	{
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
-		// check_stdio_fds();
-		close(pipe_fd[0]);
+		data->original_stdin = dup(STDIN_FILENO);
+		if (pipe(pipe_fd) == -1)
+			exit(0);
+		process_id = fork();
+		if (process_id == 0)
+		{
+			dup2(pipe_fd[1], 1);
+			if (ft_check_built_ins(cmd, data) == 0)
+				return (0);
+			execve(cmd->path, ft_args_to_line(cmd), env);
+		}
+		else
+		{
+			close(pipe_fd[1]);
+			dup2(pipe_fd[0], 0);
+		}
+		wait(0);
+		return (0);
 	}
-	wait(0);
+	return (0);
 }
