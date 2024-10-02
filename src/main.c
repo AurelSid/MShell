@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/02 15:30:39 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 17:47:35 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,20 @@ int	main(int argc, char **argv, char **env)
 	}
 	ft_init_data(&data);
 	ft_env_copy(env, &data);
+	data.original_stdin = dup(STDIN_FILENO);
+	data.original_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
 		rl = readline("$> ");
 		if (!rl)
-			return (0);
+			return (fprintf(stderr, "STDIN ERROR\n"));
 		else
 			add_history(rl);
 		data.input = rl;
 		ft_tokens_fill_list(&data);
 		ft_commands_fill_list(&data);
 		ft_check_all_access(&data);
+		ft_print_commands(data);
 		tmp_cmd = data.command_top;
 		while (tmp_cmd)
 		{
@@ -51,6 +54,9 @@ int	main(int argc, char **argv, char **env)
 		}
 		ft_clean_tokens(&data);
 		ft_clean_commands(&data);
+		dup2(data.original_stdin, STDIN_FILENO);
+	
+
 	}
 	return (0);
 }
