@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 16:15:00 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 18:03:05 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		r_arg = tmp->content;					// <----- check file
 	tmp = tmp->next;
 	if (!tmp || tmp->type == PIPE)
-		return (tmp);
-	if (tmp->type == WORD)
+		cmd_n = NULL;
+	else if (tmp->type == WORD)
 		cmd_n = tmp->content;
 	tmp = tmp->next;
 	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
