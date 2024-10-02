@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/01 18:35:49 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:17:53 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_redirection
 typedef struct s_command
 {
 	char					*name;
-	char					**input;
 	struct s_command		*next;
 	char					*args;
 	char					*options;
@@ -65,6 +64,7 @@ typedef struct s_env
 	char					*var_name;
 	char					*content;
 	struct s_env			*next;
+	struct s_env			*prev;
 }							t_env;
 typedef struct s_program_data
 {
@@ -96,6 +96,8 @@ int							ft_check_all_access(t_program_data *data);
 void						ft_print_env(t_program_data data);
 void						ft_add_env(t_env **lst, t_env *new);
 int							ft_env_copy(char **env, t_program_data *data);
+t_env						*ft_env_copy_2(t_env *env);
+t_env						*ft_env_sort(t_env *env);
 void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
 void						ft_db_quotes(t_token *token, t_program_data data);
@@ -111,15 +113,20 @@ void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd,
 								t_program_data *data);
+
 char						*ft_strjoin_free(char *s1, char *s2);
+void						ft_free_split(char **tab);
+void						ft_free_env(t_env *env);
 
 void						ft_cd(char *arg);
-void						ft_echo(int opt, char *arg);
+void						ft_echo(char **arg, char *opt);
 void						ft_export(t_program_data *data, char *arg);
 void						ft_pwd(void);
 void						ft_clean_tokens(t_program_data *data);
 void						ft_clean_commands(t_program_data *data);
 void						ft_clean_redirections(t_command *cmd);
+
+void						send_error(char *error);
 
 typedef enum s_token_type
 {

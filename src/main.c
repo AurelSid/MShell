@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/01 19:01:01 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:30:39 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	main(int argc, char **argv, char **env)
 	t_program_data	data;
 	t_command		*tmp_cmd;
 
+	signal(SIGINT, ft_handle_signals);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	data.token_top = NULL;
 	if (argc != 1 || argv[1])
 	{
@@ -31,7 +34,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		rl = readline("$> ");
 		if (!rl)
-			exit(fprintf(stderr, "ERROR: Readline empty\n"));
+			return (0);
+		else
+			add_history(rl);
 		data.input = rl;
 		ft_tokens_fill_list(&data);
 		ft_commands_fill_list(&data);

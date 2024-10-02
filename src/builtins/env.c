@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 14:28:12 by asideris         ###   ########.fr       */
+/*   Created: 2024/10/01 13:10:50 by vpelc             #+#    #+#             */
+/*   Updated: 2024/10/01 13:16:40 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_echo(char **arg, char *opt)
+void	ft_env(t_program_data data)
 {
-	int	i;
+	t_env	*env;
 
-	i = 0;
-	if (ft_strcmp(opt, "-n") != 0)
+	env = data.env;
+	while (env)
 	{
-		while (arg[i])
-		{
-			printf("%s\n", arg[i]);
-			i++;
-		}
-	}
-	else
-	{
-		while (arg[i])
-		{
-			printf("%s", arg[i]);
-			i++;
-		}
+		printf("%s=%s\n", env->var_name, env->content);
+		env = env->next;
 	}
 }

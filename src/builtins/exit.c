@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 14:28:12 by asideris         ###   ########.fr       */
+/*   Created: 2024/10/01 13:17:09 by vpelc             #+#    #+#             */
+/*   Updated: 2024/10/02 12:35:49 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_echo(char **arg, char *opt)
+void	ft_exit(char *arg)
 {
-	int	i;
+	int	args;
 
-	i = 0;
-	if (ft_strcmp(opt, "-n") != 0)
-	{
-		while (arg[i])
-		{
-			printf("%s\n", arg[i]);
-			i++;
-		}
-	}
+	printf("exit\n");
+	if (!arg)
+		args = 0;
 	else
 	{
-		while (arg[i])
-		{
-			printf("%s", arg[i]);
-			i++;
-		}
+		args = atol(arg);
+		if (args > 255)
+			args = (unsigned char)args;
 	}
+	exit(args);
 }
