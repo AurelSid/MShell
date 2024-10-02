@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 12:37:13 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 12:47:31 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp)
 	if (!args)
 		return ;
 	tmp = tmp->next;
-	while (tmp && (tmp->type == 1 && tmp->content[0] == '-'))
+	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
+				&& tmp->type == SINGLE_QUOTE && tmp->type == DOUBLE_QUOTE)))
 	{
 		opt = ft_strjoin(opt, tmp->content);
 		tmp = tmp->next;
