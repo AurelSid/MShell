@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 14:58:35 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:23:40 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
 	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
 				|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 	{
-		opt = ft_strjoin(opt, tmp->content);
+		*opt = ft_strjoin(*opt, tmp->content);
 		tmp = tmp->next;
-		opt = ft_strjoin(opt, " ");
+		*opt = ft_strjoin(*opt, " ");
 	}
 	while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
 			|| tmp->type == DOUBLE_QUOTE))
 	{
-		args = ft_strjoin(args, tmp->content);
+		*args = ft_strjoin(*args, tmp->content);
 		tmp = tmp->next;
-		args = ft_strjoin(args, " ");
+		*args = ft_strjoin(*args, " ");
 	}
-	cmd = ft_new_command(data->token_top->content, data, args, opt);
+	cmd = ft_new_command(data->token_top->content, data, *args, *opt);
 	while ((tmp && tmp->next) && tmp->type != PIPE)
 	{
 		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
@@ -59,10 +59,11 @@ void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 
 	r_type = tmp->type;
 	tmp = tmp->next;
-	if (tmp && (tmp->type == WORD))
-		r_arg = tmp->content;
+	if (tmp && (tmp->type == WORD
+			|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE))
+		r_arg = tmp->content;					// <----- check file
 	tmp = tmp->next;
-	if (!tmp)
+	if (!tmp || tmp->type == PIPE)
 		return ;
 	if (tmp->type == WORD)
 		cmd_n = tmp->content;
@@ -70,18 +71,18 @@ void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
 				|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 	{
-		opt = ft_strjoin(opt, tmp->content);
+		*opt = ft_strjoin(*opt, tmp->content);
 		tmp = tmp->next;
-		opt = ft_strjoin(opt, " ");
+		*opt = ft_strjoin(*opt, " ");
 	}
 	while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
 			|| tmp->type == DOUBLE_QUOTE))
 	{
-		args = ft_strjoin(args, tmp->content);
+		*args = ft_strjoin(*args, tmp->content);
 		tmp = tmp->next;
-		args = ft_strjoin(args, " ");
+		*args = ft_strjoin(*args, " ");
 	}
-	cmd = ft_new_command(cmd_n, data, args, opt);
+	cmd = ft_new_command(cmd_n, data, *args, *opt);
 	ft_new_redirection(r_arg, cmd, r_type);
 	while ((tmp && tmp->next) && tmp->type != PIPE)
 	{
