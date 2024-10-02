@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 12:47:31 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:58:35 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,14 @@
 		/!\ LEAKS ON STRJOIN /!\
 */
 
-void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp)
+void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
+				char **args, char **opt)
 {
 	t_command	*cmd;
-	char		*opt;
-	char		*args;
 
-	opt = ft_calloc(1, 1);
-	if (!opt)
-		return ;
-	args = ft_calloc(1, 1);
-	if (!args)
-		return ;
 	tmp = tmp->next;
 	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
-				&& tmp->type == SINGLE_QUOTE && tmp->type == DOUBLE_QUOTE)))
+				|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 	{
 		opt = ft_strjoin(opt, tmp->content);
 		tmp = tmp->next;
@@ -56,30 +49,26 @@ void	ft_commands_fill_list_c(t_program_data *data, t_token *tmp)
 	}
 }
 
-void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp)
+void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
+				char **args, char **opt)
 {
 	t_command	*cmd;
 	t_type		r_type;
-	char		*opt;
-	char		*args;
 	char		*r_arg;
 	char		*cmd_n;
 
 	r_type = tmp->type;
 	tmp = tmp->next;
-	opt = ft_calloc(1, 1);
-	if (!opt)
-		return ;
-	args = ft_calloc(1, 1);
-	if (!args)
-		return ;
 	if (tmp && (tmp->type == WORD))
 		r_arg = tmp->content;
 	tmp = tmp->next;
-	if (tmp && (tmp->type == WORD))
+	if (!tmp)
+		return ;
+	if (tmp->type == WORD)
 		cmd_n = tmp->content;
 	tmp = tmp->next;
-	while (tmp && (tmp->type == 1 && tmp->content[0] == '-'))
+	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
+				|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 	{
 		opt = ft_strjoin(opt, tmp->content);
 		tmp = tmp->next;
@@ -109,12 +98,20 @@ void	ft_commands_fill_list_r(t_program_data *data, t_token *tmp)
 void	ft_commands_fill_list(t_program_data *data)
 {
 	t_token	*tmp;
+	char	*opt;
+	char	*args;
 
+	opt = ft_calloc(1, 1);
+	if (!opt)
+		return ;
+	args = ft_calloc(1, 1);
+	if (!args)
+		return ;
 	tmp = data->token_top;
 	if (tmp->type >= REDIRECT_IN && tmp->type <= REDIRECT_APPEND)
-		ft_commands_fill_list_r(data, tmp);
+		ft_commands_fill_list_r(data, tmp, &args, &opt);
 	else if (tmp->type == WORD)
-		ft_commands_fill_list_c(data, tmp);
+		ft_commands_fill_list_c(data, tmp, &args, &opt);
 	else
 		printf("ERROR\n");
 	if ((tmp && tmp->next) && tmp->type == PIPE)
