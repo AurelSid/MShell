@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/01 18:54:40 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:54:20 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,26 @@ void	ft_free_split(char **strs)
 
 int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
-	int		pipe_fd[2];
-	pid_t	process_id;
+	int pipe_fd[2];
+	pid_t process_id;
 
 	if (cmd->next == NULL)
 	{
+		fprintf(stderr,"executing cmd\n");
 		process_id = fork();
 		if (process_id == 0)
 		{
 			if (ft_check_built_ins(cmd, data) == 1)
 				execve(cmd->path, ft_args_to_line(cmd), env);
 		}
-		dup2(data->original_stdin, STDIN_FILENO);
+
 		wait(0);
+
 	}
 	else
 	{
-		data->original_stdin = dup(STDIN_FILENO);
+
+		fprintf(stderr,"executing cmd pipe");
 		if (pipe(pipe_fd) == -1)
 			exit(0);
 		process_id = fork();
@@ -105,6 +108,7 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 		{
 			close(pipe_fd[1]);
 			dup2(pipe_fd[0], 0);
+			close(pipe_fd[0]);
 		}
 		wait(0);
 		return (0);
