@@ -6,7 +6,11 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/03 16:12:30 by asideris         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/03 16:18:22 by vpelc            ###   ########.fr       */
+>>>>>>> 5082bbd74e214dd77de0719ee223f099171b7ab3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +83,9 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 		process_id = fork();
 		if (process_id == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
+			signal(SIGSTOP, SIG_DFL);
 			if (ft_check_built_ins(cmd, data) == 1)
 				execve(cmd->path, ft_args_to_line(cmd), env);
 		}
@@ -92,6 +99,9 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 		process_id = fork();
 		if (process_id == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
+			signal(SIGSTOP, SIG_DFL);
 			dup2(pipe_fd[1], 1);
 			if (ft_check_built_ins(cmd, data) == 0)
 				return (0);
