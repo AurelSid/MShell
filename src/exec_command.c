@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/03 16:22:39 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:03:05 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,25 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
 	int		pipe_fd[2];
 	pid_t	process_id;
+	int		status;
+
+	signal(SIGINT, SIG_IGN);
 
 	if (cmd->next == NULL)
 	{
-		fprintf(stderr, "executing [%s ]cmd\n", cmd->name);
 		process_id = fork();
 		if (process_id == 0)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			signal(SIGSTOP, SIG_DFL);
 			if (ft_check_built_ins(cmd, data) == 1)
 				execve(cmd->path, ft_args_to_line(cmd), env);
+			exit(0);
 		}
-		wait(0);
+		waitpid(process_id, &status, 0);
 	}
 	else
 	{
-		fprintf(stderr, "executing [%s ]cmd pipe\n", cmd->name);
 		if (pipe(pipe_fd) == -1)
 			exit(0);
 		process_id = fork();
@@ -97,20 +98,21 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			signal(SIGSTOP, SIG_DFL);
 			dup2(pipe_fd[1], 1);
-			if (ft_check_built_ins(cmd, data) == 0)
-				return (0);
-			execve(cmd->path, ft_args_to_line(cmd), env);
+			close(pipe_fd[0]);
+			if (ft_check_built_ins(cmd, data) == 1)
+				execve(cmd->path, ft_args_to_line(cmd), env);
+			exit(0);
 		}
 		else
 		{
 			close(pipe_fd[1]);
 			dup2(pipe_fd[0], 0);
 			close(pipe_fd[0]);
+			waitpid(process_id, &status, 0);
 		}
-		wait(0);
-		return (0);
 	}
+	signal(SIGINT, ft_handle_signals);
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/03 16:01:05 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:47:08 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,12 @@ int	main(int argc, char **argv, char **env)
 		ft_commands_fill_list(&data);
 		// ft_print_commands(data);
 		if (ft_check_all_access(&data))
+		{
+			dup2(data.original_stdin, STDIN_FILENO);
+			dup2(data.original_stdout, STDOUT_FILENO);
+			ft_exit_free(&data);
 			continue ;
+		}
 		tmp_cmd = data.command_top;
 		while (tmp_cmd)
 		{
@@ -54,8 +59,9 @@ int	main(int argc, char **argv, char **env)
 			ft_exec(tmp_cmd, env, &data);
 			tmp_cmd = tmp_cmd->next;
 		}
-		ft_exit_free(&data);
 		dup2(data.original_stdin, STDIN_FILENO);
+		dup2(data.original_stdout, STDOUT_FILENO);
+		ft_exit_free(&data);
 	}
 	return (0);
 }
