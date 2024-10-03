@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 18:42:25 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:16:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,25 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	tmp = tmp->next;
 	if (!tmp || tmp->type == PIPE)
 		cmd_n = NULL;
-	else if (tmp->type == WORD)
-		cmd_n = tmp->content;
-	tmp = tmp->next;
-	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
-				|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
+	else
 	{
-		*opt = ft_strjoin(*opt, tmp->content);
+		if (tmp->type == WORD)
+			cmd_n = tmp->content;
 		tmp = tmp->next;
-		*opt = ft_strjoin(*opt, " ");
-	}
-	while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
-			|| tmp->type == DOUBLE_QUOTE))
-	{
-		*args = ft_strjoin(*args, tmp->content);
-		tmp = tmp->next;
-		*args = ft_strjoin(*args, " ");
+		while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
+					|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
+		{
+			*opt = ft_strjoin(*opt, tmp->content);
+			tmp = tmp->next;
+			*opt = ft_strjoin(*opt, " ");
+		}
+		while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
+				|| tmp->type == DOUBLE_QUOTE))
+		{
+			*args = ft_strjoin(*args, tmp->content);
+			tmp = tmp->next;
+			*args = ft_strjoin(*args, " ");
+		}
 	}
 	cmd = ft_new_command(cmd_n, data, *args, *opt);
 	ft_new_redirection(r_arg, cmd, r_type);
