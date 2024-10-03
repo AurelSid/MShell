@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/26 13:24:41 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:49:24 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ int	ft_tokens_fill_list(t_program_data *data)
 	int	i;
 	int	len;
 
+	if (!data || !data->input)
+		return (-1);
+
 	i = 0;
 	while (data->input[i])
 	{
 		len = 0;
 		if (data->input[i] == '>')
 		{
-			if (data->input[i + 1] == '>')
+			if (data->input[i + 1] && data->input[i + 1] == '>')
 			{
 				ft_new_token(">>", data, REDIRECT_APPEND);
 				i++;
@@ -55,7 +58,7 @@ int	ft_tokens_fill_list(t_program_data *data)
 		}
 		else if (data->input[i] == '<')
 		{
-			if (data->input[i + 1] == '<')
+			if (data->input[i + 1] && data->input[i + 1] == '<')
 			{
 				ft_new_token("<<", data, REDIRECT_HEREDOC);
 				i++;
@@ -64,31 +67,45 @@ int	ft_tokens_fill_list(t_program_data *data)
 				ft_new_token("<", data, REDIRECT_IN);
 		}
 		else if (data->input[i] == '|')
+		{
 			ft_new_token("|", data, PIPE);
+		}
 		else if (data->input[i] == '\"')
 		{
 			len = ft_handle_quotes('\"', data, i + 1);
+			if (len < 0)
+				return (-1);
 			i++;
-			ft_new_token(ft_substr(data->input, i - 1, (size_t)len + 2),
-				data, DOUBLE_QUOTE);
+			if (i - 1 + len + 2 <= (int)ft_strlen(data->input))
+				ft_new_token(ft_substr(data->input, i - 1, (size_t)len + 2), data, DOUBLE_QUOTE);
+			else
+				return (-1);
 			i += len;
 		}
 		else if (data->input[i] == '\'')
 		{
 			len = ft_handle_quotes('\'', data, i + 1);
+			if (len < 0)
+				return (-1);
 			i++;
-			ft_new_token(ft_substr(data->input, i - 1, (size_t)len + 2),
-				data, SINGLE_QUOTE);
+			if (i - 1 + len + 2 <= (int)ft_strlen(data->input))
+				ft_new_token(ft_substr(data->input, i - 1, (size_t)len + 2), data, SINGLE_QUOTE);
+			else
+				return (-1);
 			i += len;
 		}
 		else if (data->input[i] != ' ')
 		{
 			len = ft_handle_words(data, i);
-			ft_new_token(ft_substr(data->input, i, (size_t)len),
-				data, WORD);
+			if (len < 0 || i + len > (int)ft_strlen(data->input))
+				return (-1);
+			ft_new_token(ft_substr(data->input, i, (size_t)len), data, WORD);
 			i += len;
 		}
+		if (i + 1 > (int)ft_strlen(data->input))
+			break;
 		i++;
 	}
 	return (0);
 }
+

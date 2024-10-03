@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/30 12:53:13 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:34:43 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	ft_apply_redir(t_command *command)
 			last_out = redir;
 		redir = redir->next;
 	}
-	printf("Last in: %s || Last out: %s\n",
-		last_in ? last_in->filename : "None",
-		last_out ? last_out->filename : "None");
+	// printf("Last in: %s || Last out: %s\n",
+	// 	last_in ? last_in->filename : "None",
+	// 	last_out ? last_out->filename : "None");
 	ft_open_file(last_in, last_out, command);
 	return (0);
 }

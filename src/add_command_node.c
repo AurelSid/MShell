@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/02 15:17:40 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/03 13:03:44 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ t_command	*ft_new_command(char *command_name, t_program_data *data,
 	new_command = malloc(sizeof(t_command));
 	if (new_command == NULL)
 		return (NULL);
-	new_command->name = ft_strdup(command_name);
+	if (!command_name)
+		new_command->name = NULL;
+	else
+		new_command->name = ft_strdup(command_name);
 	new_command->options = ft_strdup(options);
 	new_command->args = ft_strdup(args);
 	new_command->redirection_list = NULL;

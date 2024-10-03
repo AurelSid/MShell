@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/23 20:05:32 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/03 13:43:25 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	ft_db_quotes(t_token *token, t_program_data data)
 	start = ft_substr(token->content, 0,
 			ft_strlen(token->content) - (ft_strlen(tmp) + 1));
 	end = ft_strjoin(start, found);
-	end = ft_strjoin_free(end, (tmp + i));
+	end = ft_strjoin(end, (tmp + i));
 	token->content = end;
 	free(start);
-	free(tmp);
+	//free(tmp);
 	free(found);
 }
