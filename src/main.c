@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/02 17:47:35 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:58:18 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv, char **env)
 		data.input = rl;
 		ft_tokens_fill_list(&data);
 		ft_commands_fill_list(&data);
+	
 		ft_check_all_access(&data);
 		ft_print_commands(data);
 		tmp_cmd = data.command_top;
@@ -55,8 +56,6 @@ int	main(int argc, char **argv, char **env)
 		ft_clean_tokens(&data);
 		ft_clean_commands(&data);
 		dup2(data.original_stdin, STDIN_FILENO);
-	
-
 	}
 	return (0);
 }
