@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/03 14:23:50 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/03 15:47:03 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,26 @@ int	main(int argc, char **argv, char **env)
 	{
 		rl = readline("$> ");
 		if (!rl)
-			return (fprintf(stderr, "STDIN ERROR\n"));
-		else if (rl[0] == '\0')
+			return (0);
+		if (rl[0] == '\0')
 			continue ;
 		else
 			add_history(rl);
 		data.input = rl;
 		ft_tokens_fill_list(&data);
 		ft_commands_fill_list(&data);
-		ft_check_all_access(&data);
-		ft_print_commands(data);
+		// ft_print_commands(data);
+		if (ft_check_all_access(&data))
+			continue ;
 		tmp_cmd = data.command_top;
 		while (tmp_cmd)
 		{
 			ft_apply_redir(tmp_cmd);
 			ft_exec(tmp_cmd, env, &data);
-			fprintf(stderr, "\n-- [%s] OK --\n\n", tmp_cmd->name);
 			tmp_cmd = tmp_cmd->next;
 		}
-		ft_clean_tokens(&data);
-		ft_clean_commands(&data);
+		ft_exit_free(&data);
 		dup2(data.original_stdin, STDIN_FILENO);
-	
-
 	}
 	return (0);
 }

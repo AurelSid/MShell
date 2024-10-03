@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/03 13:02:26 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/03 15:35:34 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 
 t_token	*ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
-				char **args, char **opt)
+		char **args, char **opt)
 {
 	t_command	*cmd;
 
@@ -51,18 +51,19 @@ t_token	*ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
 }
 
 t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
-				char **args, char **opt)
+		char **args, char **opt)
 {
 	t_command	*cmd;
 	t_type		r_type;
 	char		*r_arg;
 	char		*cmd_n;
 
+	// fprintf(stderr, "redirectio first found\n");
 	r_type = tmp->type;
 	tmp = tmp->next;
-	if (tmp && (tmp->type == WORD
-			|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE))
-		r_arg = tmp->content;					// <----- check file
+	if (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
+			|| tmp->type == DOUBLE_QUOTE))
+		r_arg = tmp->content; // <----- check file
 	tmp = tmp->next;
 	if (!tmp || tmp->type == PIPE)
 		cmd_n = NULL;
