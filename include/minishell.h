@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/02 17:24:06 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:35:40 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
 
 void						ft_cd(char *arg);
-void						ft_echo(char **arg, char *opt);
+void						ft_echo(char *arg, char *opt);
 void						ft_export(t_program_data *data, char *arg);
 void						ft_pwd(void);
 void						ft_clean_tokens(t_program_data *data);

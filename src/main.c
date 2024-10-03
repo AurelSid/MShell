@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/02 17:47:35 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:23:50 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **env)
 		rl = readline("$> ");
 		if (!rl)
 			return (fprintf(stderr, "STDIN ERROR\n"));
+		else if (rl[0] == '\0')
+			continue ;
 		else
 			add_history(rl);
 		data.input = rl;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/02 17:54:20 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:48:43 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_check_built_ins(t_command *cmd, t_program_data *data)
 	if (!ft_strcmp(cmd->name, "env"))
 		ft_print_env(*data);
 	else if (!ft_strcmp(cmd->name, "echo"))
-		ft_echo(0, cmd->args);
+		ft_echo(cmd->args, cmd->options);
 	else if (!ft_strcmp(cmd->name, "cd"))
 		printf("env detected\n");
 	else if (!ft_strcmp(cmd->name, "pwd"))
