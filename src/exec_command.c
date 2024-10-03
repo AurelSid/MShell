@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/03 16:00:30 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:12:30 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ int	ft_check_built_ins(t_command *cmd, t_program_data *data)
 	else if (!ft_strcmp(cmd->name, "exit"))
 		printf("env detected\n");
 	else
-	{
 		return (1);
-		fprintf(stderr, "Not built in\n");
-	}
-	fprintf(stderr, "\n** Built in **\n");
 	return (0);
 }
 char	**ft_args_to_line(t_command *cmd)
@@ -74,8 +70,8 @@ void	ft_free_split(char **strs)
 
 int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
-	int pipe_fd[2];
-	pid_t process_id;
+	int		pipe_fd[2];
+	pid_t	process_id;
 
 	if (cmd->next == NULL)
 	{
@@ -86,7 +82,6 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 			if (ft_check_built_ins(cmd, data) == 1)
 				execve(cmd->path, ft_args_to_line(cmd), env);
 		}
-
 		wait(0);
 	}
 	else
