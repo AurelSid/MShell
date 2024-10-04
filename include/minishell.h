@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/04 16:28:43 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/04 19:49:50 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ typedef struct s_program_data
 	int						exit_status;
 }							t_program_data;
 
-int							ft_new_redirection(char *redirection_filename,
-								t_command *command, int type);
+t_redirection				*ft_new_redirection(char *redirection_filename,
+								t_redirection *r_list, int type);
 void						ft_print_tokens(t_program_data *data);
 void						ft_print_tokens_list(t_program_data data);
 int							ft_new_token(char *token_name, t_program_data *data,
@@ -93,7 +93,8 @@ void						ft_print_commands(t_program_data data);
 int							ft_fake_command(t_program_data *data, char *name,
 								char *options, char *args);
 int							ft_tokens_fill_list(t_program_data *data);
-int							ft_apply_redir(t_command *command,t_program_data *data);
+int							ft_apply_redir(t_command *command,
+								t_program_data *data);
 int							ft_check_all_access(t_program_data *data);
 void						ft_print_env(t_program_data data);
 void						ft_add_env(t_env **lst, t_env *new);
@@ -116,7 +117,7 @@ void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd,
 								t_program_data *data);
 
-//char						*ft_strjoin_free(char *s1, char *s2);
+// char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
 

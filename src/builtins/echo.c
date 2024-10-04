@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/04 16:23:50 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/04 18:29:18 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*ft_check_spchar(char *arg, t_program_data data)
 	if (!tmp || (tmp[1]) != '?')
 		return (arg);
 	start = ft_substr(arg, 0, ft_strlen(arg)
-			- (ft_strlen(tmp) + 1));
+			- (ft_strlen(tmp)));
 	end = ft_strjoin(start, ft_itoa(data.exit_status));
 	end = ft_strjoin(end, (tmp + 2));
 	free(arg);
@@ -58,7 +58,7 @@ void	ft_echo(char *arg, char *opt, t_program_data data)
 	args = ft_split(arg, ' ');
 	while (args[i])
 	{
-		arg = ft_check_spchar(arg, data);
+		args[i] = ft_check_spchar(args[i], data);
 		printf("%s ", args[i]);
 		i++;
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fake_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/19 16:23:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:43:52 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_fake_list(t_program_data *data)
+/* int	ft_fake_list(t_program_data *data)
 {
 	ft_new_token("cat", data, 1);
 	ft_new_token("\"hello\"", data, 1);
@@ -30,4 +30,4 @@ int	ft_fake_command(t_program_data *data, char *name, char *options, char *args)
 	ft_new_redirection("test.txt", new_command, REDIRECT_IN);
 
 	return (0);
-}
+} */
