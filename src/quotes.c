@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/03 13:43:25 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/04 13:27:08 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	unsigned int	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (1);
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
@@ -40,7 +42,7 @@ int	ft_search_env(char **var, t_program_data data)
 }
 
 /*				/!\	LEAKS IN STRJOIN /!\				*/
-/*				  NOT ANYMORE I THINK					*/
+/*					NOT ANYMORE I THINK					*/
 void	ft_db_quotes(t_token *token, t_program_data data)
 {
 	char	*found;
@@ -59,12 +61,12 @@ void	ft_db_quotes(t_token *token, t_program_data data)
 	found = ft_substr(tmp, 0, i);
 	if (ft_search_env(&found, data) == 0)
 		return ;
-	start = ft_substr(token->content, 0,
-			ft_strlen(token->content) - (ft_strlen(tmp) + 1));
+	start = ft_substr(token->content, 0, ft_strlen(token->content)
+			- (ft_strlen(tmp) + 1));
 	end = ft_strjoin(start, found);
 	end = ft_strjoin(end, (tmp + i));
 	token->content = end;
 	free(start);
-	//free(tmp);
+	// free(tmp);
 	free(found);
 }

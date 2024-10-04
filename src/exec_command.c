@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/03 17:03:05 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:36:41 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,64 +55,63 @@ char	**ft_args_to_line(t_command *cmd)
 	return (line_split);
 }
 
-void	ft_free_split(char **strs)
-{
-	int	i;
 
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+void	ft_setup_child_signals(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
 
-int	ft_exec(t_command *cmd, char **env, t_program_data *data)
+void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
+{
+	pid_t	process_id;
+	int		status;
+
+	process_id = fork();
+	if (process_id == 0)
+	{
+		ft_setup_child_signals();
+		if (ft_check_built_ins(cmd, data) == 1 && cmd->name)
+			execve(cmd->path, ft_args_to_line(cmd), env);
+		exit(0);
+	}
+	waitpid(process_id, &status, 0);
+}
+
+void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)
 {
 	int		pipe_fd[2];
 	pid_t	process_id;
 	int		status;
 
-	signal(SIGINT, SIG_IGN);
-
-	if (cmd->next == NULL)
+	if (pipe(pipe_fd) == -1)
+		exit(0);
+	process_id = fork();
+	if (process_id == 0)
 	{
-		process_id = fork();
-		if (process_id == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			if (ft_check_built_ins(cmd, data) == 1)
-				execve(cmd->path, ft_args_to_line(cmd), env);
-			exit(0);
-		}
-		waitpid(process_id, &status, 0);
+		ft_setup_child_signals();
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[0]);
+		if (ft_check_built_ins(cmd, data) == 1 && cmd->name)
+			execve(cmd->path, ft_args_to_line(cmd), env);
+		exit(0);
 	}
 	else
 	{
-		if (pipe(pipe_fd) == -1)
-			exit(0);
-		process_id = fork();
-		if (process_id == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			dup2(pipe_fd[1], 1);
-			close(pipe_fd[0]);
-			if (ft_check_built_ins(cmd, data) == 1)
-				execve(cmd->path, ft_args_to_line(cmd), env);
-			exit(0);
-		}
-		else
-		{
-			close(pipe_fd[1]);
-			dup2(pipe_fd[0], 0);
-			close(pipe_fd[0]);
-			waitpid(process_id, &status, 0);
-		}
+		close(pipe_fd[1]);
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[0]);
+		waitpid(process_id, &status, 0);
 	}
+}
+
+int	ft_exec(t_command *cmd, char **env, t_program_data *data)
+{
+	signal(SIGINT, SIG_IGN);
+	if (cmd->next == NULL)
+		ft_exec_single_command(cmd, env, data);
+	else
+		ft_exec_piped_command(cmd, env, data);
 	signal(SIGINT, ft_handle_signals);
 	return (0);
 }
-

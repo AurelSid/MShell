@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/03 15:34:43 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:52:18 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
 	}
 	if (in && in->type == REDIRECT_HEREDOC)
 	{
-		printf("executing limiter\n");
 		ft_limiter_exec(in);
 	}
 	else if (out && out->type == REDIRECT_OUT)
@@ -54,10 +53,8 @@ int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
 				0644);
 		dup2(cmd->output_fd, 1);
 	}
-	if (cmd->input_fd < 0)
-		printf("Error opening file");
-	if (cmd->input_fd < 0)
-		printf("Error opening file");
+	if (in && in < 0 && in->type != REDIRECT_HEREDOC)
+		fprintf(stderr, "bash: %s: No such file or directory\n", in->filename);
 	return (0);
 }
 

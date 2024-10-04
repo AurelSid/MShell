@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/03 15:47:15 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/04 13:34:49 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ void						ft_pwd(void);
 void						ft_clean_tokens(t_program_data *data);
 void						ft_clean_commands(t_program_data *data);
 void						ft_clean_redirections(t_command *cmd);
-void						ft_exit_free(t_program_data *data);
+void						ft_exit_free(t_program_data *data, char *exit_msg);
+void						ft_free_split(char **strs);
 
 void						send_error(char *error);
 
