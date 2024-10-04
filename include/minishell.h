@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/04 13:34:49 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:23:40 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_program_data
 	int						original_stdin;
 	int						original_stdout;
 	t_env					*env;
+	int						exit_status;
 }							t_program_data;
 
 int							ft_new_redirection(char *redirection_filename,
@@ -115,12 +116,12 @@ void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd,
 								t_program_data *data);
 
-char						*ft_strjoin_free(char *s1, char *s2);
+//char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
 
 void						ft_cd(char *arg);
-void						ft_echo(char *arg, char *opt);
+void						ft_echo(char *arg, char *opt, t_program_data data);
 void						ft_export(t_program_data *data, char *arg);
 void						ft_pwd(void);
 void						ft_clean_tokens(t_program_data *data);
