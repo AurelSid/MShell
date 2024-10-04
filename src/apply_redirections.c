@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/04 16:08:36 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:32:37 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,17 @@ int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd,
 	}
 	if (in && in->type == REDIRECT_HEREDOC)
 	{
-		dup2(data->original_stdin, STDIN_FILENO);
+		(void)data;
 		ft_limiter_exec(in);
 	}
-	else if (out && out->type == REDIRECT_OUT)
+	if (out && out->type == REDIRECT_OUT)
 	{
+		fprintf(stderr, "redirectied out\n");
 		cmd->output_fd = open(out->filename, O_WRONLY | O_TRUNC | O_CREAT,
 				0644);
 		dup2(cmd->output_fd, 1);
 	}
-	else if (out && out->type == REDIRECT_APPEND)
+	if (out && out->type == REDIRECT_APPEND)
 	{
 		cmd->output_fd = open(out->filename, O_WRONLY | O_APPEND | O_CREAT,
 				0644);
@@ -81,5 +82,15 @@ int	ft_apply_redir(t_command *command, t_program_data *data)
 		redir = redir->next;
 	}
 	ft_open_file(last_in, last_out, command, data);
+	if (!last_in && !last_out)
+	{
+		fprintf(stderr, "No redirection\n");
+	}
+	else
+	{
+		fprintf(stderr, "Last in : %s || Last out : %s\n",
+			last_in ? last_in->filename : "None",
+			last_out ? last_out->filename : "None");
+	}
 	return (0);
 }
