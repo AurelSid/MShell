@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/04 13:52:18 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:08:36 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	ft_set_redir_direction(t_command *cmd)
 		redir = redir->next;
 	}
 }
-int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
+int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd,
+		t_program_data *data)
 {
 	if (in && in->type == REDIRECT_IN)
 	{
@@ -39,6 +40,7 @@ int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
 	}
 	if (in && in->type == REDIRECT_HEREDOC)
 	{
+		dup2(data->original_stdin, STDIN_FILENO);
 		ft_limiter_exec(in);
 	}
 	else if (out && out->type == REDIRECT_OUT)
@@ -58,7 +60,7 @@ int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
 	return (0);
 }
 
-int	ft_apply_redir(t_command *command)
+int	ft_apply_redir(t_command *command, t_program_data *data)
 {
 	t_redirection	*redir;
 	t_redirection	*last_in;
@@ -78,9 +80,6 @@ int	ft_apply_redir(t_command *command)
 			last_out = redir;
 		redir = redir->next;
 	}
-	// printf("Last in: %s || Last out: %s\n",
-	// 	last_in ? last_in->filename : "None",
-	// 	last_out ? last_out->filename : "None");
-	ft_open_file(last_in, last_out, command);
+	ft_open_file(last_in, last_out, command, data);
 	return (0);
 }

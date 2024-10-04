@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/04 16:23:40 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/04 16:28:43 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void						ft_print_commands(t_program_data data);
 int							ft_fake_command(t_program_data *data, char *name,
 								char *options, char *args);
 int							ft_tokens_fill_list(t_program_data *data);
-int							ft_apply_redir(t_command *command);
+int							ft_apply_redir(t_command *command,t_program_data *data);
 int							ft_check_all_access(t_program_data *data);
 void						ft_print_env(t_program_data data);
 void						ft_add_env(t_env **lst, t_env *new);
