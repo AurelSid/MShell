@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/04 14:05:06 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:15:51 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	ft_process_input(t_program_data *data)
 	if (!rl)
 		return (0);
 	if (rl[0] != '\0')
-		add_history(rl);
+		{
+			add_history(rl);
+		}
 	data->input = rl;
 	ft_tokens_fill_list(data);
 	ft_commands_fill_list(data);
@@ -61,7 +63,7 @@ int	ft_execute_commands(t_program_data *data, char **env)
 	}
 	while (tmp_cmd)
 	{
-		ft_apply_redir(tmp_cmd);
+		ft_apply_redir(tmp_cmd, data);
 		ft_exec(tmp_cmd, env, data);
 		tmp_cmd = tmp_cmd->next;
 	}
