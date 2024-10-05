@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_redirection_node.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/23 13:18:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:49:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,21 @@ void	ft_add_redirection(t_redirection **top, t_redirection *new)
 	current->next = new;
 }
 
-int	ft_new_redirection(char *redirection_filename, t_command *command, int type)
+t_redirection	*ft_new_redirection(char *redirection_filename,
+		t_redirection *r_list, int type)
 {
 	t_redirection	*new_redirection;
 
 	new_redirection = malloc(sizeof(t_redirection));
 	if (new_redirection == NULL)
-		return (1);
+		return (NULL);
 	new_redirection->filename = ft_strdup(redirection_filename);
 	new_redirection->type = type;
 	new_redirection->next = NULL;
 	new_redirection->prev = NULL;
-	if (command->redirection_list == NULL)
-	{
-		command->redirection_list = new_redirection;
-	}
+	if (r_list == NULL)
+		r_list = new_redirection;
 	else
-	{
-		ft_add_redirection(&command->redirection_list, new_redirection);
-	}
-	return (0);
+		ft_add_redirection(&r_list, new_redirection);
+	return (r_list);
 }
