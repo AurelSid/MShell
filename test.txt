@@ -1,1 +1,13 @@
-jjjj 
+total 192
+drwxr-xr-x  12 asideris  2024_s19    408 Oct  5 17:20 .
+drwxr-xr-x   6 asideris  2024_s19    204 Oct  2 16:18 ..
+drwxr-xr-x  15 asideris  2024_s19    510 Oct  5 17:19 .git
+drwxr-xr-x   4 asideris  2024_s19    136 Oct  5 15:00 .vscode
+-rw-r--r--   1 asideris  2024_s19   9722 Oct  5 15:03 Makefile
+drwxr-xr-x   5 asideris  2024_s19    170 Oct  5 15:07 include
+-rwxr-xr-x   1 asideris  2024_s19  78280 Oct  5 17:19 minishell
+drwxr-xr-x  41 asideris  2024_s19   1394 Oct  5 17:19 objs
+drwxr-xr-x  24 asideris  2024_s19    816 Oct  5 15:07 src
+-rw-r--r--   1 asideris  2024_s19      0 Oct  5 17:20 test.txt
+-rw-r--r--   1 asideris  2024_s19      7 Oct  5 16:48 tst
+-rw-r--r--   1 asideris  2024_s19      0 Oct  5 17:20 ww

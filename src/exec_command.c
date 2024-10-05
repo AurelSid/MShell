@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/05 16:04:00 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/05 17:21:49 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,27 @@
 int	ft_check_built_ins(t_command *cmd, t_program_data *data)
 {
 	if (!ft_strcmp(cmd->name, "env"))
-		ft_print_env(*data);
+		printf("env detected\n");
+	else if (!ft_strcmp(cmd->name, "echo"))
+		ft_echo(cmd->args, cmd->options, *data);
+	else if (!ft_strcmp(cmd->name, "cd"))
+		printf("env detected\n");
+	else if (!ft_strcmp(cmd->name, "pwd"))
+		printf("env detected\n");
+	else if (!ft_strcmp(cmd->name, "export"))
+		printf("env detected\n");
+	else if (!ft_strcmp(cmd->name, "unset"))
+		printf("env detected\n");
+	else if (!ft_strcmp(cmd->name, "exit"))
+		printf("env detected\n");
+	else
+		return (1);
+	return (0);
+}
+int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
+{
+	if (!ft_strcmp(cmd->name, "env"))
+		printf("env detected\n");
 	else if (!ft_strcmp(cmd->name, "echo"))
 		ft_echo(cmd->args, cmd->options, *data);
 	else if (!ft_strcmp(cmd->name, "cd"))
@@ -55,7 +75,6 @@ char	**ft_args_to_line(t_command *cmd)
 	return (line_split);
 }
 
-
 void	ft_setup_child_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
@@ -71,7 +90,7 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 	if (process_id == 0)
 	{
 		ft_setup_child_signals();
-		if (ft_check_built_ins(cmd, data) == 1 && cmd->name)
+		if (ft_exec_built_ins(cmd, data) == 1 && cmd->name)
 			execve(cmd->path, ft_args_to_line(cmd), env);
 		exit(0);
 	}
@@ -92,7 +111,7 @@ void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)
 		ft_setup_child_signals();
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[0]);
-		if (ft_check_built_ins(cmd, data) == 1 && cmd->name)
+		if (ft_exec_built_ins(cmd, data) == 1 && cmd->name)
 			execve(cmd->path, ft_args_to_line(cmd), env);
 		exit(0);
 	}
