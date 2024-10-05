@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/03 12:11:10 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:03:09 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void						ft_print_commands(t_program_data data);
 int							ft_fake_command(t_program_data *data, char *name,
 								char *options, char *args);
 int							ft_tokens_fill_list(t_program_data *data);
-int							ft_apply_redir(t_command *command);
+int							ft_apply_redir(t_command *command,t_program_data *data);
 int							ft_check_all_access(t_program_data *data);
 void						ft_print_env(t_program_data data);
 void						ft_add_env(t_env **lst, t_env *new);
@@ -120,13 +120,14 @@ void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
 
 void						ft_cd(char *arg);
-void						ft_echo(char **arg, char *opt);
+void						ft_echo(char *arg, char *opt);
 void						ft_export(t_program_data *data, char *arg);
 void						ft_pwd(void);
 void						ft_clean_tokens(t_program_data *data);
 void						ft_clean_commands(t_program_data *data);
 void						ft_clean_redirections(t_command *cmd);
-void						ft_exit_free(t_program_data *data);
+void						ft_exit_free(t_program_data *data, char *exit_msg);
+void						ft_free_split(char **strs);
 
 void						send_error(char *error);
 

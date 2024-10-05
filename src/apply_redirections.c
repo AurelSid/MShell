@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/03 15:34:43 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:27:12 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	ft_set_redir_direction(t_command *cmd)
 		redir = redir->next;
 	}
 }
-int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
+int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd,
+		t_program_data *data)
 {
 	if (in && in->type == REDIRECT_IN)
 	{
@@ -39,29 +40,28 @@ int	ft_open_file(t_redirection *in, t_redirection *out, t_command *cmd)
 	}
 	if (in && in->type == REDIRECT_HEREDOC)
 	{
-		printf("executing limiter\n");
+		(void)data;
 		ft_limiter_exec(in);
 	}
-	else if (out && out->type == REDIRECT_OUT)
+	if (out && out->type == REDIRECT_OUT)
 	{
+		fprintf(stderr, "redirectied out\n");
 		cmd->output_fd = open(out->filename, O_WRONLY | O_TRUNC | O_CREAT,
 				0644);
 		dup2(cmd->output_fd, 1);
 	}
-	else if (out && out->type == REDIRECT_APPEND)
+	if (out && out->type == REDIRECT_APPEND)
 	{
 		cmd->output_fd = open(out->filename, O_WRONLY | O_APPEND | O_CREAT,
 				0644);
 		dup2(cmd->output_fd, 1);
 	}
-	if (cmd->input_fd < 0)
-		printf("Error opening file");
-	if (cmd->input_fd < 0)
-		printf("Error opening file");
+	if (in && in < 0 && in->type != REDIRECT_HEREDOC)
+		fprintf(stderr, "bash: %s: No such file or directory\n", in->filename);
 	return (0);
 }
 
-int	ft_apply_redir(t_command *command)
+int	ft_apply_redir(t_command *command, t_program_data *data)
 {
 	t_redirection	*redir;
 	t_redirection	*last_in;
@@ -81,9 +81,16 @@ int	ft_apply_redir(t_command *command)
 			last_out = redir;
 		redir = redir->next;
 	}
-	// printf("Last in: %s || Last out: %s\n",
-	// 	last_in ? last_in->filename : "None",
-	// 	last_out ? last_out->filename : "None");
-	ft_open_file(last_in, last_out, command);
+	ft_open_file(last_in, last_out, command, data);
+	if (!last_in && !last_out)
+	{
+		fprintf(stderr, "No redirection\n");
+	}
+	else
+	{
+		fprintf(stderr, "Last in : %s || Last out : %s\n",
+			last_in ? last_in->filename : "None",
+			last_out ? last_out->filename : "None");
+	}
 	return (0);
 }

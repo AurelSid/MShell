@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/01 18:56:18 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:53:41 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	ft_clean_commands(t_program_data *data)
 		free(tmp_command->name);
 		free(tmp_command->args);
 		free(tmp_command->options);
-		free(tmp_command->path);
+		if (tmp_command->path)
+			free(tmp_command->path);
 		tmp_command->path = NULL;
 		tmp_command = tmp_command->next;
 	}

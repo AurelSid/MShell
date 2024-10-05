@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/03 15:35:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:38:00 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	char		*r_arg;
 	char		*cmd_n;
 
-	// fprintf(stderr, "redirectio first found\n");
 	r_type = tmp->type;
 	tmp = tmp->next;
 	if (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
