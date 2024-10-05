@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/04 16:24:25 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/05 16:04:00 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int	ft_check_built_ins(t_command *cmd, t_program_data *data)
 	else if (!ft_strcmp(cmd->name, "echo"))
 		ft_echo(cmd->args, cmd->options, *data);
 	else if (!ft_strcmp(cmd->name, "cd"))
-		printf("env detected\n");
+		ft_cd(cmd->args);
 	else if (!ft_strcmp(cmd->name, "pwd"))
-		printf("env detected\n");
+		ft_pwd();
 	else if (!ft_strcmp(cmd->name, "export"))
-		printf("env detected\n");
+		ft_export(cmd->args, data);
 	else if (!ft_strcmp(cmd->name, "unset"))
-		printf("env detected\n");
+		ft_unset(cmd->args, data);
 	else if (!ft_strcmp(cmd->name, "exit"))
-		printf("env detected\n");
+		ft_exit(cmd->args);
 	else
 		return (1);
 	return (0);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
+#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/04 16:04:51 by asideris         ###   ########.fr        #
+#    Updated: 2024/10/05 16:08:59 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,9 @@ SRCS			= debug_utils.c add_token_node.c fake_structs.c  \
 				add_command_node.c add_redirection_node.c token.c \
  				apply_redirections.c check_access.c command.c env.c \
 				init_data.c quotes.c signals.c utils.c \
-				builtins/cd.c builtins/echo.c builtins/pwd.c \
-				builtins/export.c  here_doc.c exec_command.c clear_commands.c \
+				builtins/echo.c builtins/pwd.c builtins/export.c \
+				builtins/cd.c builtins/exit.c builtins/unset.c \
+				here_doc.c exec_command.c clear_commands.c \
 				exit.c
 
 MAIN			= main.c
