@@ -1,0 +1,7 @@
+Makefile
+include
+minishell
+objs
+src
+test.txt
+tst.txt
