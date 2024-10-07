@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/05 16:49:20 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:11:49 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int	ft_open_file(t_command *cmd, t_program_data *data)
 		if (redir && redir->type == REDIRECT_IN)
 			cmd->input_fd = open(redir->filename, O_RDONLY);
 		if (redir && redir->type == REDIRECT_HEREDOC)
+		{
+			dup2(data->original_stdin, STDIN_FILENO);
 			ft_limiter_exec(redir);
+		}
 		if (redir && redir->type == REDIRECT_OUT)
 			cmd->output_fd = open(redir->filename, O_WRONLY | O_TRUNC | O_CREAT,
 					0644);
