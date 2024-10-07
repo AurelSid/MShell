@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/05 16:49:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 13:09:31 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 void	ft_cd(const char *arg)
 {
-	printf("%s\n", arg);
-	if (arg[0] == '~' || ft_strcmp(arg, "-") == 0)
+	char	*tmp;
+
+	tmp = ft_strtrim(arg, " ");
+	if (!tmp || tmp[0] == '~')
+		tmp = getenv("HOME");
+	if (ft_strcmp(tmp, "-") == 0)
 		printf("Shortcuts are not supported\n");
-	//if (chdir(arg) == -1)
-		printf("output : %d\n", chdir(arg));
+	if (chdir(tmp) == -1)
+		printf("cd: %s: Is not a directory\n", arg);
+	free(tmp);
 }
