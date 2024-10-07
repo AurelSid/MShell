@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/07 16:17:29 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 17:56:14 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd);
 
-// char						*ft_strjoin_free(char *s1, char *s2);
+char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
 

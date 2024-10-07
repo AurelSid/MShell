@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/07 16:31:56 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:05:00 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 				tmp_str = ft_word(tmp->content, *data);
 			else
 				tmp_str = tmp->content;
-			*opt = ft_strjoin(*opt, tmp_str);
+			*opt = ft_strjoin_free(*opt, tmp_str);
 			tmp = tmp->next;
 			*opt = ft_strjoin(*opt, " ");
 		}
@@ -96,7 +96,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 				tmp_str = ft_word(tmp->content, *data);
 			else
 				tmp_str = tmp->content;
-			*args = ft_strjoin(*args, tmp_str);
+			*args = ft_strjoin_free(*args, tmp_str);
 			tmp = tmp->next;
 			*args = ft_strjoin(*args, " ");
 		}

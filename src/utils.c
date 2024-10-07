@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/03 13:44:50 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:04:45 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	send_error(char *error)
 	exit(1);
 }
 
-/* char	*ft_strjoin_free(char *s1, char *s2)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*join;
 	size_t	i;
@@ -33,7 +33,7 @@ void	send_error(char *error)
 		return (s1);
 	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!join)
-		return (free(&s1), NULL);
+		return (free(s1), NULL);
 	i = -1;
 	while (s1 && s1[++i])
 		join[i] = s1[i];
@@ -41,8 +41,8 @@ void	send_error(char *error)
 	while (s1 && s2[++j])
 		join[i + j] = s2[j];
 	join[i + j] = '\0';
-	return (free(&s1), join);
-} */
+	return (free(s1), join);
+}
 
 /*	LEAKS ON ENV COPY	*/
 t_env	*ft_env_sort(t_env *env)
