@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
+#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/07 14:51:15 by vpelc            ###   ########.fr        #
+#    Updated: 2024/10/07 15:43:42 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME	= minishell
 CC 		= clang -g3 
-CFLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -g 
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= Asideris_Vpelc
 DATE	= 31/05/2024
@@ -40,7 +40,7 @@ SRCS			= debug_utils.c add_token_node.c fake_structs.c  \
 				builtins/echo.c builtins/pwd.c builtins/export.c \
 				builtins/cd.c builtins/exit.c builtins/unset.c \
 				here_doc.c exec_command.c clear_commands.c \
-				exit.c
+				exit.c free.c
 
 MAIN			= main.c
 

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/03 17:53:41 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:56:15 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ void	ft_clean_commands(t_program_data *data)
 	t_command	*tmp_command;
 
 	tmp_command = data->command_top;
-	// fprintf(stderr, "Cleaning commands content\n");
 	while (tmp_command)
 	{
-		// fprintf(stderr, "Cleaning command...\n");
 		ft_clean_redirections(tmp_command);
-		free(tmp_command->name);
-		free(tmp_command->args);
-		free(tmp_command->options);
-		if (tmp_command->path)
-			free(tmp_command->path);
+		free(tmp_command->path);
 		tmp_command->path = NULL;
+		if (tmp_command->name)
+			free(tmp_command->name);
+		tmp_command->name = NULL;
+		free(tmp_command->args);
+		tmp_command->args = NULL;
+		free(tmp_command->options);
+		tmp_command->options = NULL;
 		tmp_command = tmp_command->next;
 	}
-	// fprintf(stderr, "Cleaning commands poiters\n");
 	ft_free_commands(data);
 }
 
@@ -59,6 +59,7 @@ void	ft_clean_tokens(t_program_data *data)
 	{
 		free(tmp_token->content);
 		to_free = tmp_token;
+		to_free = NULL;
 		tmp_token = tmp_token->next;
 		free(to_free);
 	}
@@ -66,8 +67,8 @@ void	ft_clean_tokens(t_program_data *data)
 }
 void	ft_clean_redirections(t_command *cmd)
 {
-	t_redirection *tmp_red;
-	t_redirection *to_free;
+	t_redirection	*tmp_red;
+	t_redirection	*to_free;
 
 	tmp_red = cmd->redirection_list;
 	while (tmp_red)

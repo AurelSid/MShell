@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:24:24 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 16:35:00 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:27:49 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,16 @@ void	ft_free_split(char **tab)
 
 void	ft_free_env(t_env *env)
 {
-	t_env	*tmp;
+	t_env	*temp;
 
-	tmp = env->next;
 	while (env)
 	{
 		free(env->var_name);
+		env->var_name = NULL;
 		free(env->content);
+		env->content = NULL;
+		temp = env->next;
 		free(env);
-		env = NULL;
-		env = tmp;
-		if (env->next)
-			tmp = tmp->next;
+		env = temp;
 	}
 }

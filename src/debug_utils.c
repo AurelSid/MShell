@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/10/05 16:52:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:44:10 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,3 @@ void	check_stdio_fds(void)
 	fprintf(stderr, " \n---------------------------------- \n");
 }
 
-void	ft_free_split(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 12:10:31 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 15:53:11 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,21 @@ int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
 }
 char	**ft_args_to_line(t_command *cmd)
 {
-	char	*tmp_line;
+	char	*tmp_line_1;
+	char	*tmp_line_2;
+	char	*tmp_line_3;
 	char	*line;
 	char	**line_split;
 	int		i;
 
 	i = 0;
-	tmp_line = ft_strjoin(cmd->name, " ");
-	tmp_line = ft_strjoin(tmp_line, cmd->options);
-	tmp_line = ft_strjoin(tmp_line, " ");
-	line = ft_strjoin(tmp_line, cmd->args);
-	free(tmp_line);
+	tmp_line_1 = ft_strjoin(cmd->name, " ");
+	tmp_line_2 = ft_strjoin(tmp_line_1, cmd->options);
+	free(tmp_line_1);
+	tmp_line_3 = ft_strjoin(tmp_line_2, " ");
+	free(tmp_line_3);
+	line = ft_strjoin(tmp_line_2, cmd->args);
+	free(tmp_line_2);
 	line_split = ft_split(line, ' ');
 	free(line);
 	while (line_split[i])
