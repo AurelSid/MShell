@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 12:10:31 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 16:16:25 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
 	else if (!ft_strcmp(cmd->name, "unset"))
 		ft_unset(cmd->args, data);
 	else if (!ft_strcmp(cmd->name, "exit"))
-		ft_exit(cmd->args);
+		ft_exit(cmd->args, *data);
 	else
 		return (1);
 	return (0);
@@ -76,7 +76,7 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 	pid_t	process_id;
 	int		status;
 
-	if (ft_check_built_ins(cmd) == 0)
+	if (ft_check_built_ins(cmd) == 0 && data->command_top->next == NULL)
 		ft_exec_built_ins(cmd, data);
 	else
 	{
@@ -84,11 +84,13 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 		if (process_id == 0)
 		{
 			ft_setup_child_signals();
-			if (cmd->name)
+			if (ft_exec_built_ins(cmd, data) == 1 && cmd->name)
 				execve(cmd->path, ft_args_to_line(cmd), env);
 			exit(data->exit_status);
 		}
 		waitpid(process_id, &status, 0);
+		if (WIFEXITED(status))
+			data->exit_status = WEXITSTATUS(status);
 	}
 }
 
@@ -116,6 +118,8 @@ void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		waitpid(process_id, &status, 0);
+		if (WIFEXITED(status))
+			data->exit_status = WEXITSTATUS(status);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/07 15:34:13 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 16:31:56 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,13 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
 					|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 		{
-			*opt = ft_strjoin(*opt, tmp->content);
+			if (tmp->type == DOUBLE_QUOTE)
+				tmp_str = ft_db_quotes(tmp->content, *data);
+			else if (tmp->type == WORD)
+				tmp_str = ft_word(tmp->content, *data);
+			else
+				tmp_str = tmp->content;
+			*opt = ft_strjoin(*opt, tmp_str);
 			tmp = tmp->next;
 			*opt = ft_strjoin(*opt, " ");
 		}

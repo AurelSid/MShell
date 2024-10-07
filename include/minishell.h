@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/07 15:27:56 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 16:17:29 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void						ft_echo(char *arg, char *opt, t_program_data data);
 void						ft_export(char *arg, t_program_data *data);
 void						ft_pwd(void);
 void						ft_unset(char *arg, t_program_data *data);
-void						ft_exit(char *arg);
+void						ft_exit(char *arg, t_program_data data);
 
 void						ft_clean_tokens(t_program_data *data);
 void						ft_clean_commands(t_program_data *data);
