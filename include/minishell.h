@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/07 11:43:56 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 15:27:56 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ t_env						*ft_env_copy_2(t_env *env);
 t_env						*ft_env_sort(t_env *env);
 void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
-void						ft_db_quotes(t_token *token, t_program_data data);
+char						*ft_db_quotes(char *token, t_program_data data);
+char						*ft_word(char *token, t_program_data data);
 char						**ft_args_to_line(t_command *cmd);
 
 int							ft_exec(t_command *cmd, char **env,
