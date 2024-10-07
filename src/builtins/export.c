@@ -6,13 +6,13 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 16:42:11 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/05 16:01:06 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_export(t_program_data *data, char *arg)
+void	ft_export(char *arg, t_program_data *data)
 {
 	t_env	*tmp;
 	char	**split;
