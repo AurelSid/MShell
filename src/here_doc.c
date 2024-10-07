@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:37:09 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/04 15:03:57 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:11:18 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_limiter_exec(t_redirection *in)
 {
 	int		pipe_fd[2];
 	pid_t	process_id;
+
 
 	if (pipe(pipe_fd) == -1)
 		exit(1);

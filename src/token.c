@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/03 13:49:24 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:56:40 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_handle_quotes(char type, t_program_data *data, int index)
 	while (data->input[i] != type && data->input[i])
 		i++;
 	if (i >= (int)ft_strlen(data->input))
-		return (printf("ERROR"));
+		return (printf("ERROR"));		// ---> no error but skip the command
 	return (i - index);
 }
 
@@ -77,7 +77,7 @@ int	ft_tokens_fill_list(t_program_data *data)
 				return (-1);
 			i++;
 			if (i - 1 + len + 2 <= (int)ft_strlen(data->input))
-				ft_new_token(ft_substr(data->input, i - 1, (size_t)len + 2), data, DOUBLE_QUOTE);
+				ft_new_token(ft_substr(data->input, i, (size_t)len), data, DOUBLE_QUOTE);
 			else
 				return (-1);
 			i += len;
@@ -89,7 +89,7 @@ int	ft_tokens_fill_list(t_program_data *data)
 				return (-1);
 			i++;
 			if (i - 1 + len + 2 <= (int)ft_strlen(data->input))
-				ft_new_token(ft_substr(data->input, i - 1, (size_t)len + 2), data, SINGLE_QUOTE);
+				ft_new_token(ft_substr(data->input, i, (size_t)len), data, SINGLE_QUOTE);
 			else
 				return (-1);
 			i += len;

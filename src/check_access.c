@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/03 15:39:15 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:17:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int	ft_check_all_access(t_program_data *data)
 	found_working_path = 0;
 	cmd = data->command_top;
 	env = data->env;
+	if (cmd->name && !ft_check_built_ins(cmd, data))
+	{
+		fprintf(stderr, "BUILT IN \n");
+		return (0);
+	}
 	while (env && strcmp(env->var_name, "PATH") != 0)
 		env = env->next;
 	if (!env)
@@ -64,7 +69,7 @@ int	ft_check_all_access(t_program_data *data)
 				free(cmd_path);
 				cmd_path = ft_strdup("/bin/true");
 			}
-				// THERE SOULD BE LEAKS BUT CANNOT USE STRJOIN FREE
+			// THERE SOULD BE LEAKS BUT CANNOT USE STRJOIN FREE
 			if (access(cmd_path, F_OK) == 0)
 			{
 				// fprintf(stderr, "Access [%s] OK\n", cmd->name);
@@ -74,10 +79,11 @@ int	ft_check_all_access(t_program_data *data)
 			}
 			i++;
 		}
-		if (cmd->name && !found_working_path)
+		if (cmd->name && !found_working_path && ft_check_built_ins(cmd,
+				data) == 1)
 		{
 			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
-			return(1);
+			return (1);
 		}
 		cmd = cmd->next;
 	}

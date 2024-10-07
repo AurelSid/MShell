@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/04 18:38:00 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:07:27 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 		/!\ LEAKS ON STRJOIN /!\
 */
 
-t_token	*ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
+/* t_token	*ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
 		char **args, char **opt)
 {
 	t_command	*cmd;
@@ -48,22 +48,23 @@ t_token	*ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
 		tmp = tmp->next->next;
 	}
 	return (tmp);
-}
+} */
 
 t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		char **args, char **opt)
 {
-	t_command	*cmd;
-	t_type		r_type;
-	char		*r_arg;
-	char		*cmd_n;
+	t_command		*cmd;
+	t_redirection	*redir;
+	char			*cmd_n;
 
-	r_type = tmp->type;
-	tmp = tmp->next;
-	if (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
-			|| tmp->type == DOUBLE_QUOTE))
-		r_arg = tmp->content; // <----- check file
-	tmp = tmp->next;
+	redir = NULL;
+	while (tmp && ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
+			|| tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_APPEND)
+		&& tmp->next->type == WORD))
+	{
+		redir = ft_new_redirection(tmp->next->content, redir, tmp->type);
+		tmp = tmp->next->next;
+	}
 	if (!tmp || tmp->type == PIPE)
 		cmd_n = NULL;
 	else
@@ -87,17 +88,17 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		}
 	}
 	cmd = ft_new_command(cmd_n, data, *args, *opt);
-	ft_new_redirection(r_arg, cmd, r_type);
 	while ((tmp && tmp->next) && tmp->type != PIPE)
 	{
 		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
 				|| tmp->type == REDIRECT_HEREDOC
 				|| tmp->type == REDIRECT_APPEND) && tmp->next->type == WORD)
-			ft_new_redirection(tmp->next->content, cmd, tmp->type);
+			redir = ft_new_redirection(tmp->next->content, redir, tmp->type);
 		else
 			printf("ERROR\n");
 		tmp = tmp->next->next;
 	}
+	cmd->redirection_list = redir;
 	return (tmp);
 }
 
@@ -114,12 +115,12 @@ void	ft_commands_fill_list(t_program_data *data)
 	if (!args)
 		return ;
 	tmp = data->token_top;
-	if (tmp->type >= REDIRECT_IN && tmp->type <= REDIRECT_APPEND)
+//	if (tmp->type >= REDIRECT_IN && tmp->type <= REDIRECT_APPEND)
 		tmp = ft_commands_fill_list_r(data, tmp, &args, &opt);
-	else if (tmp->type == WORD)
-		tmp = ft_commands_fill_list_c(data, tmp, &args, &opt);
-	else
-		printf("ERROR\n");
+//	else if (tmp->type == WORD)
+//		tmp = ft_commands_fill_list_c(data, tmp, &args, &opt);
+//	else
+//		printf("ERROR\n");
 	if ((tmp && tmp->next) && tmp->type == PIPE)
 	{
 		tmp = tmp->next;
