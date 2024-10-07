@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/07 13:01:21 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/07 14:41:55 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	ft_check_opt(char *opt)
 	char	**opts;
 
 	i = 0;
+	if (!opt[i])
+		return (1);
 	opts = ft_split(opt, ' ');
 	while (opts[i])
 	{
@@ -63,8 +65,10 @@ void	ft_echo(char *arg, char *opt, t_program_data data)
 	args = ft_split(arg, ' ');
 	while (args[i])
 	{
+		if (i != 0)
+			printf(" ");
 		args[i] = ft_check_spchar(args[i], data);
-		printf("%s ", args[i]);
+		printf("%s", args[i]);
 		i++;
 	}
 	if (ft_check_opt(opt))

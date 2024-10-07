@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/05 15:07:27 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:48:44 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	char			*cmd_n;
 
 	redir = NULL;
-	while (tmp && ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
-			|| tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_APPEND)
-		&& tmp->next->type == WORD))
+	while (tmp && ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_APPEND
+				|| tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_OUT)
+			&& (tmp->next->type == WORD || tmp->next->type == DOUBLE_QUOTE
+				|| tmp->next->type == SINGLE_QUOTE)))
 	{
 		redir = ft_new_redirection(tmp->next->content, redir, tmp->type);
 		tmp = tmp->next->next;
@@ -92,7 +93,9 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	{
 		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
 				|| tmp->type == REDIRECT_HEREDOC
-				|| tmp->type == REDIRECT_APPEND) && tmp->next->type == WORD)
+				|| tmp->type == REDIRECT_APPEND)
+			&& (tmp->next->type == WORD || tmp->next->type == SINGLE_QUOTE
+				|| tmp->next->type == DOUBLE_QUOTE))
 			redir = ft_new_redirection(tmp->next->content, redir, tmp->type);
 		else
 			printf("ERROR\n");
