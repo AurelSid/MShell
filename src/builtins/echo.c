@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/07 19:01:02 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/08 11:14:15 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,15 @@ static char	*ft_check_spchar(char *arg, t_program_data data)
 	return (end);
 }
 
-void	ft_echo(char *arg, char *opt, t_program_data data)
+void	ft_echo(t_command *cmd, t_program_data data)
 {
 	int		i;
 	int		opt_i;
 	char	**args;
 
 	i = 0;
-	args = ft_split(arg, ' ');
-	opt_i = ft_check_opt(opt, arg);
+	args = ft_split(cmd->args, ' ');
+	opt_i = ft_check_opt(cmd->options, cmd->args);
 	while (args[i])
 	{
 		if (i != 0)

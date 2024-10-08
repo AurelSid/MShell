@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/07 17:56:14 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/08 11:13:21 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,13 @@ char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
 
-void						ft_env(t_program_data data);
-void						ft_cd(const char *arg);
-void						ft_echo(char *arg, char *opt, t_program_data data);
-void						ft_export(char *arg, t_program_data *data);
+void						ft_env(t_command *cmd, t_program_data data);
+void						ft_cd(t_command *cmd);
+void						ft_echo(t_command *cmd, t_program_data data);
+void						ft_export(t_command *cmd, t_program_data *data);
 void						ft_pwd(void);
-void						ft_unset(char *arg, t_program_data *data);
-void						ft_exit(char *arg, t_program_data data);
+void						ft_unset(t_command *cmd, t_program_data *data);
+void						ft_exit(t_command *cmd, t_program_data data);
 
 void						ft_clean_tokens(t_program_data *data);
 void						ft_clean_commands(t_program_data *data);
