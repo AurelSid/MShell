@@ -6,29 +6,16 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/08 12:58:18 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/08 14:54:38 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	ft_env_exist(char *var, t_env *env)
-{
-	var++;
-	while (env)
-	{
-		if (strcmp(env->var_name, var) == 0)
-			return (1);
-		env = env->next;
-	}
-	return (0);
-}
-
 void	ft_export_empty(t_program_data *data)
 {
 	t_env	*tmp;
 
-//	printf("hi\n");
 	tmp = ft_env_sort(data->env);
 	while (tmp)
 	{
@@ -46,8 +33,6 @@ void	ft_export_var(char *arg, t_program_data *data)
 	t_env	*tmp;
 
 	split = ft_split(arg, '=');
-	if (!ft_env_exist(split[0], data->env))
-		return (ft_free_split(split));
 	if (ft_strchr(arg, '='))
 	{
 		tmp = malloc(sizeof(t_env));
@@ -72,7 +57,7 @@ void	ft_export(t_command *cmd, t_program_data *data)
 	char	**split;
 	int		i;
 
-	if (!cmd->args[0])
+	if (!cmd->args)
 		ft_export_empty(data);
 	else
 	{

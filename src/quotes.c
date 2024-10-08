@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/07 17:48:44 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/08 14:58:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ char	*ft_db_quotes(char *token, t_program_data data)
 		i++;
 	found = ft_substr(tmp, 0, i);
 	if (ft_search_env(&found, data) == 0)
-		return (token);
+		found = NULL;
 	start = ft_substr(token, 0, ft_strlen(token)
 			- (ft_strlen(tmp) + 1));
-	end = ft_strjoin(start, found);
+	end = ft_strjoin_free(start, found);
 	end = ft_strjoin(end, (tmp + i));
 	free(start);
-	// free(token);
+	free(token);
 	free(found);
 	return (end);
 }
@@ -88,13 +88,13 @@ char	*ft_word(char *token, t_program_data data)
 		i++;
 	found = ft_substr(tmp, 0, i);
 	if (ft_search_env(&found, data) == 0)
-		return (NULL);
+		found = NULL;
 	start = ft_substr(token, 0, ft_strlen(token)
 			- (ft_strlen(tmp) + 1));
-	end = ft_strjoin(start, found);
+	end = ft_strjoin_free(start, found);
 	end = ft_strjoin(end, (tmp + i));
 	free(start);
-	//free(token);
+	free(token);
 	free(found);
 	return (end);
 }
