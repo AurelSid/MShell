@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/08 11:14:15 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:55:35 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_check_opt(char *opt, char *arg)
 
 	i = 0;
 	result = 1;
-	if (!opt[i])
+	if (!opt)
 		return (1);
 	opts = ft_split(opt, ' ');
 	while (opts[i])

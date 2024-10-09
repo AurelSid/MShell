@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/08 14:29:06 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/09 14:04:46 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void						ft_exit_free(t_program_data *data, char *exit_msg);
 void						ft_free_split(char **strs);
 
 void						send_error(char *error);
+char						*ft_spchar(char *var, t_program_data *data);
 
 typedef enum s_token_type
 {

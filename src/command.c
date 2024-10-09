@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/08 14:58:52 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/09 14:44:50 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 			if (tmp->type == DOUBLE_QUOTE)
 				tmp_str = ft_db_quotes(tmp->content, *data);
 			else if (tmp->type == WORD)
-				tmp_str = ft_word(tmp->content, *data);
+				tmp_str = ft_spchar(tmp->content, data);
 			else
 				tmp_str = tmp->content;
 			*opt = ft_strjoin_free(*opt, tmp_str);
@@ -90,10 +90,10 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
 				|| tmp->type == DOUBLE_QUOTE))
 		{
-			if (tmp->type == DOUBLE_QUOTE)
+			if (tmp->type == DOUBLE_QUOTE && ft_strcmp(cmd_n, "export"))
 				tmp_str = ft_db_quotes(tmp->content, *data);
-			else if (tmp->type == WORD)
-				tmp_str = ft_word(tmp->content, *data);
+			else if (tmp->type == WORD && ft_strcmp(cmd_n, "export"))
+				tmp_str = ft_spchar(tmp->content, data);
 			else
 				tmp_str = tmp->content;
 			*args = ft_strjoin_free(*args, tmp_str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roko <roko@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:22:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/01 15:50:18 by roko             ###   ########.fr       */
+/*   Updated: 2024/10/09 16:01:15 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		dst[cur] = src[cur];
 		cur++;
 	}
+	dst[cur] = 0;
+	return (ft_strlen(src));
 }
-dst[cur] = 0;
-return (ft_strlen(src));
+
 
 int	ft_len(const char *str)
 {

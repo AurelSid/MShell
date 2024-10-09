@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/08 14:58:24 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/09 14:05:09 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,3 @@ char	*ft_db_quotes(char *token, t_program_data data)
 	return (end);
 }
 
-char	*ft_word(char *token, t_program_data data)
-{
-	char	*found;
-	char	*start;
-	char	*end;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = ft_strchr(token, '$');
-	if (!tmp)
-		return (token);
-	tmp += 1;
-	while (tmp[i] != ' ' && tmp[i])
-		i++;
-	found = ft_substr(tmp, 0, i);
-	if (ft_search_env(&found, data) == 0)
-		found = NULL;
-	start = ft_substr(token, 0, ft_strlen(token)
-			- (ft_strlen(tmp) + 1));
-	end = ft_strjoin_free(start, found);
-	end = ft_strjoin(end, (tmp + i));
-	free(start);
-	free(token);
-	free(found);
-	return (end);
-}
