@@ -3,52 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/07 14:48:44 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/09 19:37:29 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*
-		/!\ LEAKS ON STRJOIN /!\
-*/
 
-/* t_token	*ft_commands_fill_list_c(t_program_data *data, t_token *tmp,
-		char **args, char **opt)
-{
-	t_command	*cmd;
-
-	tmp = tmp->next;
-	while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
-				|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
-	{
-		*opt = ft_strjoin(*opt, tmp->content);
-		tmp = tmp->next;
-		*opt = ft_strjoin(*opt, " ");
-	}
-	while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
-			|| tmp->type == DOUBLE_QUOTE))
-	{
-		*args = ft_strjoin(*args, tmp->content);
-		tmp = tmp->next;
-		*args = ft_strjoin(*args, " ");
-	}
-	cmd = ft_new_command(data->token_top->content, data, *args, *opt);
-	while ((tmp && tmp->next) && tmp->type != PIPE)
-	{
-		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
-				|| tmp->type == REDIRECT_HEREDOC
-				|| tmp->type == REDIRECT_APPEND) && tmp->next->type == WORD)
-			ft_new_redirection(tmp->next->content, cmd, tmp->type);
-		else
-			printf("ERROR\n");
-		tmp = tmp->next->next;
-	}
-	return (tmp);
-} */
 
 t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		char **args, char **opt)
