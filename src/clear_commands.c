@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/07 18:56:15 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:45:24 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_clean_tokens(t_program_data *data)
 	t_token	*tmp_token;
 	t_token	*to_free;
 
-	tmp_token = data->token_top;
+	tmp_token =  data->token_top;
 	while (tmp_token)
 	{
 		free(tmp_token->content);

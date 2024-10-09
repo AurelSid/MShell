@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 19:01:52 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:45:38 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 	ft_init_data(&data);
 	ft_env_copy(env, &data);
 	data.original_stdin = dup(STDIN_FILENO);
-	data.original_stdout = dup(STDOUT_FILENO);
+	 data.original_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
 		rl = readline("$> ");
