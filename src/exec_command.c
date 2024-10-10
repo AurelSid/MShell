@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/10 14:03:54 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:18:16 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**ft_args_to_line(t_command *cmd)
 	free(line);
 	while (line_split[i])
 	{
-		// printf("Args: [%s]\n", line_split[i]);
+		printf("Args: [%s]\n", line_split[i]);
 		i++;
 	}
 	return (line_split);
@@ -89,7 +89,12 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 		{
 			ft_setup_child_signals();
 			if (ft_exec_built_ins(cmd, data) == 1 && cmd->name)
+			{
 				execve(cmd->path, ft_args_to_line(cmd), env);
+				dup2(data->original_stdout, STDOUT_FILENO);
+				dup2(data->original_stdin, STDIN_FILENO);
+				printf("hello\n");
+			}
 			exit(data->exit_status);
 		}
 		waitpid(process_id, &status, 0);
