@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 14:04:26 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/10 16:46:54 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ t_env	*ft_env_copy_2(t_env *env)
 	{
 		env_node = malloc(sizeof(t_env));
 		env_node->var_name = ft_strdup(env->var_name);
-		env_node->content = ft_strdup(env->content);
+		if (env->content)
+			env_node->content = ft_strdup(env->content);
+		else
+			env_node->content = NULL;
 		env_node->next = NULL;
 		env_node->prev = NULL;
 		if (env->prev == NULL)

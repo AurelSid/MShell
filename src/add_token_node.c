@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/09/20 17:42:58 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/10 16:09:22 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	ft_new_token(char *token_name, t_program_data *data, int type)
 	if (new_token == NULL)
 		return (1);
 	new_token->content = ft_strdup(token_name);
-	if (type == DOUBLE_QUOTE)
-		ft_db_quotes(new_token, *data);
 	new_token->type = type;
 	new_token->next = NULL;
 	new_token->prev = NULL;

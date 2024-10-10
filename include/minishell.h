@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/07 11:43:56 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/10 16:10:41 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ t_env						*ft_env_copy_2(t_env *env);
 t_env						*ft_env_sort(t_env *env);
 void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
-void						ft_db_quotes(t_token *token, t_program_data data);
+char						*ft_db_quotes(char *token, t_program_data data);
+char						*ft_spchar(char *token, t_program_data *data);
 char						**ft_args_to_line(t_command *cmd);
 
 int							ft_exec(t_command *cmd, char **env,
@@ -115,18 +116,19 @@ void						ft_limiter_exec(t_redirection *in);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd);
+int							ft_search_env(char **var, t_program_data data);
 
-// char						*ft_strjoin_free(char *s1, char *s2);
+char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
 
-void						ft_env(t_program_data data);
-void						ft_cd(const char *arg);
-void						ft_echo(char *arg, char *opt, t_program_data data);
-void						ft_export(char *arg, t_program_data *data);
+void						ft_env(t_command *cmd, t_program_data data);
+void						ft_cd(t_command *cmd);
+void						ft_echo(t_command *cmd, t_program_data data);
+void						ft_export(t_command *cmd, t_program_data *data);
 void						ft_pwd(void);
-void						ft_unset(char *arg, t_program_data *data);
-void						ft_exit(char *arg);
+void						ft_unset(t_command *cmd, t_program_data *data);
+void						ft_exit(t_command *cmd, t_program_data data);
 
 void						ft_clean_tokens(t_program_data *data);
 void						ft_clean_commands(t_program_data *data);
