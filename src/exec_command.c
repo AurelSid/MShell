@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/10 16:13:53 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/11 16:46:19 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
 	else if (!ft_strcmp(cmd->name, "cd"))
 		ft_cd(cmd);
 	else if (!ft_strcmp(cmd->name, "pwd"))
-		ft_pwd();
+		ft_pwd(cmd);
 	else if (!ft_strcmp(cmd->name, "export"))
 		ft_export(cmd, data);
 	else if (!ft_strcmp(cmd->name, "unset"))

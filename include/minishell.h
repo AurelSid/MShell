@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/10 16:10:41 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/11 16:24:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void						ft_env(t_command *cmd, t_program_data data);
 void						ft_cd(t_command *cmd);
 void						ft_echo(t_command *cmd, t_program_data data);
 void						ft_export(t_command *cmd, t_program_data *data);
-void						ft_pwd(void);
+void						ft_pwd(t_command *cmd);
 void						ft_unset(t_command *cmd, t_program_data *data);
 void						ft_exit(t_command *cmd, t_program_data data);
 
