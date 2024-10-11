@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/11 15:57:54 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:26:57 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	main(int argc, char **argv, char **env)
 		}
 		process_command(&data, env);
 		cleanup_and_exit(&data);
+		if (rl)
+			free(rl);
 	}
 	ft_free_env(&data);
 	return (0);
