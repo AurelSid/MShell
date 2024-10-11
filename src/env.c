@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/01 14:04:26 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/10 16:58:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int	ft_env_copy(char **env, t_program_data *data)
 		else
 			ft_add_env(&data->env, env_node);
 		i++;
-		// printf("%s : %s\n", env_node->var_name, env_node->content);
-		// printf("top : %p, current : %p\n", data->env, env_node);
 	}
 	return (0);
 }
