@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/10 16:08:56 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/11 10:49:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,7 @@ void	ft_commands_fill_list(t_program_data *data)
 	if (!args)
 		return ;
 	tmp = data->token_top;
-//	if (tmp->type >= REDIRECT_IN && tmp->type <= REDIRECT_APPEND)
-		tmp = ft_commands_fill_list_r(data, tmp, &args, &opt);
-//	else if (tmp->type == WORD)
-//		tmp = ft_commands_fill_list_c(data, tmp, &args, &opt);
-//	else
-//		printf("ERROR\n");
+	tmp = ft_commands_fill_list_r(data, tmp, &args, &opt);
 	if ((tmp && tmp->next) && tmp->type == PIPE)
 	{
 		tmp = tmp->next;
