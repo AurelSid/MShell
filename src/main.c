@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/11 17:26:57 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:28:48 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	ft_handle_signals(int signal)
 {
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	(void)signal;
+	rl_replace_line("", 0);
+	printf("\n");
+	rl_on_new_line();
+	rl_redisplay();
 }
 void	initialize_signals(void)
 {
@@ -79,7 +77,6 @@ int	main(int argc, char **argv, char **env)
 		{
 			ft_free_env(&data);
 			clear_history();
-			system("leaks minishell");
 			return (0);
 		}
 		handle_input(&data, rl);

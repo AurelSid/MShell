@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 15:53:11 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:31:58 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ char	**ft_args_to_line(t_command *cmd)
 	line_split = ft_split(line, ' ');
 	free(line);
 	while (line_split[i])
-	{
-		// printf("Args: [%s]\n", line_split[i]);
 		i++;
-	}
 	return (line_split);
 }
+
 
 void	ft_setup_child_signals(void)
 {
@@ -79,6 +77,7 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 {
 	pid_t	process_id;
 	int		status;
+	int		signal_num;
 
 	if (ft_check_built_ins(cmd) == 0)
 		ft_exec_built_ins(cmd, data);
@@ -90,9 +89,20 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 			ft_setup_child_signals();
 			if (cmd->name)
 				execve(cmd->path, ft_args_to_line(cmd), env);
-			exit(data->exit_status);
 		}
-		waitpid(process_id, &status, 0);
+		else
+		{
+			waitpid(process_id, &status, 0);
+			if (WIFEXITED(status))
+				data->exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				signal_num = WTERMSIG(status);
+				data->exit_status = 128 + signal_num;
+			}
+			else
+				data->exit_status = 1;
+		}
 	}
 }
 
@@ -120,16 +130,55 @@ void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		waitpid(process_id, &status, 0);
+		if (WIFEXITED(status))
+		{
+			data->exit_status = WEXITSTATUS(status);
+		}
+		else
+		{
+			data->exit_status = 1;
+		}
 	}
 }
+char	**ft_env_to_tab(t_program_data *data)
+{
+	t_env	*tmp_env;
+	int		env_nmbr;
+	char	**tab;
+	int		i;
 
+	i = 0;
+	env_nmbr = 0;
+	tmp_env = data->env;
+	while (tmp_env)
+	{
+		env_nmbr++;
+		tmp_env = tmp_env->next;
+	}
+	tab = malloc(sizeof(char *) * (env_nmbr + 1));
+	tab[env_nmbr] = NULL;
+	tmp_env = data->env;
+	while (tmp_env)
+	{
+		tab[i] = ft_strjoin(ft_strjoin(tmp_env->var_name, "="),
+				tmp_env->content);
+		tmp_env = tmp_env->next;
+		i++;
+	}
+	return (tab);
+}
 int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
+	char	**tab;
+
+	(void)env;
+	tab = ft_env_to_tab(data);
 	signal(SIGINT, SIG_IGN);
 	if (cmd->next == NULL)
-		ft_exec_single_command(cmd, env, data);
+		ft_exec_single_command(cmd, tab, data);
 	else
-		ft_exec_piped_command(cmd, env, data);
+		ft_exec_piped_command(cmd, tab, data);
+	free(tab);
 	signal(SIGINT, ft_handle_signals);
 	return (0);
 }

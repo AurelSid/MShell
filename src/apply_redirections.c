@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/07 13:11:49 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:50:38 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,6 @@ int	ft_open_file(t_command *cmd, t_program_data *data)
 		if (redir && redir->type == REDIRECT_APPEND)
 			cmd->output_fd = open(redir->filename,
 					O_WRONLY | O_APPEND | O_CREAT, 0644);
-		if (cmd->input_fd == -1 && redir->direction == 1
-			&& redir->type != REDIRECT_HEREDOC)
-		{
-			fprintf(stderr, "bash: %s: No such file or directory\n",
-				redir->filename);
-			ft_exit_free(data, "");
-			return (0);
-		}
-		// fprintf(stderr, "Opened file %s\n", redir->filename);
 		redir = redir->next;
 	}
 	return (1);
@@ -96,15 +87,5 @@ int	ft_apply_redir(t_command *command, t_program_data *data)
 	if (!ft_open_file(command, data))
 		return (1);
 	ft_last_redir(last_in, last_out, command);
-	// if (!last_in && !last_out)
-	// {
-	// 	fprintf(stderr, "No redirection\n");
-	// }
-	// else
-	// {
-	// 	fprintf(stderr, "Last in : %s || Last out : %s\n",
-	// 		last_in ? last_in->filename : "None",
-	// 		last_out ? last_out->filename : "None");
-	// }
 	return (0);
 }

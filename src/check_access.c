@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 18:45:28 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:02:13 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,16 @@ int	ft_check_all_access(t_program_data *data)
 	env = data->env;
 	if (cmd->name && !ft_check_built_ins(cmd))
 		return (0);
+	if (cmd->name && access(cmd->name, F_OK) == 0 && access(cmd->name,
+			X_OK) == 0)
+	{
+		ft_set_cmd_path(data, cmd->name, cmd->name);
+		return (0);
+	}
 	while (env && strcmp(env->var_name, "PATH") != 0)
 		env = env->next;
 	if (!env)
-	{
-		printf("PATH environment variable not set\n");
 		return (-1);
-	}
 	full_path = env->content;
 	split_paths = ft_split(full_path, ':');
 	if (!split_paths)
@@ -74,7 +77,7 @@ int	ft_check_all_access(t_program_data *data)
 				if (!cmd_path_2)
 				{
 					ft_free_split(split_paths);
-					return (-1);
+					return (1);
 				}
 			}
 			else
@@ -84,11 +87,20 @@ int	ft_check_all_access(t_program_data *data)
 				if (!cmd_path_2)
 				{
 					ft_free_split(split_paths);
-					return (-1);
+					return (1);
 				}
 			}
 			if (access(cmd_path_2, F_OK) == 0)
 			{
+				if (access(cmd_path_2, X_OK) == -1)
+				{
+					ft_set_cmd_path(data, cmd->name, cmd_path_2);
+					found_working_path = 1;
+					fprintf(stderr, "bash: %s: Permission denied\n", cmd->name);
+					data->exit_status = 2;
+					return (1);
+					break ;
+				}
 				ft_set_cmd_path(data, cmd->name, cmd_path_2);
 				found_working_path = 1;
 				break ;
@@ -99,11 +111,13 @@ int	ft_check_all_access(t_program_data *data)
 		if (cmd->name && !found_working_path && ft_check_built_ins(cmd) == 1)
 		{
 			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
+			data->exit_status = 127;
 			ft_free_split(split_paths);
 			return (1);
 		}
 		cmd = cmd->next;
 	}
-	ft_free_split(split_paths);
+	if (split_paths)
+		ft_free_split(split_paths);
 	return (0);
 }
