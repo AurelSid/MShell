@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/15 13:31:58 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:13:06 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	**ft_args_to_line(t_command *cmd)
 	return (line_split);
 }
 
-
 void	ft_setup_child_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
@@ -111,6 +110,7 @@ void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)
 	int		pipe_fd[2];
 	pid_t	process_id;
 	int		status;
+	int		signal_num;
 
 	if (pipe(pipe_fd) == -1)
 		exit(0);
@@ -130,14 +130,16 @@ void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		waitpid(process_id, &status, 0);
+		data->exit_status = 0;
 		if (WIFEXITED(status))
-		{
 			data->exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+		{
+			signal_num = WTERMSIG(status);
+			data->exit_status = 128 + signal_num;
 		}
 		else
-		{
 			data->exit_status = 1;
-		}
 	}
 }
 char	**ft_env_to_tab(t_program_data *data)

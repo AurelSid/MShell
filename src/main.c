@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/15 13:28:48 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:30:27 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	ft_handle_signals(int signal)
 {
-	(void)signal;
-	rl_replace_line("", 0);
-	printf("\n");
-	rl_on_new_line();
-	rl_redisplay();
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 void	initialize_signals(void)
 {
