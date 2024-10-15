@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/11 16:24:24 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/15 15:47:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int							ft_init_data(t_program_data *data);
 char						*ft_db_quotes(char *token, t_program_data data);
 char						*ft_spchar(char *token, t_program_data *data);
 char						**ft_args_to_line(t_command *cmd);
+char						*ft_checkspchar(char *var, t_program_data *data);
 
 int							ft_exec(t_command *cmd, char **env,
 								t_program_data *data);
@@ -121,6 +122,7 @@ int							ft_search_env(char **var, t_program_data data);
 char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_env *env);
+char						*ft_strtrim_free(char *s1, char *set);
 
 void						ft_env(t_command *cmd, t_program_data data);
 void						ft_cd(t_command *cmd);
@@ -137,6 +139,11 @@ void						ft_exit_free(t_program_data *data, char *exit_msg);
 void						ft_free_split(char **strs);
 
 void						send_error(char *error);
+
+int							ft_handle_words(t_program_data *data, int index);
+int							ft_handle_quotes(char type, t_program_data *data,
+								int index);
+char						*ft_checkspchar(char *var, t_program_data *data);
 
 typedef enum s_token_type
 {

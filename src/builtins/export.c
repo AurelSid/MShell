@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/10 17:17:24 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/15 18:42:47 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,31 @@ void	ft_export_empty(t_program_data *data)
 void	ft_export_var(char *arg, t_program_data *data)
 {
 	char	**split;
+	char	*var_name;
+	char 	*content;
 	t_env	*tmp;
 
+	var_name = NULL;
 	if (ft_strchr(arg, '='))
 	{
 		split = ft_split(arg, '=');
 		if (split[0])
-			split[0] = ft_spchar(split[0], data);
+			var_name = ft_checkspchar(split[0], data);
 		if (split[1])
-			split[1] = ft_spchar(split[1], data);
-		tmp = ft_env_exist(split[0], data);
+			content = ft_checkspchar(split[1], data);
+		tmp = ft_env_exist(var_name, data);
 		if (tmp)
 		{
 			free(tmp->content);
-			tmp->content = ft_strdup(split[1]);
+			tmp->content = ft_strdup(content);
 			return ;
 		}
 		tmp = malloc(sizeof(t_env));
-		tmp->var_name = split[0];
-		tmp->content = split[1];
+		tmp->var_name = ft_strdup(var_name);
+		tmp->content = ft_strdup(content);
 		tmp->next = NULL;
 		ft_add_env(&data->env, tmp);
-		free(split);
+		ft_free_split(split);
 	}
 	else
 	{
@@ -75,7 +78,6 @@ void	ft_export_var(char *arg, t_program_data *data)
 		tmp->next = NULL;
 		ft_add_env(&data->env, tmp);
 	}
-
 }
 
 void	ft_export(t_command *cmd, t_program_data *data)

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/10 16:56:30 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/15 15:46:56 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,68 +44,44 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (free(s1), join);
 }
 
-/*	LEAKS ON ENV COPY	*/
-t_env	*ft_env_sort(t_env *env)
+static	int	ft_check_set(char c, char const *set)
 {
-	t_env	*cpy;
-	t_env	*tmp;
-	t_env	*sort;
-	t_env	*min;
-
-	sort = NULL;
-	cpy = ft_env_copy_2(env);
-	while (cpy)
-	{
-		tmp = cpy;
-		min = tmp;
-		tmp = tmp->next;
-		while (tmp)
-		{
-			if (strcmp(min->var_name, tmp->var_name) > 0)
-				min = tmp;
-			tmp = tmp->next;
-		}
-		if (min->prev == NULL)
-			cpy = min->next;
-		else
-			min->prev->next = min->next;
-		if (min->next != NULL)
-			min->next->prev = min->prev;
-		min->prev = NULL;
-		min->next = NULL;
-		if (sort == NULL)
-			sort = min;
-		else
-			ft_add_env(&sort, min);
-	}
-	//free(cpy);
-	return (sort);
-}
-
-char	*ft_spchar(char *var, t_program_data *data)
-{
-	char	*found;
-	char	*start;
-	char	*end;
-	char	*tmp;
-	int		i;
+	size_t	i;
 
 	i = 0;
-	tmp = ft_strchr(var, '$');
-	if (!tmp)
-		return (var);
-	tmp += 1;
-	while (tmp[i] != ' ' && tmp[i])
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
 		i++;
-	found = ft_substr(tmp, 0, i);
-	if (ft_search_env(&found, *data) == 0)
-		found = NULL;
-	start = ft_substr(var, 0, ft_strlen(var)
-			- (ft_strlen(tmp) + 1));
-	end = ft_strjoin_free(start, found);
-	end = ft_strjoin_free(end, (tmp + i));
-	//free(start);
-	free(var);
-	//free(found);
-	return (end);
+	}
+	return (0);
+}
+
+char	*ft_strtrim_free(char *s1, char *set)
+{
+	char	*cpy;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	if (!s1 || !set)
+		return (0);
+	i = 0;
+	while (s1[i] && ft_check_set(s1[i], set))
+		i++;
+	j = ft_strlen(s1);
+	while (j > i && ft_check_set(s1[j - 1], set))
+		j--;
+	cpy = malloc(sizeof(char) * ((j - i) + 1));
+	if (!cpy)
+		return (0);
+	k = 0;
+	while (i + k < j)
+	{
+		cpy[k] = s1[i + k];
+		k++;
+	}
+	cpy[k] = '\0';
+	return (free(s1), cpy);
 }

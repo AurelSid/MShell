@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/12 13:57:47 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/15 18:33:15 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(rl);
 		data.input = rl;
 		ft_tokens_fill_list(&data);
-		ft_print_tokens_list(data);
+//		ft_print_tokens_list(data);
 		ft_commands_fill_list(&data);
 //		ft_print_commands(data);
 		if (ft_check_all_access(&data))
@@ -72,6 +72,7 @@ int	main(int argc, char **argv, char **env)
 			ft_exec(tmp_cmd, env, &data);
 			tmp_cmd = tmp_cmd->next;
 		}
+		ft_print_env(data);
 		ft_exit_free(&data, "");
 		dup2(data.original_stdout, STDOUT_FILENO);
 		dup2(data.original_stdin, STDIN_FILENO);
