@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 17:50:21 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:39:55 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ int	main(int argc, char **argv, char **env)
 		if (!rl)
 		{
 			ft_free_env(&data);
-			clear_history();
+			// clear_history();
 			return (0);
 		}
 		handle_input(&data, rl);
+		if(rl[0] == '\0')
+			continue;
 		if (ft_check_all_access(&data))
 		{
 			cleanup_and_exit(&data);

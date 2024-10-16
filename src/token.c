@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:47:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:26:02 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	ft_handle_words(t_program_data *data, int index)
 	int	i;
 
 	i = index;
-	while (data->input[i] && (data->input[i] != ' '
-			&& data->input[i] != '\'' && data->input[i] != '\"'))
+	while (data->input[i] != ' ' && data->input[i])
 		i++;
 	return (i - index);
 }
@@ -28,13 +27,10 @@ int	ft_handle_quotes(char type, t_program_data *data, int index)
 	int	i;
 
 	i = index;
-	i++;
 	while (data->input[i] != type && data->input[i])
 		i++;
-	i++;
-	if (i > (int)ft_strlen(data->input))
-		return (-1);
-	/*  ---> no error but skip the command */
+	if (i >= (int)ft_strlen(data->input))
+		return (printf("ERROR"));
 	return (i - index);
 }
 int	process_redirects(t_program_data *data, int *i)
@@ -104,7 +100,6 @@ int	process_word(t_program_data *data, int *i)
 int	ft_tokens_fill_list(t_program_data *data)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	if (!data || !data->input)
@@ -116,21 +111,15 @@ int	ft_tokens_fill_list(t_program_data *data)
 			i++;
 			continue ;
 		}
-		else if (data->input[i] != ' ')
+		if (data->input[i] == '\"' || data->input[i] == '\'')
 		{
-			j = i;
-			while (data->input[j] && data->input[j] != ' ')
-			{
-				if (data->input[j] == '\'' || data->input[j] == '\"')
-					j += ft_handle_quotes(data->input[j], data, j);
-				else
-					j += ft_handle_words(data, j);
-			}
-			ft_new_token(ft_substr(data->input, i, (size_t)j), data, WORD);
-			i += j;
+			if (process_quotes(data, &i, data->input[i]) < 0)
+				return (-1);
+			i++;
+			continue ;
 		}
-		if (i + 1 > (int)ft_strlen(data->input))
-			break ;
+		if (data->input[i] != ' ' && process_word(data, &i) < 0)
+			return (-1);
 		i++;
 	}
 	return (0);
