@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/16 17:31:12 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:55:11 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ t_env						*ft_env_sort(t_env *env);
 void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
 char						*ft_db_quotes(char *token, t_program_data data);
-char						*ft_word(char *token, t_program_data data);
-int							ft_search_env(char **var, t_program_data data);
+char						*ft_spchar(char *token, t_program_data *data);
 char						**ft_args_to_line(t_command *cmd);
+char						*ft_checkspchar(char *var, t_program_data *data);
 
 int							ft_exec(t_command *cmd, char **env,
 								t_program_data *data);
@@ -118,16 +118,18 @@ void						ft_limiter_exec(t_redirection *in);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd);
+int							ft_search_env(char **var, t_program_data data);
 
 char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_program_data *data);
+char						*ft_strtrim_free(char *s1, char *set);
 
 void						ft_env(t_command *cmd, t_program_data data);
 void						ft_cd(t_command *cmd);
 void						ft_echo(t_command *cmd, t_program_data data);
 void						ft_export(t_command *cmd, t_program_data *data);
-void						ft_pwd(void);
+void						ft_pwd(t_command *cmd);
 void						ft_unset(t_command *cmd, t_program_data *data);
 void						ft_exit(t_command *cmd, t_program_data data);
 
@@ -144,6 +146,11 @@ int							ft_set_cmd_path(t_program_data *data,
 								char *cmd_name, char *path);
 int							ft_check_absolute_p(t_command *cmd,
 								t_program_data *data);
+
+int							ft_handle_words(t_program_data *data, int index);
+int							ft_handle_quotes(char type, t_program_data *data,
+								int index);
+char						*ft_checkspchar(char *var, t_program_data *data);
 
 typedef enum s_token_type
 {

@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/16 17:30:56 by asideris         ###   ########.fr        #
+#    Updated: 2024/10/16 17:57:53 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCS			= debug_utils.c add_token_node.c \
 				builtins/echo.c builtins/pwd.c builtins/export.c \
 				builtins/cd.c builtins/exit.c builtins/unset.c \
 				here_doc.c exec_command.c clear_commands.c \
-				exit.c free.c check_access_utils.c
+				exit.c free.c check_access_utils.c spchar.c
 
 MAIN			= main.c
 

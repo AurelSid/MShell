@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:28:05 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:43:21 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	t_redirection	*redir;
 	char			*cmd_n;
 	char			*free_tmp;
+	char			*tmp_str;
 
 	redir = NULL;
 	while (tmp && ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_APPEND
@@ -50,6 +51,10 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
 				|| tmp->type == DOUBLE_QUOTE))
 		{
+			if (tmp->type == WORD && ft_strcmp(cmd_n, "export"))
+				tmp_str = ft_checkspchar(tmp->content, data);
+			else
+				tmp_str = tmp->content;
 			free_tmp = *args;
 			*args = ft_strjoin(free_tmp, tmp->content);
 			free(free_tmp);

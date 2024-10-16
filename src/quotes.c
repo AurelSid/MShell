@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:29:35 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:44:42 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	ft_search_env(char **var, t_program_data data)
 	return (0);
 }
 
-void	ft_db_quotes(t_token *token, t_program_data data)
+/*				/!\	LEAKS IN STRJOIN /!\				*/
+/*					NOT ANYMORE I THINK					*/
+char	*ft_db_quotes(char *token, t_program_data data)
 {
 	char	*found;
 	char	*start;
@@ -64,6 +66,7 @@ void	ft_db_quotes(t_token *token, t_program_data data)
 	end = ft_strjoin_free(start, found);
 	end = ft_strjoin(end, (tmp + i));
 	free(start);
+	free(token);
 	free(found);
 	return (end);
 }

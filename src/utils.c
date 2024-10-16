@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:27:40 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:55:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,67 +19,69 @@ void	send_error(char *error)
 	exit(1);
 }
 
-t_env	*ft_env_sort(t_env *env)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	t_env	*cpy;
-	t_env	*tmp;
-	t_env	*sort;
-	t_env	*min;
+	char	*join;
+	size_t	i;
+	size_t	j;
 
-	sort = NULL;
-	cpy = ft_env_copy_2(env);
-	while (cpy)
-	{
-		tmp = cpy;
-		min = tmp;
-		tmp = tmp->next;
-		while (tmp)
-		{
-			if (strcmp(min->var_name, tmp->var_name) > 0)
-				min = tmp;
-			tmp = tmp->next;
-		}
-		if (min->prev == NULL)
-			cpy = min->next;
-		else
-			min->prev->next = min->next;
-		if (min->next != NULL)
-			min->next->prev = min->prev;
-		min->prev = NULL;
-		min->next = NULL;
-		if (sort == NULL)
-			sort = min;
-		else
-			ft_add_env(&sort, min);
-	}
-	//free(cpy);
-	return (sort);
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!join)
+		return (free(s1), NULL);
+	i = -1;
+	while (s1 && s1[++i])
+		join[i] = s1[i];
+	j = -1;
+	while (s1 && s2[++j])
+		join[i + j] = s2[j];
+	join[i + j] = '\0';
+	return (free(s1), join);
 }
 
-char	*ft_spchar(char *var, t_program_data *data)
+static	int	ft_check_set(char c, char const *set)
 {
-	char	*found;
-	char	*start;
-	char	*end;
-	char	*tmp;
-	int		i;
+	size_t	i;
 
 	i = 0;
-	tmp = ft_strchr(var, '$');
-	if (!tmp)
-		return (var);
-	tmp += 1;
-	while (tmp[i] != ' ' && tmp[i])
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
 		i++;
-	found = ft_substr(tmp, 0, i);
-	if (ft_search_env(&found, *data) == 0)
-		found = NULL;
-	start = ft_substr(var, 0, ft_strlen(var)
-			- (ft_strlen(tmp) + 1));
-	end = ft_strjoin_free(start, found);
-	end = ft_strjoin_free(end, (tmp + i));
-	//free(start);
-	free(var);
-	//free(found);
-	return (end);
+	}
+	return (0);
+}
+
+char	*ft_strtrim_free(char *s1, char *set)
+{
+	char	*cpy;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	if (!s1 || !set)
+		return (0);
+	i = 0;
+	while (s1[i] && ft_check_set(s1[i], set))
+		i++;
+	j = ft_strlen(s1);
+	while (j > i && ft_check_set(s1[j - 1], set))
+		j--;
+	cpy = malloc(sizeof(char) * ((j - i) + 1));
+	if (!cpy)
+		return (0);
+	k = 0;
+	while (i + k < j)
+	{
+		cpy[k] = s1[i + k];
+		k++;
+	}
+	cpy[k] = '\0';
+	return (free(s1), cpy);
 }
