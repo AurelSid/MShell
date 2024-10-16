@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/15 15:46:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/16 17:43:21 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-
 
 t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		char **args, char **opt)
@@ -20,6 +18,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	t_command		*cmd;
 	t_redirection	*redir;
 	char			*cmd_n;
+	char			*free_tmp;
 	char			*tmp_str;
 
 	redir = NULL;
@@ -41,9 +40,13 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
 					|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 		{
-			*opt = ft_strjoin(*opt, tmp->content);
+			free_tmp = *opt;
+			*opt = ft_strjoin(free_tmp, tmp->content);
+			free(free_tmp);
 			tmp = tmp->next;
-			*opt = ft_strjoin(*opt, " ");
+			free_tmp = *opt;
+			*opt = ft_strjoin(free_tmp, " ");
+			free(free_tmp);
 		}
 		while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
 				|| tmp->type == DOUBLE_QUOTE))
@@ -52,9 +55,13 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 				tmp_str = ft_checkspchar(tmp->content, data);
 			else
 				tmp_str = tmp->content;
-			*args = ft_strjoin_free(*args, tmp_str);
+			free_tmp = *args;
+			*args = ft_strjoin(free_tmp, tmp->content);
+			free(free_tmp);
 			tmp = tmp->next;
-			*args = ft_strjoin(*args, " ");
+			free_tmp = *args;
+			*args = ft_strjoin(free_tmp, " ");
+			free(free_tmp);
 		}
 	}
 	cmd = ft_new_command(cmd_n, data, *args, *opt);
@@ -62,8 +69,8 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	{
 		if ((tmp->type == REDIRECT_IN || tmp->type == REDIRECT_OUT
 				|| tmp->type == REDIRECT_HEREDOC
-				|| tmp->type == REDIRECT_APPEND)
-			&& (tmp->next->type == WORD || tmp->next->type == SINGLE_QUOTE
+				|| tmp->type == REDIRECT_APPEND) && (tmp->next->type == WORD
+				|| tmp->next->type == SINGLE_QUOTE
 				|| tmp->next->type == DOUBLE_QUOTE))
 			redir = ft_new_redirection(tmp->next->content, redir, tmp->type);
 		else
@@ -94,4 +101,8 @@ void	ft_commands_fill_list(t_program_data *data)
 		data->token_top = tmp;
 		ft_commands_fill_list(data);
 	}
+	if (opt)
+		free(opt);
+	if (args)
+		free(args);
 }

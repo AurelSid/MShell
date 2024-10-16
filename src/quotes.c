@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/10 16:06:56 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/16 17:44:42 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,4 @@ char	*ft_db_quotes(char *token, t_program_data data)
 	free(found);
 	return (end);
 }
+

@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roko <roko@student.42.fr>                  +#+  +:+       +#+        */
+<<<<<<< HEAD
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:22:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/01 15:50:18 by roko             ###   ########.fr       */
+/*   Updated: 2024/10/09 16:01:15 by vpelc            ###   ########.fr       */
+=======
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/07 15:22:32 by asideris          #+#    #+#             */
+/*   Updated: 2024/10/10 16:10:45 by asideris         ###   ########.fr       */
+>>>>>>> aure
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +32,13 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		dst[cur] = src[cur];
 		cur++;
 	}
+	dst[cur] = 0;
+	return (ft_strlen(src));
 }
-dst[cur] = 0;
-return (ft_strlen(src));
+<<<<<<< HEAD
+
+=======
+>>>>>>> aure
 
 int	ft_len(const char *str)
 {
@@ -86,7 +97,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		while (new_len-- > 0)
 			sub[new_len] = s[start + new_len];
 	}
-	return (sub);
+	free(d) return (sub);
 }
 
 long	charchr(char *s, char c)

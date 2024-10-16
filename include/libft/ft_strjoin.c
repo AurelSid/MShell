@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:43:33 by asideris          #+#    #+#             */
-/*   Updated: 2024/04/17 14:33:13 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:47:34 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s[j + i] = '\0';
 	return (s);
 }
-
-/*#include<stdio.h>
-int	main(void)
-{
-	char	*s1;
-	char	*s2;
-
-	s1 = "Hello";
-	s2 = "Theresir";
-	printf("%s",ft_strjoin(s1,s2));
-}*/

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:30:57 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 15:44:10 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:28:47 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,20 +109,16 @@ void	list_open_file_descriptors(void)
 {
 	struct rlimit	rl;
 
-	// Get the maximum number of file descriptors allowed
 	if (getrlimit(RLIMIT_NOFILE, &rl) == -1)
 	{
 		perror("getrlimit");
 		return ;
 	}
 	printf("Open file descriptors:\n");
-	// Use rlim_t for the loop variable to avoid sign comparison warning
 	for (rlim_t fd = 0; fd < rl.rlim_cur; fd++)
 	{
-		// Check if the file descriptor is open
 		if (fcntl(fd, F_GETFD) != -1)
 		{
-			// It is open, print its value
 			printf("File Descriptor %llu is open\n", (unsigned long long)fd);
 		}
 	}
@@ -131,25 +127,21 @@ void	list_open_file_descriptors(void)
 void	check_stdio_fds(void)
 {
 	struct stat stdin_stat, stdout_stat;
-	// Check stdin
 	if (fstat(fileno(stdin), &stdin_stat) == -1)
 	{
 		perror("fstat(stdin)");
 		return ;
 	}
-	// Check stdout
 	if (fstat(fileno(stdout), &stdout_stat) == -1)
 	{
 		perror("fstat(stdout)");
 		return ;
 	}
-	// Print information for stdin
 	fprintf(stderr, "Standard Input (fd: %d):\n", fileno(stdin));
 	fprintf(stderr, "  Type: %s\n",
 		S_ISREG(stdin_stat.st_mode) ? "Regular file" : S_ISCHR(stdin_stat.st_mode) ? "Character device" : "Other");
 	fprintf(stderr, "  Inode: %lu\n", (unsigned long)stdin_stat.st_ino);
 	fprintf(stderr, "  Size: %lld bytes\n", (long long)stdin_stat.st_size);
-	// Print information for stdout
 	fprintf(stderr, "Standard Output (fd: %d):\n", fileno(stdout));
 	fprintf(stderr, "  Type: %s\n",
 		S_ISREG(stdout_stat.st_mode) ? "Regular file" : S_ISCHR(stdout_stat.st_mode) ? "Character device" : "Other");
@@ -157,4 +149,3 @@ void	check_stdio_fds(void)
 	fprintf(stderr, "  Size: %lld bytes\n", (long long)stdout_stat.st_size);
 	fprintf(stderr, " \n---------------------------------- \n");
 }
-

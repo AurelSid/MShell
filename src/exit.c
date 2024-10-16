@@ -6,18 +6,40 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:09:46 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/10 14:28:03 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:29:03 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	ft_free_env(t_program_data *data)
+{
+	t_env	*current_env;
+	t_env	*to_free;
+
+	current_env = data->env;
+	while (current_env)
+	{
+		to_free = current_env;
+		current_env = current_env->next;
+		free(to_free->var_name);
+		free(to_free->content);
+		free(to_free);
+	}
+	data->env = NULL;
+}
+
 void	ft_exit_free(t_program_data *data, char *exit_msg)
 {
 	fprintf(stderr, "%s", exit_msg);
-
+	(void)data;
 	ft_clean_tokens(data);
 	ft_clean_commands(data);
-	free(data->input);
-	data->input = NULL;
+}
+
+void	cleanup_and_exit(t_program_data *data)
+{
+	ft_exit_free(data, "");
+	dup2(data->original_stdout, STDOUT_FILENO);
+	dup2(data->original_stdin, STDIN_FILENO);
 }
