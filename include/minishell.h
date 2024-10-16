@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/14 13:11:40 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:59:36 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_program_data
 	int						original_stdout;
 	t_env					*env;
 	int						exit_status;
+	int						shell_lvl;
 }							t_program_data;
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
@@ -137,6 +138,10 @@ void						ft_free_split(char **strs);
 void						cleanup_and_exit(t_program_data *data);
 
 void						send_error(char *error);
+int							ft_set_cmd_path(t_program_data *data,
+								char *cmd_name, char *path);
+int							ft_check_absolute_p(t_command *cmd,
+								t_program_data *data);
 
 typedef enum s_token_type
 {

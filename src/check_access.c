@@ -6,45 +6,65 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/15 18:47:39 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:04:16 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_set_cmd_path(t_program_data *data, char *cmd_name, char *path)
-{
-	t_command	*cmd;
 
-	cmd = data->command_top;
-	while (cmd)
+int	ft_check_access(t_program_data *data, char *cmd_path_2, t_command *cmd,
+		int *found_working_path)
+{
+	if (access(cmd_path_2, F_OK) == 0)
 	{
-		if (cmd->name == cmd_name)
+		*found_working_path = 1;
+		if (access(cmd_path_2, X_OK) == -1)
 		{
-			cmd->path = path;
-			return (0);
+			*found_working_path = 2;
+			ft_set_cmd_path(data, cmd->name, cmd_path_2);
+			fprintf(stderr, "bash: %s: Permission denied\n", cmd->name);
+			data->exit_status = 2;
+			return (1);
 		}
-		cmd = cmd->next;
+		ft_set_cmd_path(data, cmd->name, cmd_path_2);
+		// break ;
 	}
 	return (0);
 }
-int	ft_check_absolute_p(t_command *cmd, t_program_data *data)
+int	ft_while_split_util(t_command *cmd, char **split_paths, char *cmd_path_1,
+		char **cmd_path_2)
 {
-	if (cmd->name && access(cmd->name, F_OK) == 0 && access(cmd->name,
-			X_OK) == 0)
+	if (cmd->name)
 	{
-		ft_set_cmd_path(data, cmd->name, ft_strdup(cmd->name));
-		return (0);
+		*cmd_path_2 = ft_strjoin(cmd_path_1, cmd->name);
+		free(cmd_path_1);
+		if (!*cmd_path_2)
+		{
+			ft_free_split(split_paths);
+			return (1);
+		}
 	}
-	return (1);
+	else
+	{
+		free(cmd_path_1);
+		*cmd_path_2 = ft_strdup("/bin/true");
+		if (!cmd_path_2)
+		{
+			ft_free_split(split_paths);
+			return (1);
+		}
+	}
+	return (0);
 }
-int ft_while_split(char **split_paths, t_command *cmd, int *found_working_path,
-	t_program_data *data)
+int	ft_while_split(char **split_paths, t_command *cmd, int *found_working_path,
+		t_program_data *data)
 {
 	char	*cmd_path_1;
 	char	*cmd_path_2;
 	int		i;
 
+	cmd_path_2 = NULL;
 	i = 0;
 	while (split_paths[i])
 	{
@@ -54,39 +74,13 @@ int ft_while_split(char **split_paths, t_command *cmd, int *found_working_path,
 			ft_free_split(split_paths);
 			return (1);
 		}
-		if (cmd->name)
-		{
-			cmd_path_2 = ft_strjoin(cmd_path_1, cmd->name);
-			free(cmd_path_1);
-			if (!cmd_path_2)
-			{
-				ft_free_split(split_paths);
-				return (1);
-			}
-		}
-		else
-		{
-			free(cmd_path_1);
-			cmd_path_2 = ft_strdup("/bin/true");
-			if (!cmd_path_2)
-			{
-				ft_free_split(split_paths);
-				return (1);
-			}
-		}
-		if (access(cmd_path_2, F_OK) == 0)
-		{
-			*found_working_path = 1;
-			if (access(cmd_path_2, X_OK) == -1)
-			{
-				ft_set_cmd_path(data, cmd->name, cmd_path_2);
-				fprintf(stderr, "bash: %s: Permission denied\n", cmd->name);
-				data->exit_status = 2;
-				return (1);
-			}
-			ft_set_cmd_path(data, cmd->name, cmd_path_2);
+		if (ft_while_split_util(cmd, split_paths, cmd_path_1, &cmd_path_2))
+			return (1);
+		ft_check_access(data, cmd_path_2, cmd, found_working_path);
+		if (*found_working_path == 1)
 			break ;
-		}
+		else if (*found_working_path == 2)
+			return (1);
 		free(cmd_path_2);
 		i++;
 	}
@@ -112,6 +106,7 @@ int	ft_while_cmd(t_command *cmd, char **split_paths, t_program_data *data)
 			return (1);
 		if (cmd->name && !found_working_path && ft_check_built_ins(cmd) == 1)
 		{
+			fprintf(stderr, "%d\n", found_working_path);
 			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
 			data->exit_status = 127;
 			ft_free_split(split_paths);
