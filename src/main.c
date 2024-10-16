@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/15 18:33:15 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/16 16:01:11 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char  **env)
 {
 	char			*rl;
 	t_program_data	data;
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **env)
 			ft_exec(tmp_cmd, env, &data);
 			tmp_cmd = tmp_cmd->next;
 		}
-		ft_print_env(data);
+		//ft_print_env(data);
 		ft_exit_free(&data, "");
 		dup2(data.original_stdout, STDOUT_FILENO);
 		dup2(data.original_stdin, STDIN_FILENO);

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/15 15:56:38 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/16 15:38:49 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	ft_handle_words_2(char *var, int index)
 	int	i;
 
 	i = index;
-	while (var[i] && (var[i] != ' '
-			&& var[i] != '\'' && var[i] != '\"'))
+	while (var[i] && (var[i] != ' ' && var[i] != '\'' && var[i] != '\"'))
 		i++;
 	return (i - index);
 }
@@ -58,13 +57,12 @@ char	*ft_spchar(char *var, t_program_data *data)
 	found = ft_substr(tmp, 0, i);
 	if (ft_search_env(&found, *data) == 0)
 		found = NULL;
-	start = ft_substr(var, 0, ft_strlen(var)
-			- (ft_strlen(tmp) + 1));
+	start = ft_substr(var, 0, ft_strlen(var) - (ft_strlen(tmp) + 1));
 	end = ft_strjoin_free(start, found);
 	end = ft_strjoin_free(end, (tmp + i));
-	//free(start);
+	// free(start);
 	free(var);
-	//free(found);
+	// free(found);
 	return (end);
 }
 
@@ -94,5 +92,5 @@ char	*ft_checkspchar(char *var, t_program_data *data)
 		result = ft_strjoin_free(result, to_check);
 		i += j - 1;
 	}
-	return (free(to_check), result);
+	return(free(to_check), result);
 }

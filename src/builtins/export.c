@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/15 18:42:47 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/16 17:21:42 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,41 +43,50 @@ void	ft_export_empty(t_program_data *data)
 
 void	ft_export_var(char *arg, t_program_data *data)
 {
-	char	**split;
 	char	*var_name;
-	char 	*content;
+	char	*content;
+	int		len;
 	t_env	*tmp;
 
 	var_name = NULL;
 	if (ft_strchr(arg, '='))
 	{
-		split = ft_split(arg, '=');
-		if (split[0])
-			var_name = ft_checkspchar(split[0], data);
-		if (split[1])
-			content = ft_checkspchar(split[1], data);
-		tmp = ft_env_exist(var_name, data);
+		len = ft_strlen(arg) - ft_strlen(ft_strchr(arg, '='));
+		if (len == 0)
+			return ;		/*  ----> ERROR */
+		var_name = ft_substr(arg, 0, len);
+		content = ft_strdup(ft_strchr(arg, '=') + 1);
+		printf("var_name :%s\ncontent : %s\n", var_name, content);
+/*  		if (var_name)
+			var_name = ft_checkspchar(var_name, data);
+		if (content)
+			content = ft_checkspchar(content, data); */ 
+		tmp = ft_env_exist(arg, data);
 		if (tmp)
 		{
 			free(tmp->content);
-			tmp->content = ft_strdup(content);
+			tmp->content = content;
 			return ;
 		}
 		tmp = malloc(sizeof(t_env));
-		tmp->var_name = ft_strdup(var_name);
-		tmp->content = ft_strdup(content);
+		tmp->var_name = var_name;
+		tmp->content = content;
 		tmp->next = NULL;
 		ft_add_env(&data->env, tmp);
-		ft_free_split(split);
 	}
+
 	else
 	{
+		tmp = ft_env_exist(arg, data);
+		if (tmp)
+			return ;
 		tmp = malloc(sizeof(t_env));
 		tmp->var_name = ft_strdup(arg);
 		tmp->content = NULL;
 		tmp->next = NULL;
 		ft_add_env(&data->env, tmp);
 	}
+	//ft_print_env(*data);
 }
 
 void	ft_export(t_command *cmd, t_program_data *data)
