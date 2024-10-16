@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/15 16:13:06 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:54:05 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ char	**ft_env_to_tab(t_program_data *data)
 	int		env_nmbr;
 	char	**tab;
 	int		i;
+	char	*tmp;
 
 	i = 0;
 	env_nmbr = 0;
@@ -162,8 +163,9 @@ char	**ft_env_to_tab(t_program_data *data)
 	tmp_env = data->env;
 	while (tmp_env)
 	{
-		tab[i] = ft_strjoin(ft_strjoin(tmp_env->var_name, "="),
-				tmp_env->content);
+		tmp = ft_strjoin(tmp_env->var_name, "=");
+		tab[i] = ft_strjoin(tmp, tmp_env->content);
+		free(tmp);
 		tmp_env = tmp_env->next;
 		i++;
 	}
@@ -180,7 +182,7 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 		ft_exec_single_command(cmd, tab, data);
 	else
 		ft_exec_piped_command(cmd, tab, data);
-	free(tab);
+	ft_free_split(tab);
 	signal(SIGINT, ft_handle_signals);
 	return (0);
 }

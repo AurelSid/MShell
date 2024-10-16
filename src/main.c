@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/15 18:30:27 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:54:39 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,33 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 	data->original_stdout = dup(STDOUT_FILENO);
 	return (0);
 }
+// int	main(int argc, char **argv, char **env)
+// {
+// 	char			*rl;
+// 	t_program_data	data;
+
+// 	ft_setup_main(argc, argv, &data, env);
+// 	// rl = readline("$> ");
+// 	rl = "ls";
+// 	if (!rl)
+// 	{
+// 		ft_free_env(&data);
+// 		clear_history();
+// 		return (0);
+// 	}
+// 	handle_input(&data, rl);
+// 	if (ft_check_all_access(&data))
+// 	{
+// 		cleanup_and_exit(&data);
+// 	}
+// 	process_command(&data, env);
+// 	cleanup_and_exit(&data);
+// 	// if (rl)
+// 	// 	free(rl);
+// 	ft_free_env(&data);
+// 	return (0);
+// }
+
 int	main(int argc, char **argv, char **env)
 {
 	char			*rl;
