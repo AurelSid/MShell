@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 17:50:21 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:23:40 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	handle_input(t_program_data *data, char *rl)
 	add_history(rl);
 	data->input = rl;
 	ft_tokens_fill_list(data);
+	ft_print_tokens_list(*data);
 	ft_commands_fill_list(data);
+	ft_print_commands(*data);
 }
 
 void	process_command(t_program_data *data, char **env)
