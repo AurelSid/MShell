@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/09 19:45:24 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:27:48 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	ft_free_commands(t_program_data *data)
 	cmd = data->command_top;
 	while (cmd)
 	{
-		// fprintf(stderr, "freeing\n");
 		to_free = cmd;
 		cmd = cmd->next;
 		free(to_free);
 	}
-	data->command_top = NULL;
 }
 void	ft_clean_commands(t_program_data *data)
 {
@@ -47,6 +45,7 @@ void	ft_clean_commands(t_program_data *data)
 		tmp_command = tmp_command->next;
 	}
 	ft_free_commands(data);
+	data->command_top = NULL;
 }
 
 void	ft_clean_tokens(t_program_data *data)
@@ -57,11 +56,11 @@ void	ft_clean_tokens(t_program_data *data)
 	tmp_token =  data->token_top;
 	while (tmp_token)
 	{
-		free(tmp_token->content);
 		to_free = tmp_token;
-		to_free = NULL;
 		tmp_token = tmp_token->next;
+		free(to_free->content);
 		free(to_free);
+		to_free = NULL;
 	}
 	data->token_top = NULL;
 }

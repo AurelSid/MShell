@@ -6,40 +6,121 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 18:45:28 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:15:51 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_set_cmd_path(t_program_data *data, char *cmd_name, char *path)
+int	ft_check_access(t_program_data *data, char *cmd_path_2, t_command *cmd,
+		int *found_working_path)
 {
-	t_command	*cmd;
+	if (access(cmd_path_2, F_OK) == 0)
+	{
+		*found_working_path = 1;
+		if (access(cmd_path_2, X_OK) == -1)
+		{
+			*found_working_path = 2;
+			ft_set_cmd_path(data, cmd->name, cmd_path_2);
+			fprintf(stderr, "bash: %s: Permission denied\n", cmd->name);
+			data->exit_status = 2;
+			return (1);
+		}
+		ft_set_cmd_path(data, cmd->name, cmd_path_2);
+	}
+	return (0);
+}
+int	ft_while_split_util(t_command *cmd, char **split_paths, char *cmd_path_1,
+		char **cmd_path_2)
+{
+	if (cmd->name)
+	{
+		*cmd_path_2 = ft_strjoin(cmd_path_1, cmd->name);
+		free(cmd_path_1);
+		if (!*cmd_path_2)
+		{
+			ft_free_split(split_paths);
+			return (1);
+		}
+	}
+	else
+	{
+		free(cmd_path_1);
+		*cmd_path_2 = ft_strdup("/bin/true");
+		if (!cmd_path_2)
+		{
+			ft_free_split(split_paths);
+			return (1);
+		}
+	}
+	return (0);
+}
+int	ft_while_split(char **split_paths, t_command *cmd, int *found_working_path,
+		t_program_data *data)
+{
+	char	*cmd_path_1;
+	char	*cmd_path_2;
+	int		i;
 
-	cmd = data->command_top;
+	cmd_path_2 = NULL;
+	i = 0;
+	while (split_paths[i])
+	{
+		cmd_path_1 = ft_strjoin(split_paths[i], "/");
+		if (!cmd_path_1)
+		{
+			ft_free_split(split_paths);
+			return (1);
+		}
+		if (ft_while_split_util(cmd, split_paths, cmd_path_1, &cmd_path_2))
+			return (1);
+		ft_check_access(data, cmd_path_2, cmd, found_working_path);
+		if (*found_working_path == 1)
+			break ;
+		else if (*found_working_path == 2)
+			return (1);
+		free(cmd_path_2);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_while_cmd(t_command *cmd, char **split_paths, t_program_data *data)
+{
+	int	found_working_path;
+	int	i;
+
+	found_working_path = 0;
 	while (cmd)
 	{
-		if (cmd->name == cmd_name)
+		found_working_path = 0;
+		i = 0;
+		if (!ft_check_absolute_p(cmd, data))
 		{
-			cmd->path = path;
-			return (0);
+			cmd = cmd->next;
+			continue ;
+		}
+		if (ft_while_split(split_paths, cmd, &found_working_path, data))
+			return (1);
+		if (cmd->name && !found_working_path && ft_check_built_ins(cmd) == 1)
+		{
+			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
+			data->exit_status = 127;
+			ft_free_split(split_paths);
+			return (1);
 		}
 		cmd = cmd->next;
 	}
 	return (0);
 }
+
 int	ft_check_all_access(t_program_data *data)
 {
 	t_env		*env;
 	char		*full_path;
 	char		**split_paths;
-	char		*cmd_path_1;
-	char		*cmd_path_2;
 	t_command	*cmd;
-	int			i;
-	int			found_working_path;
 
-	found_working_path = 0;
 	cmd = data->command_top;
 	env = data->env;
 	if (cmd->name && !ft_check_built_ins(cmd))
@@ -47,63 +128,14 @@ int	ft_check_all_access(t_program_data *data)
 	while (env && strcmp(env->var_name, "PATH") != 0)
 		env = env->next;
 	if (!env)
-	{
-		printf("PATH environment variable not set\n");
 		return (-1);
-	}
 	full_path = env->content;
 	split_paths = ft_split(full_path, ':');
 	if (!split_paths)
 		return (-1);
-	while (cmd)
-	{
-		found_working_path = 0;
-		i = 0;
-		while (split_paths[i])
-		{
-			cmd_path_1 = ft_strjoin(split_paths[i], "/");
-			if (!cmd_path_1)
-			{
-				ft_free_split(split_paths);
-				return (-1);
-			}
-			if (cmd->name)
-			{
-				cmd_path_2 = ft_strjoin(cmd_path_1, cmd->name);
-				free(cmd_path_1);
-				if (!cmd_path_2)
-				{
-					ft_free_split(split_paths);
-					return (-1);
-				}
-			}
-			else
-			{
-				free(cmd_path_1);
-				cmd_path_2 = ft_strdup("/bin/true");
-				if (!cmd_path_2)
-				{
-					ft_free_split(split_paths);
-					return (-1);
-				}
-			}
-			if (access(cmd_path_2, F_OK) == 0)
-			{
-				ft_set_cmd_path(data, cmd->name, cmd_path_2);
-				found_working_path = 1;
-				break ;
-			}
-			free(cmd_path_2);
-			i++;
-		}
-		if (cmd->name && !found_working_path && ft_check_built_ins(cmd) == 1)
-		{
-			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
-			ft_free_split(split_paths);
-			return (1);
-		}
-		cmd = cmd->next;
-	}
-	ft_free_split(split_paths);
+	if (ft_while_cmd(cmd, split_paths, data))
+		return (1);
+	if (split_paths)
+		ft_free_split(split_paths);
 	return (0);
 }

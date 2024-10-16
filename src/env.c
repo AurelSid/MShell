@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/09 16:34:02 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/16 17:28:53 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,38 @@ void	ft_add_env(t_env **lst, t_env *new)
 	current->next = new;
 	new->prev = current;
 }
+char	*ft_check_lvl(char *content)
+{
+	int	val;
+
+	val = ft_atoi(content);
+	if (INT_MIN <= val && val < 0)
+		return (ft_itoa(0));
+	else if (val < INT_MIN)
+		return (ft_itoa(1));
+	else if (0 <= val && val < 999)
+		return (ft_itoa(val + 1));
+	else if (val >= 1000)
+		return (ft_itoa(1));
+	else if (val == 999)
+		return ("");
+	else
+		return ("");
+}
+void	ft_env_copy_supp(int i, t_env *env_node, t_program_data *data)
+{
+	if (i == 0)
+		data->env = env_node;
+	else
+		ft_add_env(&data->env, env_node);
+}
 
 int	ft_env_copy(char **env, t_program_data *data)
 {
 	t_env	*env_node;
 	int		i;
 	int		len;
+	char	*tmp;
 
 	i = 0;
 	while (env[i])
@@ -43,15 +69,16 @@ int	ft_env_copy(char **env, t_program_data *data)
 		len = ft_strlen(env[i]) - ft_strlen(ft_strchr(env[i], '='));
 		env_node->var_name = ft_substr(env[i], 0, len);
 		env_node->content = ft_strdup(ft_strchr(env[i], '=') + 1);
+		if (ft_strcmp(env_node->var_name, "SHLVL") == 0)
+		{
+			tmp = ft_check_lvl(env_node->content);
+			free(env_node->content);
+			env_node->content = tmp;
+		}
 		env_node->next = NULL;
 		env_node->prev = NULL;
-		if (i == 0)
-			data->env = env_node;
-		else
-			ft_add_env(&data->env, env_node);
+		ft_env_copy_supp(i, env_node, data);
 		i++;
-		// printf("%s : %s\n", env_node->var_name, env_node->content);
-		// printf("top : %p, current : %p\n", data->env, env_node);
 	}
 	return (0);
 }

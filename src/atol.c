@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   atol.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:15:24 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/02 12:26:51 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/15 12:41:04 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_isdigit(int c)
 	return (0);
 }
 
-static	int	ft_isspace(const char *str)
+static int	ft_isspace(const char *str)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ static	int	ft_isspace(const char *str)
 	return (i);
 }
 
-static	int	ft_isnegative(char str)
+static int	ft_isnegative(char str)
 {
 	if (str == '+')
 		return (1);
@@ -42,7 +42,7 @@ static	int	ft_isnegative(char str)
 long	ft_atol(const char *str)
 {
 	int		i;
-	long	r;	
+	long	r;
 	int		n;
 
 	n = 1;
@@ -54,10 +54,7 @@ long	ft_atol(const char *str)
 		i++;
 	}
 	if (!ft_isdigit(str[i]))
-	{
-		printf("exit : %s:numeric argument required\n", str);
 		return (255);
-	}
 	while (ft_isdigit(str[i]))
 	{
 		r = r * 10;
@@ -65,9 +62,6 @@ long	ft_atol(const char *str)
 		i++;
 	}
 	if (!ft_isdigit(str[i]) && str[i] != '\0')
-	{
-		printf("exit : %s:numeric argument required\n", str);
 		return (255);
-	}
 	return (r * n);
 }

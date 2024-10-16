@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/10 13:36:11 by asideris         ###   ########.fr        #
+#    Updated: 2024/10/16 17:30:56 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME	= minishell
 CC 		= clang -g3 
-CFLAGS	= -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -g
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= Asideris_Vpelc
 DATE	= 31/05/2024
@@ -33,14 +33,14 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= debug_utils.c add_token_node.c fake_structs.c  \
+SRCS			= debug_utils.c add_token_node.c \
 				add_command_node.c add_redirection_node.c token.c \
  				apply_redirections.c check_access.c command.c env.c \
-				init_data.c quotes.c signals.c utils.c  builtins/env.c\
+				init_data.c quotes.c  utils.c  builtins/env.c\
 				builtins/echo.c builtins/pwd.c builtins/export.c \
 				builtins/cd.c builtins/exit.c builtins/unset.c \
 				here_doc.c exec_command.c clear_commands.c \
-				exit.c free.c
+				exit.c free.c check_access_utils.c
 
 MAIN			= main.c
 
