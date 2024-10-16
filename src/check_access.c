@@ -6,12 +6,11 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 13:04:16 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:15:51 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 int	ft_check_access(t_program_data *data, char *cmd_path_2, t_command *cmd,
 		int *found_working_path)
@@ -28,7 +27,6 @@ int	ft_check_access(t_program_data *data, char *cmd_path_2, t_command *cmd,
 			return (1);
 		}
 		ft_set_cmd_path(data, cmd->name, cmd_path_2);
-		// break ;
 	}
 	return (0);
 }
@@ -106,7 +104,6 @@ int	ft_while_cmd(t_command *cmd, char **split_paths, t_program_data *data)
 			return (1);
 		if (cmd->name && !found_working_path && ft_check_built_ins(cmd) == 1)
 		{
-			fprintf(stderr, "%d\n", found_working_path);
 			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
 			data->exit_status = 127;
 			ft_free_split(split_paths);

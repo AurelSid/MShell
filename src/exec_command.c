@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 16:54:05 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:08:20 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,20 @@ void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)
 			data->exit_status = 1;
 	}
 }
+int	ft_count_envs(t_program_data *data)
+{
+	t_env	*tmp_env;
+	int		i;
+
+	i = 0;
+	tmp_env = data->env;
+	while (tmp_env)
+	{
+		i++;
+		tmp_env = tmp_env->next;
+	}
+	return (i);
+}
 char	**ft_env_to_tab(t_program_data *data)
 {
 	t_env	*tmp_env;
@@ -151,13 +165,7 @@ char	**ft_env_to_tab(t_program_data *data)
 	char	*tmp;
 
 	i = 0;
-	env_nmbr = 0;
-	tmp_env = data->env;
-	while (tmp_env)
-	{
-		env_nmbr++;
-		tmp_env = tmp_env->next;
-	}
+	env_nmbr = ft_count_envs(data);
 	tab = malloc(sizeof(char *) * (env_nmbr + 1));
 	tab[env_nmbr] = NULL;
 	tmp_env = data->env;
