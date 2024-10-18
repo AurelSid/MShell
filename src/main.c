@@ -6,21 +6,42 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 16:54:39 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:32:06 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	setup_pipe_and_redirect(void)
+{
+	int		pipe_fd[2];
+	pid_t	process_id;
+
+	if (pipe(pipe_fd) == -1)
+	{
+		exit(1);
+	}
+	process_id = fork();
+	if (process_id == 0)
+	{
+		exit(0);
+	}
+	else
+	{
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[1]);
+		close(pipe_fd[0]);
+		wait(NULL);
+	}
+}
+
 void	ft_handle_signals(int signal)
 {
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	(void)signal;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	write(1, "\n", 1);
+	rl_redisplay();
 }
 void	initialize_signals(void)
 {
@@ -41,7 +62,6 @@ void	handle_input(t_program_data *data, char *rl)
 	ft_tokens_fill_list(data);
 	ft_commands_fill_list(data);
 }
-
 void	process_command(t_program_data *data, char **env)
 {
 	t_command	*tmp_cmd;
@@ -51,7 +71,10 @@ void	process_command(t_program_data *data, char **env)
 	{
 		if (ft_apply_redir(tmp_cmd, data))
 			break ;
-		ft_exec(tmp_cmd, env, data);
+		if (tmp_cmd->name)
+			ft_exec(tmp_cmd, env, data);
+		if (tmp_cmd->name == NULL && tmp_cmd->next)
+			setup_pipe_and_redirect();
 		tmp_cmd = tmp_cmd->next;
 	}
 }
@@ -66,6 +89,40 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 	data->original_stdout = dup(STDOUT_FILENO);
 	return (0);
 }
+
+int	main(int argc, char **argv, char **env)
+{
+	char			*rl;
+	t_program_data	data;
+
+	ft_setup_main(argc, argv, &data, env);
+	while (1)
+	{
+		rl = readline("$> ");
+		if (!rl)
+		{
+			ft_free_env(&data);
+			cleanup_and_exit(&data);
+			clear_history();
+			return (0);
+		}
+		if (rl[0] == '\0')
+			continue ;
+		handle_input(&data, rl);
+		if (ft_check_all_access(&data))
+		{
+			cleanup_and_exit(&data);
+			continue ;
+		}
+		process_command(&data, env);
+		cleanup_and_exit(&data);
+		if (rl)
+			free(rl);
+	}
+	ft_free_env(&data);
+	return (0);
+}
+
 // int	main(int argc, char **argv, char **env)
 // {
 // 	char			*rl;
@@ -73,7 +130,7 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 
 // 	ft_setup_main(argc, argv, &data, env);
 // 	// rl = readline("$> ");
-// 	rl = "ls";
+// 	rl = "pwd";
 // 	if (!rl)
 // 	{
 // 		ft_free_env(&data);
@@ -90,35 +147,6 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 // 	// if (rl)
 // 	// 	free(rl);
 // 	ft_free_env(&data);
+// 	system("leaks minishell");
 // 	return (0);
 // }
-
-int	main(int argc, char **argv, char **env)
-{
-	char			*rl;
-	t_program_data	data;
-
-	ft_setup_main(argc, argv, &data, env);
-	while (1)
-	{
-		rl = readline("$> ");
-		if (!rl)
-		{
-			ft_free_env(&data);
-			clear_history();
-			return (0);
-		}
-		handle_input(&data, rl);
-		if (ft_check_all_access(&data))
-		{
-			cleanup_and_exit(&data);
-			continue ;
-		}
-		process_command(&data, env);
-		cleanup_and_exit(&data);
-		if (rl)
-			free(rl);
-	}
-	ft_free_env(&data);
-	return (0);
-}

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/16 13:59:36 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:30:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <termios.h>
 # include <unistd.h>
 
 typedef struct s_redirection
@@ -111,8 +112,8 @@ int							ft_exec(t_command *cmd, char **env,
 								t_program_data *data);
 void						ft_handle_signals(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
-void						rl_replace_line(const char *text, int clear_undo);
-void						ft_limiter_exec(t_redirection *in);
+// void						rl_replace_line(const char *text, int clear_undo);
+void						ft_limiter_exec(t_redirection *in, t_command *cmd);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd);
@@ -141,6 +142,14 @@ void						send_error(char *error);
 int							ft_set_cmd_path(t_program_data *data,
 								char *cmd_name, char *path);
 int							ft_check_absolute_p(t_command *cmd,
+								t_program_data *data);
+
+void						ft_exec_single_command(t_command *cmd, char **env,
+								t_program_data *data);
+void						ft_exec_piped_command(t_command *cmd, char **env,
+								t_program_data *data);
+int							ft_check_built_ins(t_command *cmd);
+int							ft_exec_built_ins(t_command *cmd,
 								t_program_data *data);
 
 typedef enum s_token_type

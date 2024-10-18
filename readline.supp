@@ -1,0 +1,9 @@
+{
+    readline_leak
+    Memcheck:Leak
+    obj:/Users/asideris/.brew/Cellar/readline/8.2.13/lib/libreadline.8.2.dylib
+    fun:malloc
+    fun:xmalloc
+    fun:rl_initialize
+    fun:readline
+}

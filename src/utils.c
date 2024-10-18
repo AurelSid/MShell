@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:02:04 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:39:27 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ t_env	*ft_env_sort(t_env *env)
 		else
 			ft_add_env(&sort, min);
 	}
-	//free(cpy);
 	return (sort);
 }
