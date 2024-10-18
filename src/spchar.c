@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 15:38:49 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/18 13:32:26 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ char	*ft_spchar(char *var, t_program_data *data)
 	if (!tmp)
 		return (var);
 	tmp += 1;
-	while (tmp[i] != ' ' && tmp[i])
+	if (tmp[i] == '?')
+		return (var);
+	while (tmp[i] && tmp[i] != ' ')
 		i++;
 	found = ft_substr(tmp, 0, i);
 	if (ft_search_env(&found, *data) == 0)
@@ -60,37 +62,57 @@ char	*ft_spchar(char *var, t_program_data *data)
 	start = ft_substr(var, 0, ft_strlen(var) - (ft_strlen(tmp) + 1));
 	end = ft_strjoin_free(start, found);
 	end = ft_strjoin_free(end, (tmp + i));
-	// free(start);
 	free(var);
-	// free(found);
+//	free(found);
 	return (end);
 }
 
-char	*ft_checkspchar(char *var, t_program_data *data)
+int	ft_switchspchar(int j, char **to_check, t_program_data *data)
 {
-	char	*result;
+	 if (tmp[i] == '\"')
+	{
+		j = ft_handle_quotes_2(tmp, i);
+		*to_check = ft_db_quotes(ft_substr(tmp, i, j), data);
+	}
+	else
+	{
+		j = ft_handle_words_2(tmp, i);
+		*to_check = ft_spchar(ft_substr(tmp, i, j), data);
+	}
+	return (j);
+}
+
+void	ft_checkspchar(char **var, t_program_data *data)
+{
+	char	*tmp;
 	char	*to_check;
 	int		i;
 	int		j;
 
 	i = -1;
-	result = NULL;
-	while (var[++i])
+	tmp = *var;
+	*var = NULL;
+	while (tmp[++i])
 	{
 		j = 0;
-		if (var[i] == '\'')
+		if (tmp[i] == '\'')
 		{
-			i = ft_handle_quotes_2(var, i);
+			i = ft_handle_quotes_2(tmp, i);
 			continue ;
 		}
-		else if (var[i] == '\"')
-			j = ft_handle_quotes_2(var, i);
+		else if (tmp[i] == '\"')
+		{
+			j = ft_handle_quotes_2(tmp, i);
+			to_check = ft_db_quotes(ft_substr(tmp, i, j), data);
+		}
 		else
-			j = ft_handle_words_2(var, i);
-		to_check = ft_spchar(ft_substr(var, i, j), data);
+		{
+			j = ft_handle_words_2(tmp, i);
+			to_check = ft_spchar(ft_substr(tmp, i, j), data);
+		}
 		to_check = ft_strtrim_free(to_check, "\"");
-		result = ft_strjoin_free(result, to_check);
+		*var = ft_strdup(ft_strjoin_free(*var, to_check));
 		i += j - 1;
 	}
-	return(free(to_check), result);
+	free(to_check);
 }

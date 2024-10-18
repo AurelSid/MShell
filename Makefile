@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
+#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/16 17:57:53 by asideris         ###   ########.fr        #
+#    Updated: 2024/10/18 13:03:46 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ SRCS			= debug_utils.c add_token_node.c \
 				init_data.c quotes.c  utils.c  builtins/env.c\
 				builtins/echo.c builtins/pwd.c builtins/export.c \
 				builtins/cd.c builtins/exit.c builtins/unset.c \
-				here_doc.c exec_command.c clear_commands.c \
-				exit.c free.c check_access_utils.c spchar.c
+				here_doc.c exec_command.c clear_commands.c exit.c \
+				free.c check_access_utils.c spchar.c signals.c
 
 MAIN			= main.c
 
@@ -266,7 +266,7 @@ setup:
 objs/%.o: 	$(SRCS_PATH)/%$(FILE_EXTENSION)
 			@mkdir -p $(dir $@)
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I$(INCLUDE_PATH))
+			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I$(INCLUDE_PATH) -I$(READLINE_INCLUDE))
 
 $(LIBFT):	
 			@echo checking libft...

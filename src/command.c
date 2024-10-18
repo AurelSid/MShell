@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:43:21 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:09:41 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 				|| tmp->type == DOUBLE_QUOTE))
 		{
 			if (tmp->type == WORD && ft_strcmp(cmd_n, "export"))
-				tmp_str = ft_checkspchar(tmp->content, data);
+			{
+				ft_checkspchar(&tmp->content, data);
+				tmp_str = tmp->content;
+			}
+			//	tmp_str = ft_checkspchar(tmp->content, data);
 			else
 				tmp_str = tmp->content;
 			free_tmp = *args;

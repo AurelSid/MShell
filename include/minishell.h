@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/16 17:55:11 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:26:14 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,18 @@ t_env						*ft_env_copy_2(t_env *env);
 t_env						*ft_env_sort(t_env *env);
 void						ft_commands_fill_list(t_program_data *data);
 int							ft_init_data(t_program_data *data);
-char						*ft_db_quotes(char *token, t_program_data data);
+char						*ft_db_quotes(char *token, t_program_data *data);
 char						*ft_spchar(char *token, t_program_data *data);
 char						**ft_args_to_line(t_command *cmd);
-char						*ft_checkspchar(char *var, t_program_data *data);
+//char						*ft_checkspchar(char *var, t_program_data *data);
+void						ft_checkspchar(char **var, t_program_data *data);
 
 int							ft_exec(t_command *cmd, char **env,
 								t_program_data *data);
 void						ft_handle_signals(int signal);
+void						ft_handle_signals_child(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
-void						rl_replace_line(const char *text, int clear_undo);
+//void						rl_replace_line(const char *text, int clear_undo);
 void						ft_limiter_exec(t_redirection *in);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
@@ -150,7 +152,6 @@ int							ft_check_absolute_p(t_command *cmd,
 int							ft_handle_words(t_program_data *data, int index);
 int							ft_handle_quotes(char type, t_program_data *data,
 								int index);
-char						*ft_checkspchar(char *var, t_program_data *data);
 
 typedef enum s_token_type
 {

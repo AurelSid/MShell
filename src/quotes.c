@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:44:42 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:28:55 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_search_env(char **var, t_program_data data)
 
 /*				/!\	LEAKS IN STRJOIN /!\				*/
 /*					NOT ANYMORE I THINK					*/
-char	*ft_db_quotes(char *token, t_program_data data)
+char	*ft_db_quotes(char *token, t_program_data *data)
 {
 	char	*found;
 	char	*start;
@@ -56,18 +56,18 @@ char	*ft_db_quotes(char *token, t_program_data data)
 	if (!tmp)
 		return (token);
 	tmp += 1;
-	while ((tmp[i] != ' ' && tmp[i] != '\"') && tmp[i])
+	if (tmp[i] == '?')
+		return (token);
+	while (tmp[i] && tmp[i] != ' ' && tmp[i] != '\"')
 		i++;
 	found = ft_substr(tmp, 0, i);
-	if (ft_search_env(&found, data) == 0)
+	if (ft_search_env(&found, *data) == 0)
 		found = NULL;
-	start = ft_substr(token, 0, ft_strlen(token)
-			- (ft_strlen(tmp) + 1));
+	start = ft_substr(token, 0, ft_strlen(token) - (ft_strlen(tmp) + 1));
 	end = ft_strjoin_free(start, found);
-	end = ft_strjoin(end, (tmp + i));
-	free(start);
+	end = ft_strjoin_free(end, (tmp + i));
 	free(token);
-	free(found);
+//	free(found);
 	return (end);
 }
 

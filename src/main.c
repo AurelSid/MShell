@@ -6,22 +6,12 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 18:23:40 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/17 15:31:57 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_handle_signals(int signal)
-{
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
 void	initialize_signals(void)
 {
 	signal(SIGINT, ft_handle_signals);
@@ -39,9 +29,9 @@ void	handle_input(t_program_data *data, char *rl)
 	add_history(rl);
 	data->input = rl;
 	ft_tokens_fill_list(data);
-	ft_print_tokens_list(*data);
+//	ft_print_tokens_list(*data);
 	ft_commands_fill_list(data);
-	ft_print_commands(*data);
+//	ft_print_commands(*data);
 }
 
 void	process_command(t_program_data *data, char **env)
@@ -111,6 +101,8 @@ int	main(int argc, char **argv, char **env)
 			return (0);
 		}
 		handle_input(&data, rl);
+		if (rl[0] == '\0')
+			continue ;
 		if (ft_check_all_access(&data))
 		{
 			cleanup_and_exit(&data);

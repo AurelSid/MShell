@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 17:40:38 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:10:19 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**ft_args_to_line(t_command *cmd)
 
 void	ft_setup_child_signals(void)
 {
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, ft_handle_signals_child);
 	signal(SIGQUIT, SIG_DFL);
 }
 
@@ -172,7 +172,10 @@ char	**ft_env_to_tab(t_program_data *data)
 	while (tmp_env)
 	{
 		tmp = ft_strjoin(tmp_env->var_name, "=");
-		tab[i] = ft_strjoin(tmp, tmp_env->content);
+		if (tmp_env->content)
+			tab[i] = ft_strjoin(tmp, tmp_env->content);
+		else
+			tab[i] = NULL;
 		free(tmp);
 		tmp_env = tmp_env->next;
 		i++;
