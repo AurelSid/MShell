@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/17 16:10:19 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:18:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
 	if (!ft_strcmp(cmd->name, "env"))
 		ft_env(cmd, *data);
 	else if (!ft_strcmp(cmd->name, "echo"))
-		ft_echo(cmd, *data);
+		ft_echo(cmd);
 	else if (!ft_strcmp(cmd->name, "cd"))
 		ft_cd(cmd);
 	else if (!ft_strcmp(cmd->name, "pwd"))
@@ -68,7 +68,7 @@ char	**ft_args_to_line(t_command *cmd)
 
 void	ft_setup_child_signals(void)
 {
-	signal(SIGINT, ft_handle_signals_child);
+	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
 

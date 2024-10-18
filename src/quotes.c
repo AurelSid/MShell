@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/18 13:28:55 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:17:58 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ int	ft_search_env(char **var, t_program_data data)
 		tmp = tmp->next;
 	}
 	return (0);
+}
+
+int	ft_handle_quotes(char *var, int index)
+{
+	int		i;
+	char	type;
+
+	type = var[index];
+	i = index;
+	i++;
+	while (var[i] != type && var[i])
+		i++;
+	i++;
+	if (i > (int)ft_strlen(var))
+		return (-1);
+	/*  ---> no error but skip the command */
+	return (i - index);
 }
 
 /*				/!\	LEAKS IN STRJOIN /!\				*/

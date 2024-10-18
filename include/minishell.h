@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/17 18:26:14 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:18:38 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int							ft_init_data(t_program_data *data);
 char						*ft_db_quotes(char *token, t_program_data *data);
 char						*ft_spchar(char *token, t_program_data *data);
 char						**ft_args_to_line(t_command *cmd);
-//char						*ft_checkspchar(char *var, t_program_data *data);
+// char						*ft_checkspchar(char *var, t_program_data *data);
 void						ft_checkspchar(char **var, t_program_data *data);
 
 int							ft_exec(t_command *cmd, char **env,
@@ -115,7 +115,7 @@ int							ft_exec(t_command *cmd, char **env,
 void						ft_handle_signals(int signal);
 void						ft_handle_signals_child(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
-//void						rl_replace_line(const char *text, int clear_undo);
+// void						rl_replace_line(const char *text, int clear_undo);
 void						ft_limiter_exec(t_redirection *in);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
@@ -129,7 +129,7 @@ char						*ft_strtrim_free(char *s1, char *set);
 
 void						ft_env(t_command *cmd, t_program_data data);
 void						ft_cd(t_command *cmd);
-void						ft_echo(t_command *cmd, t_program_data data);
+void						ft_echo(t_command *cmd);
 void						ft_export(t_command *cmd, t_program_data *data);
 void						ft_pwd(t_command *cmd);
 void						ft_unset(t_command *cmd, t_program_data *data);
@@ -149,9 +149,8 @@ int							ft_set_cmd_path(t_program_data *data,
 int							ft_check_absolute_p(t_command *cmd,
 								t_program_data *data);
 
-int							ft_handle_words(t_program_data *data, int index);
-int							ft_handle_quotes(char type, t_program_data *data,
-								int index);
+int							ft_handle_words(char *data, int index);
+int							ft_handle_quotes(char *data, int index);
 
 typedef enum s_token_type
 {
