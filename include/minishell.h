@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/18 12:30:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:13:55 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ typedef struct s_program_data
 	t_env					*env;
 	int						exit_status;
 	int						shell_lvl;
+	pid_t					pid;
 }							t_program_data;
+extern t_program_data		data;
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);

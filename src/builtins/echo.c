@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/07 14:41:55 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/20 18:32:52 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	ft_check_opt(char *opt)
 		}
 		i++;
 	}
-
 	return (0);
 }
 
@@ -74,4 +73,5 @@ void	ft_echo(char *arg, char *opt, t_program_data data)
 	if (ft_check_opt(opt))
 		printf("\n");
 	ft_free_split(args);
+	exit(0);
 }

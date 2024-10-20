@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/18 12:38:18 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:26:48 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_check_built_ins(t_command *cmd)
 {
-	if (ft_strcmp(cmd->name, "env") && ft_strcmp(cmd->name, "echo")
-		&& ft_strcmp(cmd->name, "cd") && ft_strcmp(cmd->name, "pwd")
-		&& ft_strcmp(cmd->name, "export") && ft_strcmp(cmd->name, "unset")
-		&& ft_strcmp(cmd->name, "exit"))
+	if (!ft_strcmp(cmd->name, "env") || !ft_strcmp(cmd->name, "echo")
+		|| !ft_strcmp(cmd->name, "cd") || !ft_strcmp(cmd->name, "pwd")
+		|| !ft_strcmp(cmd->name, "export") || !ft_strcmp(cmd->name, "unset")
+		|| !ft_strcmp(cmd->name, "exit"))
 		return (1);
 	else
 		return (0);

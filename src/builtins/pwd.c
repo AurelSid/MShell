@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:49:51 by vpelc             #+#    #+#             */
-/*   Updated: 2024/09/30 14:09:08 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:59:11 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	ft_pwd(void)
 		printf("%s\n", cwd);
 	else
 		perror("pwd error\n");
+	exit(0);
 }

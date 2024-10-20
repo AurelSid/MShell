@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/18 12:34:27 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:14:04 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ void	ft_exec_child_piped_process(t_command *cmd, char **env,
 		signal(SIGQUIT, SIG_DFL);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[0]);
-		if (ft_exec_built_ins(cmd, data) == 1 && cmd->name)
-			execve(cmd->path, ft_args_to_line(cmd), env);
+		if (cmd->name)
+		{
+			if (ft_check_built_ins(cmd) == 1)
+				ft_exec_built_ins(cmd, data);
+			else
+				execve(cmd->path, ft_args_to_line(cmd), env);
+		}
 		exit(data->exit_status);
 	}
 }

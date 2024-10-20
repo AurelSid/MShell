@@ -64,6 +64,6 @@ fclean: clean
 re: fclean all
 
 debug: re
-debug: CFLAGS += -g3 -fsanitize=address -D DEBUG=1
+debug: CFLAGS += -g3 -D DEBUG=1 #-fsanitize=address 
 
 .PHONY: all clean fclean re debug

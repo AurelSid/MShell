@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/16 17:15:51 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:30:59 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,19 +123,26 @@ int	ft_check_all_access(t_program_data *data)
 
 	cmd = data->command_top;
 	env = data->env;
-	if (cmd->name && !ft_check_built_ins(cmd))
-		return (0);
-	while (env && strcmp(env->var_name, "PATH") != 0)
-		env = env->next;
-	if (!env)
-		return (-1);
-	full_path = env->content;
-	split_paths = ft_split(full_path, ':');
-	if (!split_paths)
-		return (-1);
-	if (ft_while_cmd(cmd, split_paths, data))
-		return (1);
-	if (split_paths)
-		ft_free_split(split_paths);
+	while (cmd)
+	{
+		if (cmd->name && ft_check_built_ins(cmd))
+		{
+			cmd = cmd->next;
+			continue ;
+		}
+		while (env && strcmp(env->var_name, "PATH") != 0)
+			env = env->next;
+		if (!env)
+			return (-1);
+		full_path = env->content;
+		split_paths = ft_split(full_path, ':');
+		if (!split_paths)
+			return (-1);
+		if (ft_while_cmd(cmd, split_paths, data))
+			return (1);
+		if (split_paths)
+			ft_free_split(split_paths);
+		cmd = cmd->next;
+	}
 	return (0);
 }

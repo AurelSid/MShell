@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/07 16:39:08 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/20 11:35:00 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_command	*ft_new_command(char *command_name, t_program_data *data,
 	new_command->redirection_list = NULL;
 	new_command->next = NULL;
 	new_command->path = NULL;
-	new_command->input_fd = -1;
-	new_command->output_fd = -1;
+	new_command->input_fd = 999;
+	new_command->output_fd = 999;
 	if (data->command_top == NULL)
 		data->command_top = new_command;
 	else

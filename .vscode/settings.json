@@ -7,6 +7,8 @@
 		"string_view": "c",
 		"vector": "c",
 		"unistd.h": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"signal.h": "c",
+		"system_error": "c"
 	}
 }

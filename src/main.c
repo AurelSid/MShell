@@ -6,12 +6,13 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/18 12:32:06 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/20 19:24:16 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+t_program_data	data;
 void	setup_pipe_and_redirect(void)
 {
 	int		pipe_fd[2];
@@ -69,12 +70,13 @@ void	process_command(t_program_data *data, char **env)
 	tmp_cmd = data->command_top;
 	while (tmp_cmd)
 	{
+		
 		if (ft_apply_redir(tmp_cmd, data))
-			break ;
-		if (tmp_cmd->name)
-			ft_exec(tmp_cmd, env, data);
-		if (tmp_cmd->name == NULL && tmp_cmd->next)
-			setup_pipe_and_redirect();
+		{
+			tmp_cmd = tmp_cmd->next;
+			continue ;
+		}
+		ft_exec(tmp_cmd, env, data);
 		tmp_cmd = tmp_cmd->next;
 	}
 }
@@ -92,8 +94,7 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 
 int	main(int argc, char **argv, char **env)
 {
-	char			*rl;
-	t_program_data	data;
+	char	*rl;
 
 	ft_setup_main(argc, argv, &data, env);
 	while (1)
@@ -150,3 +151,12 @@ int	main(int argc, char **argv, char **env)
 // 	system("leaks minishell");
 // 	return (0);
 // }
+
+// Test  35: ❌ echo hi >./outfiles/outfile01 | echo bye
+// Files ./mini_outfiles/outfile01 and ./bash_outfiles/outfile01 differ
+// mini outfiles:
+// bye
+// bash outfiles:
+// hi
+// mini output = ()
+// bash output = (bye)
