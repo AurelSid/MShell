@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/21 18:17:38 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:26:15 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,11 +161,11 @@ int							ft_check_built_ins(t_command *cmd);
 int							ft_exec_built_ins(t_command *cmd,
 								t_program_data *data);
 void						setup_pipe_and_redirect(void);
-void						ft_checkspchar(char **var, t_program_data *data);
+//void						ft_checkspchar(char **var, t_program_data *data);
 int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
 int							ft_last_redir(t_redirection *in, t_redirection *out,
-								t_command *cmd);
+								t_command *cmd,t_program_data *data);
 int							ft_apply_redir_2(t_command *command,
 								t_program_data *data);
 

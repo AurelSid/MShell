@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 16:39:52 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:28:17 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,11 @@ void	ft_export_var(char *arg, t_program_data *data)
 			return ;		/*  ----> ERROR */
 		var_name = ft_substr(arg, 0, len);
 		content = ft_strdup(ft_strchr(arg, '=') + 1);
-/*  		if (var_name)
-			var_name = ft_checkspchar(var_name, data);
-		if (content)
-			content = ft_checkspchar(content, data); */ 
+
   		if (var_name)
-			ft_checkspchar(&var_name, data);
+			ft_checkspchar(&var_name, 1);
 		if (content)
-			ft_checkspchar(&content, data);
+			ft_checkspchar(&content, 1);
 		tmp = ft_env_exist(var_name, data);
 		if (tmp)
 		{

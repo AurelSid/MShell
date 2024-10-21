@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 16:47:04 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:07:22 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	**ft_env_to_tab(t_program_data *data)
 }
 int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
-	char **tab;
+	char	**tab;
 
 	(void)env;
 	tab = ft_env_to_tab(data);
@@ -123,16 +123,12 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 		ft_exec_single_command(cmd, tab, data);
 	else
 	{
-		if (cmd->next->input_fd > 0)
-		{
+		if (cmd->output_fd < 0 && cmd->next->input_fd < 0)
+			ft_exec_piped_command(cmd, tab, data);
+		else if (cmd->next->input_fd > 0)
 			ft_exec_single_command(cmd, tab, data);
-			setup_pipe_and_redirect();
-		}
 		else if (cmd->output_fd)
-		{
 			ft_exec_single_command(cmd, tab, data);
-			setup_pipe_and_redirect();
-		}
 		else
 			ft_exec_piped_command(cmd, tab, data);
 	}

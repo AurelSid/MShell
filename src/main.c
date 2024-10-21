@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 17:49:39 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:25:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	process_command(t_program_data *data, char **env)
 	tmp_cmd = data->command_top;
 	while (tmp_cmd)
 	{
-		ft_last_redir(tmp_cmd->last_in, tmp_cmd->last_out, tmp_cmd);
+		ft_last_redir(tmp_cmd->last_in, tmp_cmd->last_out, tmp_cmd, data);
 		if (tmp_cmd->ok == 0)
 			ft_exec(tmp_cmd, env, data);
 		tmp_cmd = tmp_cmd->next;
@@ -117,7 +117,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		rl = readline("$> ");
-		if (!rl)
+ 		if (!rl)
 		{
 			ft_free_env(&data);
 			cleanup_and_exit(&data);

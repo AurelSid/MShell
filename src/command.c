@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 18:18:20 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:27:20 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir)
 	return (0);
 }
 
-int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
+int	ft_check_opt(t_token **tmp, char *cmd_n, char **opt)
 {
 	char	*tmp_str;
 	char	*free_tmp;
@@ -49,7 +49,7 @@ int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
 	return (0);
 }
 
-int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
+int	ft_check_args(t_token **tmp, char *cmd_n, char **args)
 {
 	char	*tmp_str;
 	char	*free_tmp;
@@ -93,14 +93,14 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		else
 			return (0);
 		tmp = tmp->next;
-		ft_check_opt(data, &tmp, cmd_n, opt);
+		ft_check_opt(&tmp, cmd_n, opt);
 		while (tmp && (tmp->type != PIPE))
 		{
 			if (tmp->type == REDIRECT_IN || tmp->type == REDIRECT_APPEND
 				|| tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_OUT)
 				ft_check_redir(&tmp, &redir);
 			else if (tmp->type == WORD)
-				ft_check_args(data, &tmp, cmd_n, args);
+				ft_check_args(&tmp, cmd_n, args);
 		}
 	}
 	cmd = ft_new_command(cmd_n, data, *args, *opt);
