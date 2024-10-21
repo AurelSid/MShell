@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/21 18:26:15 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 19:23:11 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ int							ft_strcmp(const char *s1, const char *s2);
 void						ft_limiter_exec(t_redirection *in, t_command *cmd);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
-int							ft_check_built_ins(t_command *cmd);
 int							ft_search_env(char **var, t_program_data data);
 
 char						*ft_strjoin_free(char *s1, char *s2);
@@ -157,17 +156,18 @@ void						ft_exec_single_command(t_command *cmd, char **env,
 								t_program_data *data);
 void						ft_exec_piped_command(t_command *cmd, char **env,
 								t_program_data *data);
-int							ft_check_built_ins(t_command *cmd);
+int							ft_check_built_ins(char *cmd_name);
 int							ft_exec_built_ins(t_command *cmd,
 								t_program_data *data);
 void						setup_pipe_and_redirect(void);
-//void						ft_checkspchar(char **var, t_program_data *data);
+// void						ft_checkspchar(char **var, t_program_data *data);
 int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
 int							ft_last_redir(t_redirection *in, t_redirection *out,
-								t_command *cmd,t_program_data *data);
+								t_command *cmd, t_program_data *data);
 int							ft_apply_redir_2(t_command *command,
 								t_program_data *data);
+void						ft_trimloop(char ***split);
 
 typedef enum s_token_type
 {

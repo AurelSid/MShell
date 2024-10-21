@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 18:17:45 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:46:02 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_redirection	*ft_new_redirection(char *redirection_filename,
 	new_redirection = malloc(sizeof(t_redirection));
 	if (new_redirection == NULL)
 		return (NULL);
-	ft_checkspchar(&redirection_filename, 1);
+	ft_checkspchar(&redirection_filename, 0);
 	new_redirection->filename = redirection_filename;
 	new_redirection->type = type;
 	new_redirection->next = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 16:44:50 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:23:02 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (free(s1), join);
 }
 
-static	int	ft_check_set(char c, char const *set)
+static int	ft_check_set(char c, char const *set)
 {
 	size_t	i;
 
@@ -84,4 +84,19 @@ char	*ft_strtrim_free(char *s1, char *set)
 	}
 	cpy[k] = '\0';
 	return (free(s1), cpy);
+}
+
+void	ft_trimloop(char ***split)
+{
+	int		i;
+
+	i = 0;
+	while ((*split)[i])
+	{
+		if ((*split)[i][0] == '\"')
+			(*split)[i] = ft_strtrim_free((*split)[i], "\"");
+		else if ((*split)[i][0] == '\'')
+			(*split)[i] = ft_strtrim_free((*split)[i], "\'");
+		i++;
+	}
 }

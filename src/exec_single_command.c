@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 17:58:27 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:37:50 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_fork(pid_t process_id, t_command *cmd, char **env, t_program_data *data)
 		signal(SIGTSTP, SIG_IGN);
 		if (cmd->name)
 		{
-			if (ft_check_built_ins(cmd) == 1)
+			if (ft_check_built_ins(cmd->name) == 1)
 				ft_exec_built_ins_in_pipe(cmd, data);
 			else
 				execve(cmd->path, ft_args_to_line(cmd), env);
@@ -69,7 +69,7 @@ void	sigtstp_handler(int signum)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	write(1, "\n", 1);
-	write(1, "[5]+  Stopped                 cat", 33);
+	write(1, "[1]+  Stopped                 cat", 33);
 	write(1, "\n", 1);
 	if (p > 0)
 	{

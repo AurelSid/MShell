@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 18:27:20 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:51:26 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_check_opt(t_token **tmp, char *cmd_n, char **opt)
 	char	*tmp_str;
 	char	*free_tmp;
 
-	while ((*tmp) && ((*tmp)->content[0] == '-' && (*tmp)->type == WORD))
+	while ((*tmp) && (*tmp)->type == WORD
+		&& ((*tmp)->content[0] == '-' || (*tmp)->content[1] == '-'))
 	{
 		if (ft_strcmp(cmd_n, "export"))
 		{
@@ -53,12 +54,14 @@ int	ft_check_args(t_token **tmp, char *cmd_n, char **args)
 {
 	char	*tmp_str;
 	char	*free_tmp;
+	int		trim;
 
+	trim = ft_check_built_ins(cmd_n);
 	while ((*tmp) && (*tmp)->type == WORD)
 	{
 		if (ft_strcmp(cmd_n, "export"))
 		{
-			ft_checkspchar(&(*tmp)->content, 0);
+			ft_checkspchar(&(*tmp)->content, trim);
 			tmp_str = (*tmp)->content;
 		}
 		free_tmp = *args;
@@ -87,7 +90,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	{
 		if (tmp->type == WORD)
 		{
-			ft_checkspchar(&tmp->content, 0);
+			ft_checkspchar(&tmp->content, 1);
 			cmd_n = tmp->content;
 		}
 		else

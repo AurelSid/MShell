@@ -3,39 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 16:40:23 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:32:46 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* static int	ft_check_opt(char *opt)
-{
-	int		i;
-	int		j;
-	char	**opts;
 
-	i = 0;
-	if (!opt[i])
-		return (1);
-	opts = ft_split(opt, ' ');
-	while (opts[i])
-	{
-		j = 1;
-		while (opts[i][j])
-		{
-			if (opts[i][j] != 'n')
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	ft_free_split(opts);
-	return (0);
-} */
 
 static int	ft_valid_opt(char *opt)
 {
@@ -88,6 +65,7 @@ void	ft_echo(t_command *cmd)
 
 	i = 0;
 	args = ft_split(cmd->args, ' ');
+	ft_trimloop(&args);
 	opt_i = ft_check_opt(cmd->options, cmd->args);
 	while (args[i])
 	{

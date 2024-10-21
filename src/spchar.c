@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 18:16:43 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:46:28 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_switchspchar(int i, char **to_check, char *tmp, int trim)
 		*to_check = ft_spchar(ft_substr(tmp, i, j), &data);
 	}
 	*to_check = ft_check_exitsp(*to_check, data);
-	if (trim)
+	if (!trim)
 		*to_check = ft_strtrim_free(*to_check, "\"");
 	return (j);
 }
@@ -108,7 +108,7 @@ void	ft_checkspchar(char **var, int trim)
 		if (tmp[i] == '\'')
 		{
 			j = ft_handle_quotes(tmp, i);
-			if (trim)
+			if (!trim)
 				to_check = ft_strtrim_free(ft_substr(tmp, i, j), "\'");
 			*var = ft_strdup(ft_strjoin_free(*var, to_check));
 			i += j - 1;

@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 18:07:22 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:35:52 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_check_built_ins(t_command *cmd)
+int	ft_check_built_ins(char *cmd_name)
 {
-	if (!ft_strcmp(cmd->name, "env") || !ft_strcmp(cmd->name, "echo")
-		|| !ft_strcmp(cmd->name, "cd") || !ft_strcmp(cmd->name, "pwd")
-		|| !ft_strcmp(cmd->name, "export") || !ft_strcmp(cmd->name, "unset")
-		|| !ft_strcmp(cmd->name, "exit"))
+	if (!ft_strcmp(cmd_name, "env") || !ft_strcmp(cmd_name, "echo")
+		|| !ft_strcmp(cmd_name, "cd") || !ft_strcmp(cmd_name, "pwd")
+		|| !ft_strcmp(cmd_name, "export") || !ft_strcmp(cmd_name, "unset")
+		|| !ft_strcmp(cmd_name, "exit"))
 		return (1);
 	else
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/20 18:30:59 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:26:09 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_while_cmd(t_command *cmd, char **split_paths, t_program_data *data)
 		}
 		if (ft_while_split(split_paths, cmd, &found_working_path, data))
 			return (1);
-		if (cmd->name && !found_working_path && ft_check_built_ins(cmd) == 1)
+		if (cmd->name && !found_working_path && ft_check_built_ins(cmd->name) == 1)
 		{
 			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
 			data->exit_status = 127;
@@ -125,7 +125,7 @@ int	ft_check_all_access(t_program_data *data)
 	env = data->env;
 	while (cmd)
 	{
-		if (cmd->name && ft_check_built_ins(cmd))
+		if (cmd->name && ft_check_built_ins(cmd->name))
 		{
 			cmd = cmd->next;
 			continue ;

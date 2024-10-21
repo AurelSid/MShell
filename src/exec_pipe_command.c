@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/20 18:14:04 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:36:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_exec_child_piped_process(t_command *cmd, char **env,
 		close(pipe_fd[0]);
 		if (cmd->name)
 		{
-			if (ft_check_built_ins(cmd) == 1)
+			if (ft_check_built_ins(cmd->name) == 1)
 				ft_exec_built_ins(cmd, data);
 			else
 				execve(cmd->path, ft_args_to_line(cmd), env);
