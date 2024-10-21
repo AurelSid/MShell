@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 16:42:24 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:18:20 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
 	{
 		if (ft_strcmp(cmd_n, "export"))
 		{
-			ft_checkspchar(&(*tmp)->content, data);
+			ft_checkspchar(&(*tmp)->content, 0);
 			tmp_str = (*tmp)->content;
 		}
 		free_tmp = *opt;
@@ -58,7 +58,7 @@ int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
 	{
 		if (ft_strcmp(cmd_n, "export"))
 		{
-			ft_checkspchar(&(*tmp)->content, data);
+			ft_checkspchar(&(*tmp)->content, 0);
 			tmp_str = (*tmp)->content;
 		}
 		free_tmp = *args;
@@ -87,7 +87,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	{
 		if (tmp->type == WORD)
 		{
-			ft_checkspchar(&tmp->content, data);
+			ft_checkspchar(&tmp->content, 0);
 			cmd_n = tmp->content;
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/21 17:26:27 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:17:38 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,13 @@ int							ft_init_data(t_program_data *data);
 char						*ft_db_quotes(char *token, t_program_data *data);
 char						*ft_spchar(char *token, t_program_data *data);
 char						**ft_args_to_line(t_command *cmd);
-// char						*ft_checkspchar(char *var, t_program_data *data);
-void						ft_checkspchar(char **var, t_program_data *data);
+void						ft_checkspchar(char **var, int trim);
 
 int							ft_exec(t_command *cmd, char **env,
 								t_program_data *data);
 void						ft_handle_signals(int signal);
 void						ft_handle_signals_child(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
-// void						rl_replace_line(const char *text, int clear_undo);
 void						ft_limiter_exec(t_redirection *in, t_command *cmd);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);

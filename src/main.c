@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 17:33:10 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:49:39 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	process_command(t_program_data *data, char **env)
 	tmp_cmd = data->command_top;
 	while (tmp_cmd)
 	{
-			ft_last_redir(tmp_cmd->last_in, tmp_cmd->last_out, tmp_cmd);
+		ft_last_redir(tmp_cmd->last_in, tmp_cmd->last_out, tmp_cmd);
 		if (tmp_cmd->ok == 0)
 			ft_exec(tmp_cmd, env, data);
 		tmp_cmd = tmp_cmd->next;
@@ -110,7 +110,8 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*rl;
+	char			*rl;
+	t_program_data	data;
 
 	ft_setup_main(argc, argv, &data, env);
 	while (1)
