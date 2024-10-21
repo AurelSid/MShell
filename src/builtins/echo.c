@@ -6,13 +6,13 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 16:31:36 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:40:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	ft_check_opt(char *opt)
+/* static int	ft_check_opt(char *opt)
 {
 	int		i;
 	int		j;
@@ -33,44 +33,70 @@ static int	ft_check_opt(char *opt)
 		}
 		i++;
 	}
+	ft_free_split(opts);
+	return (0);
+} */
+
+static int	ft_valid_opt(char *opt)
+{
+	int	i;
+
+	i = 1;
+	while (opt[i])
+	{
+		if (opt[i] != 'n')
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
-static char	*ft_check_spchar(char *arg, t_program_data data)
+static int	ft_check_opt(char *opt, char *arg)
 {
-	char	*start;
-	char	*end;
-	char	*tmp;
 	int		i;
+	int		result;
+	char	**opts;
 
 	i = 0;
-	tmp = ft_strchr(arg, '$');
-	if (!tmp || (tmp[1]) != '?')
-		return (arg);
-	start = ft_substr(arg, 0, ft_strlen(arg) - (ft_strlen(tmp)));
-	end = ft_strjoin(start, ft_itoa(data.exit_status));
-	end = ft_strjoin(end, (tmp + 2));
-	free(arg);
-	free(start);
-	return (end);
+	result = 1;
+	if (!opt)
+		return (1);
+	opts = ft_split(opt, ' ');
+	while (opts[i])
+	{
+		if (ft_valid_opt(opts[i]))
+		{
+			while (opts[i])
+			{
+				printf("%s", opts[i++]);
+				if (opts[i] || arg[0])
+					printf(" ");
+			}
+			return (result);
+		}
+		result = 0;
+		i++;
+	}
+	return (ft_free_split(opts), result);
 }
 
-void	ft_echo(char *arg, char *opt, t_program_data data)
+void	ft_echo(t_command *cmd)
 {
 	int		i;
+	int		opt_i;
 	char	**args;
 
 	i = 0;
-	args = ft_split(arg, ' ');
+	args = ft_split(cmd->args, ' ');
+	opt_i = ft_check_opt(cmd->options, cmd->args);
 	while (args[i])
 	{
 		if (i != 0)
 			printf(" ");
-		args[i] = ft_check_spchar(args[i], data);
 		printf("%s", args[i]);
 		i++;
 	}
-	if (ft_check_opt(opt))
+	if (opt_i)
 		printf("\n");
 	ft_free_split(args);
 	exit(0);

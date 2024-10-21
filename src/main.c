@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 14:31:02 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:45:15 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void	handle_input(t_program_data *data, char *rl)
 	add_history(rl);
 	data->input = rl;
 	ft_tokens_fill_list(data);
+//	ft_print_tokens_list(*data);
 	ft_commands_fill_list(data);
+//	ft_print_commands(*data);
 }
 void	process_command(t_program_data *data, char **env)
 {
@@ -123,6 +125,8 @@ int	main(int argc, char **argv, char **env)
 		if (rl[0] == '\0')
 			continue ;
 		handle_input(&data, rl);
+		if (rl[0] == '\0')
+			continue ;
 		if (ft_check_all_access(&data))
 		{
 			cleanup_and_exit(&data);

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 14:17:40 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:47:04 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ int	ft_check_built_ins(t_command *cmd)
 int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
 {
 	if (!ft_strcmp(cmd->name, "env"))
-		ft_env(*data);
+		ft_env(cmd, *data);
 	else if (!ft_strcmp(cmd->name, "echo"))
-		ft_echo(cmd->args, cmd->options, *data);
+		ft_echo(cmd);
 	else if (!ft_strcmp(cmd->name, "cd"))
-		ft_cd(cmd->args);
+		ft_cd(cmd);
 	else if (!ft_strcmp(cmd->name, "pwd"))
-		ft_pwd();
+		ft_pwd(cmd);
 	else if (!ft_strcmp(cmd->name, "export"))
-		ft_export(cmd->args, data);
+		ft_export(cmd, data);
 	else if (!ft_strcmp(cmd->name, "unset"))
-		ft_unset(cmd->args, data);
+		ft_unset(cmd, data);
 	else if (!ft_strcmp(cmd->name, "exit"))
-		ft_exit(cmd->args);
+		ft_exit(cmd, *data);
 	else
 		return (1);
 	return (0);
@@ -64,6 +64,12 @@ char	**ft_args_to_line(t_command *cmd)
 	while (line_split[i])
 		i++;
 	return (line_split);
+}
+
+void	ft_setup_child_signals(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 int	ft_count_envs(t_program_data *data)
@@ -108,7 +114,7 @@ char	**ft_env_to_tab(t_program_data *data)
 }
 int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
-	char	**tab;
+	char **tab;
 
 	(void)env;
 	tab = ft_env_to_tab(data);

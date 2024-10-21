@@ -8,7 +8,7 @@ MY_SOURCES =	src/debug_utils.c src/add_token_node.c \
 				src/builtins/cd.c src/builtins/exit.c src/builtins/unset.c \
 				src/here_doc.c src/exec_command.c src/clear_commands.c \
 				src/exit.c src/free.c src/check_access_utils.c src/main.c src/exec_single_command.c \
-				src/exec_pipe_command.c 
+				src/exec_pipe_command.c src/spchar.c
 				
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
