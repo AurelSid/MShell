@@ -6,18 +6,20 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 16:13:04 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:29:52 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_check_redir(t_token **tmp, t_redirection **redir)
+int	ft_check_type(t_token **tmp, t_redirection **redir)
 {
 	while ((*tmp) && (((*tmp)->type == REDIRECT_IN
 				|| (*tmp)->type == REDIRECT_APPEND
 				|| (*tmp)->type == REDIRECT_HEREDOC
-				|| (*tmp)->type == REDIRECT_OUT) && (*tmp)->next->type == WORD))
+				|| (*tmp)->type == REDIRECT_OUT) && ((*tmp)->next->type == WORD
+				|| (*tmp)->next->type == DOUBLE_QUOTE
+				|| (*tmp)->next->type == SINGLE_QUOTE)))
 	{
 		*redir = ft_new_redirection((*tmp)->next->content, *redir,
 				(*tmp)->type);
@@ -25,49 +27,37 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir)
 	}
 	return (0);
 }
-
-int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
+int	ft_check_2(t_token **tmp, t_redirection **redir)
 {
-	char	*tmp_str;
-	char	*free_tmp;
-
-	while ((*tmp) && ((*tmp)->content[0] == '-' && (*tmp)->type == WORD))
+	while ((*tmp && (*tmp)->next) && (*tmp)->type != PIPE)
 	{
-		if (ft_strcmp(cmd_n, "export"))
-		{
-			ft_checkspchar(&(*tmp)->content, data);
-			tmp_str = (*tmp)->content;
-		}
-		free_tmp = *opt;
-		*opt = ft_strjoin(free_tmp, (*tmp)->content);
-		free(free_tmp);
-		(*tmp) = (*tmp)->next;
-		free_tmp = *opt;
-		*opt = ft_strjoin(free_tmp, " ");
-		free(free_tmp);
+		if (((*tmp)->type == REDIRECT_IN || (*tmp)->type == REDIRECT_OUT
+				|| (*tmp)->type == REDIRECT_HEREDOC
+				|| (*tmp)->type == REDIRECT_APPEND)
+			&& ((*tmp)->next->type == WORD || (*tmp)->next->type == SINGLE_QUOTE
+				|| (*tmp)->next->type == DOUBLE_QUOTE))
+			*redir = ft_new_redirection((*tmp)->next->content, *redir,
+					(*tmp)->type);
+		else
+			return (0);
+		(*tmp) = (*tmp)->next->next;
 	}
 	return (0);
 }
-
-int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
+int	ft_check_3(t_token **tmp, t_redirection **redir)
 {
-	char	*tmp_str;
-	char	*free_tmp;
-
-	while ((*tmp) && (*tmp)->type == WORD)
+	while ((*tmp && (*tmp)->next) && (*tmp)->type != PIPE)
 	{
-		if (ft_strcmp(cmd_n, "export"))
-		{
-			ft_checkspchar(&(*tmp)->content, data);
-			tmp_str = (*tmp)->content;
-		}
-		free_tmp = *args;
-		*args = ft_strjoin(free_tmp, (*tmp)->content);
-		free(free_tmp);
-		(*tmp) = (*tmp)->next;
-		free_tmp = *args;
-		*args = ft_strjoin(free_tmp, " ");
-		free(free_tmp);
+		if (((*tmp)->type == REDIRECT_IN || (*tmp)->type == REDIRECT_OUT
+				|| (*tmp)->type == REDIRECT_HEREDOC
+				|| (*tmp)->type == REDIRECT_APPEND)
+			&& ((*tmp)->next->type == WORD || (*tmp)->next->type == SINGLE_QUOTE
+				|| (*tmp)->next->type == DOUBLE_QUOTE))
+			*redir = ft_new_redirection((*tmp)->next->content, *redir,
+					(*tmp)->type);
+		else
+			return (0);
+		(*tmp) = (*tmp)->next->next;
 	}
 	return (0);
 }
@@ -78,32 +68,42 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	t_command		*cmd;
 	t_redirection	*redir;
 	char			*cmd_n;
+	char			*free_tmp;
 
 	redir = NULL;
-	ft_check_redir(&tmp, &redir);
+	ft_check_type(&tmp, &redir);
 	if (!tmp || tmp->type == PIPE)
 		cmd_n = NULL;
 	else
 	{
 		if (tmp->type == WORD)
-		{
-			ft_checkspchar(&tmp->content, data);
 			cmd_n = tmp->content;
-		}
-		else
-			return (0);
 		tmp = tmp->next;
-		ft_check_opt(data, &tmp, cmd_n, opt);
-		while (tmp && (tmp->type != PIPE))
+		while (tmp && (tmp->content[0] == '-' && (tmp->type == WORD
+					|| tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)))
 		{
-			if (tmp->type == REDIRECT_IN || tmp->type == REDIRECT_APPEND
-				|| tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_OUT)
-				ft_check_redir(&tmp, &redir);
-			else if (tmp->type == WORD)
-				ft_check_args(data, &tmp, cmd_n, args);
+			free_tmp = *opt;
+			*opt = ft_strjoin(free_tmp, tmp->content);
+			free(free_tmp);
+			tmp = tmp->next;
+			free_tmp = *opt;
+			*opt = ft_strjoin(free_tmp, " ");
+			free(free_tmp);
+		}
+		while (tmp && (tmp->type == WORD || tmp->type == SINGLE_QUOTE
+				|| tmp->type == DOUBLE_QUOTE))
+		{
+			free_tmp = *args;
+			*args = ft_strjoin(free_tmp, tmp->content);
+			free(free_tmp);
+			tmp = tmp->next;
+			free_tmp = *args;
+			*args = ft_strjoin(free_tmp, " ");
+			free(free_tmp);
 		}
 	}
 	cmd = ft_new_command(cmd_n, data, *args, *opt);
+	ft_check_2(&tmp, &redir);
 	cmd->redirection_list = redir;
 	return (tmp);
 }
