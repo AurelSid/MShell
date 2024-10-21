@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/21 17:26:27 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:44:12 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void						ft_checkspchar(char **var, t_program_data *data);
 int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
 int							ft_last_redir(t_redirection *in, t_redirection *out,
-								t_command *cmd);
+								t_command *cmd,t_program_data *data);
 int							ft_apply_redir_2(t_command *command,
 								t_program_data *data);
 
