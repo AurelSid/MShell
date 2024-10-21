@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/18 17:21:47 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 14:28:14 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	ft_handle_words(char *var, int index)
 	int	i;
 
 	i = index;
-	while (var[i] && (var[i] != ' ' && var[i] != '\'' && var[i] != '\"'))
+	while (var[i] && (var[i] != ' ' && var[i] != '\'' && var[i] != '\"'
+			&& var[i] != '>' && var[i] != '<'))
 		i++;
 	return (i - index);
 }
@@ -46,7 +47,7 @@ char	*ft_spchar(char *var, t_program_data *data)
 	end = ft_strjoin_free(start, found);
 	end = ft_strjoin_free(end, (tmp + i));
 	free(var);
-//	free(found);
+	//	free(found);
 	return (end);
 }
 

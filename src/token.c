@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/18 16:05:19 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 14:18:11 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,18 @@ int	process_redirects(t_program_data *data, int *i)
 
 int	process_word(t_program_data *data, int *i)
 {
-	int		j;
+	int	j;
 
 	j = *i;
-	while (data->input[j] && data->input[j] != ' ')
+	while (data->input[j] && (data->input[j] != ' ' && data->input[j] != '>'
+			&& data->input[j] != '<'))
 	{
 		if (data->input[j] == '\'' || data->input[j] == '\"')
 			j += ft_handle_quotes(data->input, j);
 		else
 			j += ft_handle_words(data->input, j);
 	}
-	ft_new_token(ft_substr(data->input, *i, (size_t)(j - *i)),
-		data, WORD);
+	ft_new_token(ft_substr(data->input, *i, (size_t)(j - *i)), data, WORD);
 	*i = j;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/18 16:18:38 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 14:31:49 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void						ft_handle_signals(int signal);
 void						ft_handle_signals_child(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
 // void						rl_replace_line(const char *text, int clear_undo);
-void						ft_limiter_exec(t_redirection *in);
+void						ft_limiter_exec(t_redirection *in, t_command *cmd);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
 int							ft_check_built_ins(t_command *cmd);

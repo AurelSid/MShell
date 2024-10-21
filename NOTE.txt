@@ -4,6 +4,6 @@ EXPORT
 	--> il doit y avoir un quelque chose avant le =
 
 CD
-	--> si pwd == home/sub1/sub2 | rm -rf sub1 | cd .. ???
+	--> si pwd == home/sub1/sub2 | rm -rf sub1 | cd .. ==> adapter les erre
 
 

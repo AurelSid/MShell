@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 14:37:09 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/07 13:11:18 by asideris         ###   ########.fr       */
+/*   Created: 2024/10/17 14:24:19 by asideris          #+#    #+#             */
+/*   Updated: 2024/10/21 14:31:25 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in)
+void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in, t_command *cmd)
 {
 	char	*line;
 	char	*limiter;
 
+	(void)cmd;
 	limiter = in->filename;
 	while (1)
 	{
@@ -39,11 +40,10 @@ void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in)
 	exit(0);
 }
 
-void	ft_limiter_exec(t_redirection *in)
+void	ft_limiter_exec(t_redirection *in, t_command *cmd)
 {
 	int		pipe_fd[2];
 	pid_t	process_id;
-
 
 	if (pipe(pipe_fd) == -1)
 		exit(1);
@@ -52,7 +52,7 @@ void	ft_limiter_exec(t_redirection *in)
 		exit(1);
 	else if (process_id == 0)
 	{
-		ft_gnl_to_fd(pipe_fd, in);
+		ft_gnl_to_fd(pipe_fd, in, cmd);
 	}
 	else
 	{
