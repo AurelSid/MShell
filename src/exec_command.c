@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/20 18:26:48 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:17:40 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,20 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 	if (cmd->next == NULL)
 		ft_exec_single_command(cmd, tab, data);
 	else
-		ft_exec_piped_command(cmd, tab, data);
+	{
+		if (cmd->next->input_fd > 0)
+		{
+			ft_exec_single_command(cmd, tab, data);
+			setup_pipe_and_redirect();
+		}
+		else if (cmd->output_fd)
+		{
+			ft_exec_single_command(cmd, tab, data);
+			setup_pipe_and_redirect();
+		}
+		else
+			ft_exec_piped_command(cmd, tab, data);
+	}
 	ft_free_split(tab);
 	signal(SIGINT, ft_handle_signals);
 	return (0);

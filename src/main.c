@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/20 19:24:16 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:31:02 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,26 @@ void	process_command(t_program_data *data, char **env)
 	tmp_cmd = data->command_top;
 	while (tmp_cmd)
 	{
-		
+		if (tmp_cmd->redirection_list == NULL)
+			dup2(data->original_stdout, STDOUT_FILENO);
 		if (ft_apply_redir(tmp_cmd, data))
 		{
-			tmp_cmd = tmp_cmd->next;
-			continue ;
+			if (tmp_cmd->next)
+			{
+				tmp_cmd->ok = -1;
+				tmp_cmd = tmp_cmd->next;
+				continue ;
+			}
+			else
+				return ;
 		}
-		ft_exec(tmp_cmd, env, data);
+		tmp_cmd = tmp_cmd->next;
+	}
+	tmp_cmd = data->command_top;
+	while (tmp_cmd)
+	{
+		if (tmp_cmd->ok == 0)
+			ft_exec(tmp_cmd, env, data);
 		tmp_cmd = tmp_cmd->next;
 	}
 }
@@ -151,12 +164,3 @@ int	main(int argc, char **argv, char **env)
 // 	system("leaks minishell");
 // 	return (0);
 // }
-
-// Test  35: ❌ echo hi >./outfiles/outfile01 | echo bye
-// Files ./mini_outfiles/outfile01 and ./bash_outfiles/outfile01 differ
-// mini outfiles:
-// bye
-// bash outfiles:
-// hi
-// mini output = ()
-// bash output = (bye)

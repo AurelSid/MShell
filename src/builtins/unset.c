@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/05 15:04:21 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/21 14:57:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	ft_unset(char *arg, t_program_data *data)
 	split_arg = ft_split(arg, ' ');
 	i = 0;
 	tmp = data->env;
+	if (strcmp(split_arg[0], "PATH") == 0)
+	{
+		data->exit_status = 0;
+		return ;
+	}
 	while (split_arg[i])
 	{
 		while (tmp)

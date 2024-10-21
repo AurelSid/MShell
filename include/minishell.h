@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/18 16:13:55 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:15:27 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_command
 	int						output_fd;
 	int						input_fd;
 	char					*path;
+	int						ok;
 }							t_command;
 typedef struct s_token
 {
@@ -153,6 +154,8 @@ void						ft_exec_piped_command(t_command *cmd, char **env,
 int							ft_check_built_ins(t_command *cmd);
 int							ft_exec_built_ins(t_command *cmd,
 								t_program_data *data);
+void						setup_pipe_and_redirect(void);
+void						ft_checkspchar(char **var, t_program_data *data);
 
 typedef enum s_token_type
 {

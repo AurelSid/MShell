@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/20 18:24:06 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:11:08 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	sigtstp_handler(int signum)
 
 void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 {
-	pid_t	process_id;
-	int		status;
-	int		signal_num;
+	pid_t process_id;
+	int status;
+	int signal_num;
 
 	signal(SIGTSTP, sigtstp_handler);
 	process_id = fork();

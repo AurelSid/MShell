@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/20 11:35:00 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:31:41 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ t_command	*ft_new_command(char *command_name, t_program_data *data,
 	if (!command_name)
 		new_command->name = NULL;
 	else
-	new_command->name = ft_strdup(command_name);
+		new_command->name = ft_strdup(command_name);
 	new_command->options = ft_strdup(options);
 	new_command->args = ft_strdup(args);
 	new_command->redirection_list = NULL;
 	new_command->next = NULL;
 	new_command->path = NULL;
-	new_command->input_fd = 999;
-	new_command->output_fd = 999;
+	new_command->input_fd = -100;
+	new_command->output_fd = -100;
+	new_command->ok = 0;
 	if (data->command_top == NULL)
 		data->command_top = new_command;
 	else
