@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/21 16:44:06 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:26:27 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_command
 	t_redirection			*redirection_list;
 	int						output_fd;
 	int						input_fd;
+	t_redirection			*last_in;
+	t_redirection			*last_out;
 	char					*path;
 	int						ok;
 }							t_command;
@@ -164,6 +166,10 @@ void						setup_pipe_and_redirect(void);
 void						ft_checkspchar(char **var, t_program_data *data);
 int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
+int							ft_last_redir(t_redirection *in, t_redirection *out,
+								t_command *cmd);
+int							ft_apply_redir_2(t_command *command,
+								t_program_data *data);
 
 typedef enum s_token_type
 {
