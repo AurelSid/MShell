@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/22 13:51:01 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 14:08:03 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int							ft_init_data(t_program_data *data);
 char						*ft_db_quotes(char *token, t_program_data *data);
 char						*ft_spchar(char *token, t_program_data *data);
 char						**ft_args_to_line(t_command *cmd);
-void						ft_checkspchar(char **var, int trim);
+// void						ft_checkspchar(char **var, int trim);
 
 int							ft_exec(t_command *cmd, char **env,
 								t_program_data *data);
@@ -160,7 +160,7 @@ int							ft_check_built_ins(char *cmd_name);
 int							ft_exec_built_ins(t_command *cmd,
 								t_program_data *data);
 void						setup_pipe_and_redirect(void);
-// void						ft_checkspchar(char **var, t_program_data *data);
+void						ft_checkspchar(char **var, t_program_data *data);
 int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
 int							ft_last_redir(t_redirection *in, t_redirection *out,

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 13:54:10 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 14:07:30 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@ void	ft_export_var(char *arg, t_program_data *data)
 			return ;		/*  ----> ERROR */
 		var_name = ft_substr(arg, 0, len);
 		content = ft_strdup(ft_strchr(arg, '=') + 1);
-
   		if (var_name)
-			ft_checkspchar(&var_name, 0);
+			ft_checkspchar(&var_name, data);
 		if (content)
-			ft_checkspchar(&content, 0);
+			ft_checkspchar(&content, data);
 		tmp = ft_env_exist(var_name, data);
 		if (tmp)
 		{
@@ -99,7 +98,7 @@ void	ft_export(t_command *cmd, t_program_data *data)
 	else
 	{
 		i = 0;
-		split = ft_split_args(cmd->args);
+		split = ft_split(cmd->args, ' ');
 		while (split[i])
 		{
 			ft_export_var(split[i], data);

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:10:50 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 13:53:57 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 14:10:34 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_env(t_command *cmd, t_program_data data)
 	env = data.env;
 	args = NULL;
 	if (cmd->args)
-		args = ft_split_args(cmd->args);
+		args = ft_split(cmd->args, ' ');
 	i = 0;
 	while (args && args[i])
 	{
