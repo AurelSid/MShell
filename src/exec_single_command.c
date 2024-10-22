@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 18:37:50 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 17:41:21 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 	int status;
 	int signal_num;
 
+	if (ft_check_built_ins(cmd->name) == 1)
+	{
+		ft_exec_built_ins(cmd, data);
+		return ;
+	}
 	signal(SIGTSTP, sigtstp_handler);
 	process_id = fork();
 	data->pid = process_id;

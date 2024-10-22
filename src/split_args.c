@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:47:48 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 13:55:38 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 16:10:27 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ void	ft_put_args(char ***split, char *args)
 	k = 0;
 	while (args[i])
 	{
-		j = i;
-		while (args[j] && args[j] != ' ')
+		j = 0;
+		while (args[i + j] && args[i + j] != ' ')
 		{
-			if (args[j] == '\'' || args[j] == '\"')
-				j += ft_handle_quotes(args, i);
+			if (args[i + j] == '\'' || args[i + j] == '\"')
+				j += ft_handle_quotes(args, i + j);
 			else
-				j += ft_handle_words(args, i);
+				j += ft_handle_words(args, i + j);
 		}
-		if (args[i] == ' ')
-			i++;
-		else
+		if (args[i] != ' ')
 		{
 			(*split)[k] = ft_substr(args, i, j);
-			i = j;
+			i += j;
 			k++;
 		}
+		else
+			i++;
 	}
 }
 
@@ -74,6 +74,7 @@ char	**ft_split_args(char *args)
 	if (!split)
 		return (NULL);
 	ft_put_args(&split, args);
+	split[args_nbr] = 0;
 	ft_trimloop(&split);
 	return (split);
 }

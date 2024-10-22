@@ -6,18 +6,11 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 13:16:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 17:21:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	send_error(char *error)
-{
-	write(2, "\033[1;31mError!\033[0m", 17);
-	write(2, error, ft_strlen(error));
-	exit(1);
-}
 
 char	*ft_strjoin_free(char *s1, char *s2)
 {
@@ -99,4 +92,39 @@ void	ft_trimloop(char ***split)
 			(*split)[i] = ft_strtrim_free((*split)[i], "\'");
 		i++;
 	}
+}
+
+char	*ft_strtrim_args(char *str)
+{
+	char	*trim;
+	char	*result;
+	int		i;
+	int		j;
+
+	i = 0;
+	result = NULL;
+	while (str[i])
+	{
+		j = 0;
+		if (str[i] == '\'')
+		{
+			j = ft_handle_quotes(str, i);
+			trim = ft_substr(str, i + 1, j - 2);
+			result = ft_strjoin_free(result, trim);
+		}
+		else if (str[i] == '\"')
+		{
+			j = ft_handle_quotes(str, i);
+			trim = ft_substr(str, i + 1, j - 2);
+			result = ft_strjoin_free(result, trim);
+		}
+		else
+		{
+			j = ft_handle_words(str, i);
+			trim = ft_substr(str, i, j);
+			result = ft_strjoin_free(result, trim);
+		}
+		i += j;
+	}
+	return (result);
 }
