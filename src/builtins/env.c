@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:10:50 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:52:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:53:57 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_env(t_command *cmd, t_program_data data)
 	env = data.env;
 	args = NULL;
 	if (cmd->args)
-		args = ft_split(cmd->args, ' ');
+		args = ft_split_args(cmd->args);
 	i = 0;
 	while (args && args[i])
 	{

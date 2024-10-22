@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 18:46:16 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 13:54:10 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_export(t_command *cmd, t_program_data *data)
 	else
 	{
 		i = 0;
-		split = ft_split(cmd->args, ' ');
+		split = ft_split_args(cmd->args);
 		while (split[i])
 		{
 			ft_export_var(split[i], data);

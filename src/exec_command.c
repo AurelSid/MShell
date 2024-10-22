@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 18:35:52 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 13:52:54 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**ft_args_to_line(t_command *cmd)
 	free(tmp_line_3);
 	line = ft_strjoin(tmp_line_2, cmd->args);
 	free(tmp_line_2);
-	line_split = ft_split(line, ' ');
+	line_split = ft_split(line, ' '); //---> ft_split_args?
 	free(line);
 	while (line_split[i])
 		i++;

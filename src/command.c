@@ -5,134 +5,116 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 18:51:26 by vpelc            ###   ########.fr       */
+/*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
+/*   Updated: 2024/10/22 14:04:45 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_check_redir(t_token **tmp, t_redirection **redir)
+int	ft_handle_words(char *var, int index)
 {
-	while ((*tmp) && (((*tmp)->type == REDIRECT_IN
-				|| (*tmp)->type == REDIRECT_APPEND
-				|| (*tmp)->type == REDIRECT_HEREDOC
-				|| (*tmp)->type == REDIRECT_OUT) && (*tmp)->next->type == WORD))
-	{
-		*redir = ft_new_redirection((*tmp)->next->content, *redir,
-				(*tmp)->type);
-		*tmp = (*tmp)->next->next;
-	}
-	return (0);
+	int	i;
+
+	i = index;
+	while (var[i] && (var[i] != ' ' && var[i] != '\'' && var[i] != '\"'
+			&& var[i] != '>' && var[i] != '<'))
+		i++;
+	return (i - index);
 }
 
-int	ft_check_opt(t_token **tmp, char *cmd_n, char **opt)
+char	*ft_spchar(char *var, t_program_data *data)
 {
-	char	*tmp_str;
-	char	*free_tmp;
+	char	*found;
+	char	*start;
+	char	*end;
+	char	*tmp;
+	int		i;
 
-	while ((*tmp) && (*tmp)->type == WORD
-		&& ((*tmp)->content[0] == '-' || (*tmp)->content[1] == '-'))
-	{
-		if (ft_strcmp(cmd_n, "export"))
-		{
-			ft_checkspchar(&(*tmp)->content, 0);
-			tmp_str = (*tmp)->content;
-		}
-		free_tmp = *opt;
-		*opt = ft_strjoin(free_tmp, (*tmp)->content);
-		free(free_tmp);
-		(*tmp) = (*tmp)->next;
-		free_tmp = *opt;
-		*opt = ft_strjoin(free_tmp, " ");
-		free(free_tmp);
-	}
-	return (0);
+	i = 0;
+	tmp = ft_strchr(var, '$');
+	if (!tmp)
+		return (var);
+	tmp += 1;
+	if (!tmp[i] || tmp[i] == '?')
+		return (var);
+	while (tmp[i] && tmp[i] != ' ')
+		i++;
+	found = ft_substr(tmp, 0, i);
+	if (ft_search_env(&found, *data) == 0)
+		found = NULL;
+	start = ft_substr(var, 0, ft_strlen(var) - (ft_strlen(tmp) + 1));
+	end = ft_strjoin_free(start, found);
+	end = ft_strjoin_free(end, (tmp + i));
+	free(var);
+	//	free(found);
+	return (end);
 }
 
-int	ft_check_args(t_token **tmp, char *cmd_n, char **args)
+char	*ft_check_exitsp(char *arg, t_program_data data)
 {
-	char	*tmp_str;
-	char	*free_tmp;
-	int		trim;
+	char	*start;
+	char	*end;
+	char	*tmp;
+	int		i;
 
-	trim = ft_check_built_ins(cmd_n);
-	while ((*tmp) && (*tmp)->type == WORD)
-	{
-		if (ft_strcmp(cmd_n, "export"))
-		{
-			ft_checkspchar(&(*tmp)->content, trim);
-			tmp_str = (*tmp)->content;
-		}
-		free_tmp = *args;
-		*args = ft_strjoin(free_tmp, (*tmp)->content);
-		free(free_tmp);
-		(*tmp) = (*tmp)->next;
-		free_tmp = *args;
-		*args = ft_strjoin(free_tmp, " ");
-		free(free_tmp);
-	}
-	return (0);
+	i = 0;
+	tmp = ft_strchr(arg, '$');
+	if (!tmp || (tmp[1]) != '?')
+		return (arg);
+	start = ft_substr(arg, 0, ft_strlen(arg) - (ft_strlen(tmp)));
+	end = ft_strjoin(start, ft_itoa(data.exit_status));
+	end = ft_strjoin(end, (tmp + 2));
+	free(arg);
+	free(start);
+	return (end);
 }
 
-t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
-		char **args, char **opt)
+int	ft_switchspchar(int i, char **to_check, char *tmp, t_program_data *data)
 {
-	t_command		*cmd;
-	t_redirection	*redir;
-	char			*cmd_n;
+	int	j;
 
-	redir = NULL;
-	ft_check_redir(&tmp, &redir);
-	if (!tmp || tmp->type == PIPE)
-		cmd_n = NULL;
+	j = 0;
+	if (tmp[i] == '\"')
+	{
+		j = ft_handle_quotes(tmp, i);
+		*to_check = ft_db_quotes(ft_substr(tmp, i, j), data);
+	}
 	else
 	{
-		if (tmp->type == WORD)
-		{
-			ft_checkspchar(&tmp->content, 1);
-			cmd_n = tmp->content;
-		}
-		else
-			return (0);
-		tmp = tmp->next;
-		ft_check_opt(&tmp, cmd_n, opt);
-		while (tmp && (tmp->type != PIPE))
-		{
-			if (tmp->type == REDIRECT_IN || tmp->type == REDIRECT_APPEND
-				|| tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_OUT)
-				ft_check_redir(&tmp, &redir);
-			else if (tmp->type == WORD)
-				ft_check_args(&tmp, cmd_n, args);
-		}
+		j = ft_handle_words(tmp, i);
+		*to_check = ft_spchar(ft_substr(tmp, i, j), data);
 	}
-	cmd = ft_new_command(cmd_n, data, *args, *opt);
-	cmd->redirection_list = redir;
-	return (tmp);
+	*to_check = ft_check_exitsp(*to_check, *data);
+	*to_check = ft_strtrim_free(*to_check, "\"");
+	return (j);
 }
 
-void	ft_commands_fill_list(t_program_data *data)
+void	ft_checkspchar(char **var, t_program_data *data)
 {
-	t_token	*tmp;
-	char	*opt;
-	char	*args;
+	char	*tmp;
+	char	*to_check;
+	int		i;
+	int		j;
 
-	opt = ft_calloc(1, 1);
-	if (!opt)
-		return ;
-	args = ft_calloc(1, 1);
-	if (!args)
-		return ;
-	tmp = data->token_top;
-	tmp = ft_commands_fill_list_r(data, tmp, &args, &opt);
-	if ((tmp && tmp->next) && tmp->type == PIPE)
+	i = -1;
+	tmp = *var;
+	*var = NULL;
+	while (tmp[++i])
 	{
-		tmp = tmp->next;
-		data->token_top = tmp;
-		ft_commands_fill_list(data);
+		j = 0;
+		if (tmp[i] == '\'')
+		{
+			j = ft_handle_quotes(tmp, i);
+			to_check = ft_strtrim_free(ft_substr(tmp, i, j), "\'");
+			*var = ft_strdup(ft_strjoin_free(*var, to_check));
+			i += j - 1;
+			continue ;
+		}
+		else
+			j = ft_switchspchar(i, &to_check, tmp, data);
+		*var = ft_strdup(ft_strjoin_free(*var, to_check));
+		i += j - 1;
 	}
-	if (opt)
-		free(opt);
-	if (args)
-		free(args);
+	free(to_check);
 }

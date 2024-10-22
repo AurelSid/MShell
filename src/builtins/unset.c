@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 16:40:44 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:54:23 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_unset(t_command *cmd, t_program_data *data)
 	char	**split_arg;
 	int		i;
 
-	split_arg = ft_split(cmd->args, ' ');
+	split_arg = ft_split_args(cmd->args);
 	i = 0;
 	while (split_arg[i])
 	{

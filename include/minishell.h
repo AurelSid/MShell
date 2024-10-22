@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/21 19:23:11 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 13:51:01 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int							ft_last_redir(t_redirection *in, t_redirection *out,
 int							ft_apply_redir_2(t_command *command,
 								t_program_data *data);
 void						ft_trimloop(char ***split);
+char						**ft_split_args(char *args);
 
 typedef enum s_token_type
 {

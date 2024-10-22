@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 18:46:28 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 14:04:16 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_check_exitsp(char *arg, t_program_data data)
 	return (end);
 }
 
-int	ft_switchspchar(int i, char **to_check, char *tmp, int trim)
+int	ft_switchspchar(int i, char **to_check, char *tmp, t_program_data *data)
 {
 	int	j;
 
@@ -78,20 +78,19 @@ int	ft_switchspchar(int i, char **to_check, char *tmp, int trim)
 	if (tmp[i] == '\"')
 	{
 		j = ft_handle_quotes(tmp, i);
-		*to_check = ft_db_quotes(ft_substr(tmp, i, j), &data);
+		*to_check = ft_db_quotes(ft_substr(tmp, i, j), data);
 	}
 	else
 	{
 		j = ft_handle_words(tmp, i);
-		*to_check = ft_spchar(ft_substr(tmp, i, j), &data);
+		*to_check = ft_spchar(ft_substr(tmp, i, j), data);
 	}
-	*to_check = ft_check_exitsp(*to_check, data);
-	if (!trim)
-		*to_check = ft_strtrim_free(*to_check, "\"");
+	*to_check = ft_check_exitsp(*to_check, *data);
+	*to_check = ft_strtrim_free(*to_check, "\"");
 	return (j);
 }
 
-void	ft_checkspchar(char **var, int trim)
+void	ft_checkspchar(char **var, t_program_data *data)
 {
 	char	*tmp;
 	char	*to_check;
@@ -101,21 +100,19 @@ void	ft_checkspchar(char **var, int trim)
 	i = -1;
 	tmp = *var;
 	*var = NULL;
-	to_check = NULL;
 	while (tmp[++i])
 	{
 		j = 0;
 		if (tmp[i] == '\'')
 		{
 			j = ft_handle_quotes(tmp, i);
-			if (!trim)
-				to_check = ft_strtrim_free(ft_substr(tmp, i, j), "\'");
+			to_check = ft_strtrim_free(ft_substr(tmp, i, j), "\'");
 			*var = ft_strdup(ft_strjoin_free(*var, to_check));
 			i += j - 1;
 			continue ;
 		}
 		else
-			j = ft_switchspchar(i, &to_check, tmp, trim);
+			j = ft_switchspchar(i, &to_check, tmp, data);
 		*var = ft_strdup(ft_strjoin_free(*var, to_check));
 		i += j - 1;
 	}

@@ -6,7 +6,7 @@
 #    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/21 18:03:37 by vpelc            ###   ########.fr        #
+#    Updated: 2024/10/22 13:55:17 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCS			= debug_utils.c add_token_node.c \
 				builtins/echo.c builtins/pwd.c builtins/export.c \
 				builtins/cd.c builtins/exit.c builtins/unset.c \
 				here_doc.c exec_command.c clear_commands.c \
-				exit.c free.c check_access_utils.c \
+				exit.c free.c check_access_utils.c split_args.c \
 				exec_pipe_command.c spchar.c exec_single_command.c
 
 MAIN			= main.c

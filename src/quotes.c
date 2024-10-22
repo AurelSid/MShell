@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/18 16:17:58 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 13:00:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_handle_quotes(char *var, int index)
 	i++;
 	if (i > (int)ft_strlen(var))
 		return (-1);
-	/*  ---> no error but skip the command */
+	/*  ---> error */
 	return (i - index);
 }
 
