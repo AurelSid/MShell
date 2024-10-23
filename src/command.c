@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 14:08:53 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/22 18:05:02 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,7 @@ int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
 			ft_checkspchar(&(*tmp)->content, data);
 			tmp_str = (*tmp)->content;
 		}
-		free_tmp = *args;
-		*args = ft_strjoin(free_tmp, (*tmp)->content);
-		free(free_tmp);
+		*args = ft_strjoin_free(*args, (*tmp)->content);
 		(*tmp) = (*tmp)->next;
 		free_tmp = *args;
 		*args = ft_strjoin(free_tmp, " ");
