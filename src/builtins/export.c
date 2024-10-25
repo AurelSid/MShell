@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/24 17:47:51 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/25 16:26:27 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,19 @@ void	ft_export_var(char *arg, t_program_data *data)
 			return ;		/*  ----> ERROR */
 		var_name = ft_substr(arg, 0, len);
 		content = ft_strdup(ft_strchr(arg, '=') + 1);
-  		if (var_name)
+		if (var_name)
 			ft_checkspchar(&var_name, data);
 		if (!ft_valid_var(var_name))
 		{
 			write(2, "not a valid indentifier", 24);
+			data->exit_status = 1;
 			return ;
 		}
 		if (content)
 			ft_checkspchar(&content, data);
 		tmp = ft_env_exist(var_name, data);
+		var_name = ft_strtrim_args(var_name);
+		content = ft_strtrim_args(content);
 		if (tmp)
 		{
 			free(tmp->content);
@@ -101,8 +104,15 @@ void	ft_export_var(char *arg, t_program_data *data)
 		tmp = ft_env_exist(arg, data);
 		if (tmp)
 			return ;
+		var_name = ft_strtrim_args(arg);
+		if (!ft_valid_var(var_name))
+		{
+			write(2, " not a valid identifier\n", 24);
+			data->exit_status = 1;
+			return ;
+		}
 		tmp = malloc(sizeof(t_env));
-		tmp->var_name = ft_strdup(arg);
+		tmp->var_name = var_name;
 		tmp->content = NULL;
 		tmp->next = NULL;
 		ft_add_env(&data->env, tmp);
@@ -120,9 +130,17 @@ void	ft_export(t_command *cmd, t_program_data *data)
 	else
 	{
 		i = 0;
-		split = ft_split_args(cmd->args);
+		split = ft_split_args_2(cmd->args);
+		ft_export_trim(&split);
 		while (split[i])
 		{
+			if (!ft_strcmp(split[i], "="))
+			{
+				write(2, " not a valid identifier\n", 24);
+				data->exit_status = 1;
+				i++;
+				continue ;
+			}
 			ft_export_var(split[i], data);
 			i++;
 		}

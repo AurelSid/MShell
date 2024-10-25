@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:47:48 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 16:10:27 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/25 14:41:53 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,19 @@ char	**ft_split_args(char *args)
 	ft_put_args(&split, args);
 	split[args_nbr] = 0;
 	ft_trimloop(&split);
+	return (split);
+}
+
+char	**ft_split_args_2(char *args)
+{
+	char	**split;
+	int		args_nbr;
+
+	args_nbr = ft_argscount(args);
+	split = malloc(sizeof(char *) * (args_nbr + 1));
+	if (!split)
+		return (NULL);
+	ft_put_args(&split, args);
+	split[args_nbr] = 0;
 	return (split);
 }

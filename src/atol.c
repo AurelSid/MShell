@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:15:24 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/24 14:31:32 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/25 16:26:35 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit_atol(int e)
 {
-	write(2, "numeric argument required", 26);
+	write(2, " numeric argument required\n", 27);
 	exit(e);
 }
 

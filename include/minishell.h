@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/24 16:10:46 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/25 16:19:05 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char						*ft_strtrim_free(char *s1, char *set);
 long						ft_atol(const char *str);
 
 void						ft_env(t_command *cmd, t_program_data data);
-void						ft_cd(t_command *cmd);
+void						ft_cd(t_command *cmd, t_program_data *data);
 void						ft_echo(t_command *cmd);
 void						ft_export(t_command *cmd, t_program_data *data);
 void						ft_pwd(t_command *cmd);
@@ -172,7 +172,9 @@ int							ft_apply_redir_2(t_command *command,
 								t_program_data *data);
 void						ft_trimloop(char ***split);
 char						**ft_split_args(char *args);
+char						**ft_split_args_2(char *args);
 char						*ft_strtrim_args(char *str);
+void						ft_export_trim(char ***args);
 
 typedef enum s_token_type
 {

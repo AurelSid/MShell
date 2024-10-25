@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/23 18:27:45 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/25 15:56:18 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ char	*ft_strtrim_free(char *s1, char *set)
 	return (free(s1), cpy);
 }
 
-void	ft_trimloop(char ***split)
+
+
+/* void	ft_trimloop(char ***split)
 {
 	int		i;
 	int		j;
@@ -118,6 +120,20 @@ void	ft_trimloop(char ***split)
 		free(result);
 		i++;
 	}
+} */
+void	ft_trimloop(char ***split)
+{
+	int		i;
+	char	*result;
+
+	i = 0;
+	while ((*split)[i])
+	{
+		result = ft_strtrim_args((*split)[i]);
+		free((*split)[i]);
+		(*split)[i] = ft_strdup(result);
+		i++;
+	}
 }
 
 char	*ft_strtrim_args(char *str)
@@ -132,13 +148,7 @@ char	*ft_strtrim_args(char *str)
 	while (str[i])
 	{
 		j = 0;
-		if (str[i] == '\'')
-		{
-			j = ft_handle_quotes(str, i);
-			trim = ft_substr(str, i + 1, j - 2);
-			result = ft_strjoin_free(result, trim);
-		}
-		else if (str[i] == '\"')
+		if (str[i] == '\'' || str[i] == '\"')
 		{
 			j = ft_handle_quotes(str, i);
 			trim = ft_substr(str, i + 1, j - 2);
@@ -153,4 +163,26 @@ char	*ft_strtrim_args(char *str)
 		i += j;
 	}
 	return (result);
+}
+
+void	ft_export_trim(char ***args)
+{
+	int		i;
+	int		len;
+	char	*sub;
+
+	i = 0;
+	while ((*args)[i])
+	{
+		len = ft_strlen((*args)[i]);
+		while (((*args)[i][0] == '\'' && (*args)[i][len - 1] == '\'')
+			|| ((*args)[i][0] == '\"' && (*args)[i][len - 1] == '\"'))
+		{
+			sub = ft_substr((*args)[i], i + 1, len - 2);
+			(*args)[i] = ft_strdup(sub);
+			free(sub);
+			len = ft_strlen((*args)[i]);
+		}
+		i++;
+	}
 }

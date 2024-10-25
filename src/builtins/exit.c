@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:17:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/24 17:13:50 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/25 16:26:32 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_exit(t_command *cmd, t_program_data data)
 	args = ft_split_args(cmd->args);
 	if ((ft_split_count(args)) > 1)
 	{
-		write(2, "too many arguments", 19);
+		write(2, " too many arguments\n", 20);
 		exit(1);
 	}
 	if (data.command_top->next == NULL && data.child == 0)

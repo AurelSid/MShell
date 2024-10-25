@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 17:50:11 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:27:51 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ int	ft_specific_error(const char *filename)
 	char	buffer[256];
 
 	if (errno == EACCES)
-		write(2, "Permission denied\n", 18);
+		write(2, " Permission denied\n", 18);
 	else if (errno == ENOENT)
 		write(2, " No such file or directory\n", 27);
 	else if (errno == EISDIR)
-		write(2, "Is a directory\n", 15);
+		write(2, " Is a directory\n", 15);
 	else if (errno == ENOSPC)
-		write(2, "No space left on device\n", 24);
+		write(2, " No space left on device\n", 24);
 	else if (errno == EROFS)
-		write(2, "Read-only file system\n", 22);
+		write(2, " Read-only file system\n", 22);
 	else
 	{
 		snprintf(buffer, sizeof(buffer), "Error opening file %s: %s\n",
