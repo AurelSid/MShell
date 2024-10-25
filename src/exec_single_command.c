@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/23 16:10:02 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/23 17:16:49 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	ft_fork(pid_t process_id, t_command *cmd, char **env, t_program_data *data)
 		if (cmd->name)
 		{
 			if (ft_check_built_ins(cmd->name) == 1)
+			{
 				ft_exec_built_ins_in_pipe(cmd, data);
+				exit(data->exit_status);
+			}
 			else
 				execve(cmd->path, ft_args_to_line(cmd), env);
 		}
@@ -79,11 +82,11 @@ void	sigtstp_handler(int signum)
 
 void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 {
-	pid_t process_id;
-	int status;
-	int signal_num;
+	pid_t	process_id;
+	int		status;
+	int		signal_num;
 
-	if (ft_check_built_ins(cmd->name) == 1)
+	if (ft_check_built_ins(cmd->name) == 1 && data->command_top->next == NULL)
 	{
 		ft_exec_built_ins(cmd, data);
 		return ;
@@ -110,7 +113,10 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 			}
 		}
 		else
+		{
+			printf("wtf");
 			data->exit_status = 1;
+		}
 		ft_handle_child_sig(data->exit_status);
 	}
 }

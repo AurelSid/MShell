@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   atol.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:15:24 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/15 12:41:04 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:31:32 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	ft_isdigit(int c)
+void	ft_exit_atol(int e)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	write(2, "numeric argument required", 26);
+	exit(e);
 }
 
 static int	ft_isspace(const char *str)
@@ -54,7 +53,7 @@ long	ft_atol(const char *str)
 		i++;
 	}
 	if (!ft_isdigit(str[i]))
-		return (255);
+		ft_exit_atol(255);
 	while (ft_isdigit(str[i]))
 	{
 		r = r * 10;
@@ -62,6 +61,6 @@ long	ft_atol(const char *str)
 		i++;
 	}
 	if (!ft_isdigit(str[i]) && str[i] != '\0')
-		return (255);
+		ft_exit_atol(255);
 	return (r * n);
 }

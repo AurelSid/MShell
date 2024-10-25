@@ -6,11 +6,28 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 14:07:30 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/24 17:47:51 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	ft_valid_var(char *var)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(var[i]) && var[i] != '_')
+		return (0);
+	i++;
+	while (var[i])
+	{
+		if (!ft_isalnum(var[i]) && var[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 t_env	*ft_env_exist(char *var, t_program_data *data)
 {
@@ -58,6 +75,11 @@ void	ft_export_var(char *arg, t_program_data *data)
 		content = ft_strdup(ft_strchr(arg, '=') + 1);
   		if (var_name)
 			ft_checkspchar(&var_name, data);
+		if (!ft_valid_var(var_name))
+		{
+			write(2, "not a valid indentifier", 24);
+			return ;
+		}
 		if (content)
 			ft_checkspchar(&content, data);
 		tmp = ft_env_exist(var_name, data);
@@ -98,7 +120,7 @@ void	ft_export(t_command *cmd, t_program_data *data)
 	else
 	{
 		i = 0;
-		split = ft_split(cmd->args, ' ');
+		split = ft_split_args(cmd->args);
 		while (split[i])
 		{
 			ft_export_var(split[i], data);

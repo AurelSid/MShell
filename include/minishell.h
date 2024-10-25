@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/22 17:06:24 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/24 16:10:46 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_program_data
 	int						exit_status;
 	int						shell_lvl;
 	pid_t					pid;
+	int						child;
 }							t_program_data;
 extern t_program_data		data;
 
@@ -129,6 +130,7 @@ char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
 void						ft_free_env(t_program_data *data);
 char						*ft_strtrim_free(char *s1, char *set);
+long						ft_atol(const char *str);
 
 void						ft_env(t_command *cmd, t_program_data data);
 void						ft_cd(t_command *cmd);
@@ -161,6 +163,7 @@ int							ft_exec_built_ins(t_command *cmd,
 								t_program_data *data);
 void						setup_pipe_and_redirect(void);
 void						ft_checkspchar(char **var, t_program_data *data);
+char						*ft_check_exitsp(char *arg, t_program_data data);
 int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
 int							ft_last_redir(t_redirection *in, t_redirection *out,

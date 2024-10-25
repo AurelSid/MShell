@@ -6,13 +6,11 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/23 16:01:22 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/24 16:01:19 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
 
 static int	ft_valid_opt(char *opt)
 {
@@ -76,4 +74,5 @@ void	ft_echo(t_command *cmd)
 	if (opt_i)
 		printf("\n");
 	ft_free_split(args);
+	data.exit_status = 0;
 }

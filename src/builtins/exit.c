@@ -6,25 +6,40 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:17:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/18 17:50:30 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/24 17:13:50 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+int	ft_split_count(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
+
 void	ft_exit(t_command *cmd, t_program_data data)
 {
-	int	args;
+	int		code;
+	char	**args;
 
-	if (data.command_top->next == NULL)
+	args = ft_split_args(cmd->args);
+	if ((ft_split_count(args)) > 1)
+	{
+		write(2, "too many arguments", 19);
+		exit(1);
+	}
+	if (data.command_top->next == NULL && data.child == 0)
 		printf("exit\n");
 	if (cmd->args[0])
-		args = atol(cmd->args);
-	else if (cmd->options[0])
-		args = atol(cmd->options);
+		code = ft_atol(args[0]);
 	else
-		args = 0;
-	if (args > 255)
-		args = (unsigned char)args;
-	exit(args);
+		code = 0;
+	if (code > 255)
+		code = (unsigned char)code;
+	exit(code);
 }

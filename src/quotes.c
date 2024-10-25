@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 13:00:24 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/24 15:07:13 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ char	*ft_db_quotes(char *token, t_program_data *data)
 	if (!tmp)
 		return (token);
 	tmp += 1;
-	if (tmp[i] == '?')
+	if (!tmp[i] || tmp[i] == '?' || tmp[i] == ' ' || tmp[i] == '\"')
 		return (token);
-	while (tmp[i] && tmp[i] != ' ' && tmp[i] != '\"')
+	while (tmp[i] && tmp[i] != ' ' && tmp[i] != '\"' && tmp[i] != '$')
 		i++;
 	found = ft_substr(tmp, 0, i);
 	if (ft_search_env(&found, *data) == 0)

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 18:05:02 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/24 14:33:27 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		else
 			return (0);
 		tmp = tmp->next;
-		ft_check_opt(data, &tmp, cmd_n, opt);
+		if (ft_strcmp(cmd_n, "exit"))
+			ft_check_opt(data, &tmp, cmd_n, opt);
 		while (tmp && (tmp->type != PIPE))
 		{
 			if (tmp->type == REDIRECT_IN || tmp->type == REDIRECT_APPEND
