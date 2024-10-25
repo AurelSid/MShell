@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/25 16:38:13 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/25 18:00:34 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_export_var(char *arg, t_program_data *data)
 			ft_checkspchar(&var_name, data);
 		if (!ft_valid_var(var_name))
 		{
-			write(2, " not a valid identifier\n", 25);
+			write(2, "  not a valid identifier\n", 25);
 			data->exit_status = 1;
 			return ;
 		}
