@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 14:18:11 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/28 18:59:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 	int	i;
 
 	i = index;
-	while (data->input[i] && (data->input[i] != ' '
-			&& data->input[i] != '\'' && data->input[i] != '\"'))
+	while (data->input[i] != ' ' && data->input[i])
 		i++;
 	return (i - index);
 }
@@ -28,7 +27,6 @@ int	ft_handle_quotes(char type, t_program_data *data, int index)
 	int	i;
 
 	i = index;
-	i++;
 	while (data->input[i] != type && data->input[i])
 		i++;
 	i++;
