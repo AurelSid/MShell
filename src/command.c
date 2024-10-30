@@ -6,13 +6,13 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/25 18:47:48 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/30 18:45:56 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_check_redir(t_token **tmp, t_redirection **redir)
+int	ft_check_redir(t_token **tmp, t_redirection **redir, t_program_data *data)
 {
 	if ((*tmp) && (((*tmp)->type == REDIRECT_IN
 				|| (*tmp)->type == REDIRECT_APPEND
@@ -22,7 +22,7 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir)
 	{
 		*tmp = (*tmp)->next;
 		write(2, "syntax error near unexpected token `newline'\n", 46);
-		exit (2);
+		data->exit_status = 2;
 	}
 	while ((*tmp) && (((*tmp)->type == REDIRECT_IN
 				|| (*tmp)->type == REDIRECT_APPEND
@@ -91,9 +91,9 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	if (data->token_top->type == PIPE)
 	{
 		write(2, " syntax error near unexpected token `|'\n", 41);
-		exit(2);
+		data->exit_status = 2;
 	}
-	ft_check_redir(&tmp, &redir);
+	ft_check_redir(&tmp, &redir, data);
 	if (!tmp || tmp->type == PIPE)
 		cmd_n = NULL;
 	else
@@ -112,7 +112,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		{
 			if (tmp->type == REDIRECT_IN || tmp->type == REDIRECT_APPEND
 				|| tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_OUT)
-				ft_check_redir(&tmp, &redir);
+				ft_check_redir(&tmp, &redir, data);
 			else if (tmp->type == WORD)
 				ft_check_args(data, &tmp, cmd_n, args);
 		}

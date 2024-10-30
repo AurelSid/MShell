@@ -6,37 +6,12 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/21 14:18:11 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/30 18:47:09 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* int	ft_handle_words(t_program_data *data, int index)
-{
-	int	i;
-
-	i = index;
-	while (data->input[i] && (data->input[i] != ' '
-			&& data->input[i] != '\'' && data->input[i] != '\"'))
-		i++;
-	return (i - index);
-}
-
-int	ft_handle_quotes(char type, t_program_data *data, int index)
-{
-	int	i;
-
-	i = index;
-	i++;
-	while (data->input[i] != type && data->input[i])
-		i++;
-	i++;
-	if (i > (int)ft_strlen(data->input))
-		return (-1);
-	//  ---> no error but skip the command =
-	return (i - index);
-} */
 int	process_redirects(t_program_data *data, int *i)
 {
 	if (data->input[*i] == '>')
@@ -104,5 +79,6 @@ int	ft_tokens_fill_list(t_program_data *data)
 			break ;
 		i++;
 	}
+	check_pipedoc(data);
 	return (0);
 }

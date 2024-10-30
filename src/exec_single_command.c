@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/23 17:16:49 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/30 18:46:09 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 			}
 		}
 		else
-		{
-			printf("wtf");
 			data->exit_status = 1;
-		}
 		ft_handle_child_sig(data->exit_status);
 	}
 }
