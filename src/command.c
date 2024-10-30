@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/25 18:47:48 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/30 14:53:53 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir)
 	{
 		*tmp = (*tmp)->next;
 		write(2, "syntax error near unexpected token `newline'\n", 46);
-		exit (2);
+		data.exit_status = 2;
 	}
 	while ((*tmp) && (((*tmp)->type == REDIRECT_IN
 				|| (*tmp)->type == REDIRECT_APPEND

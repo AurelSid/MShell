@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/25 16:27:51 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:26:35 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ void	ft_set_redir_direction(t_command *cmd)
 		redir = redir->next;
 	}
 }
-int	ft_specific_error(const char *filename)
+int	ft_specific_error(const char *filename, t_program_data *data)
 {
 	char	buffer[256];
 
 	if (errno == EACCES)
+	{
 		write(2, " Permission denied\n", 18);
+		data->exit_status = 0;
+	}
 	else if (errno == ENOENT)
 		write(2, " No such file or directory\n", 27);
 	else if (errno == EISDIR)
@@ -76,21 +79,21 @@ int	ft_open_file(t_command *cmd, t_program_data *data)
 		{
 			cmd->input_fd = open(redir->filename, O_RDONLY);
 			if (cmd->input_fd == -1)
-				return (ft_specific_error(redir->filename));
+				return (ft_specific_error(redir->filename,data));
 		}
 		else if (redir->type == REDIRECT_OUT)
 		{
 			cmd->output_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC,
 					0644);
 			if (cmd->output_fd == -1)
-				return (ft_specific_error(redir->filename));
+				return (ft_specific_error(redir->filename,data));
 		}
 		else if (redir && redir->type == REDIRECT_APPEND)
 		{
 			cmd->output_fd = open(redir->filename,
 					O_WRONLY | O_APPEND | O_CREAT, 0644);
 			if (cmd->output_fd == -1)
-				return (ft_specific_error(redir->filename));
+				return (ft_specific_error(redir->filename,data));
 		}
 		else if (redir && redir->type == REDIRECT_HEREDOC)
 		{
@@ -120,7 +123,7 @@ int	ft_apply_redir(t_command *command, t_program_data *data)
 			command->last_out = redir;
 		redir = redir->next;
 	}
-	if (ft_open_file(command, data) == -1)
+	if (ft_open_file(command, data) == -1 )
 	{
 		data->exit_status = 1;
 		return (1);
