@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/30 14:53:53 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:27:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 	if (data->token_top->type == PIPE)
 	{
 		write(2, " syntax error near unexpected token `|'\n", 41);
-		exit(2);
+		data->exit_status = 2;
 	}
 	ft_check_redir(&tmp, &redir);
 	if (!tmp || tmp->type == PIPE)
