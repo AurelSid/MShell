@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/25 15:56:18 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:14:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,48 +79,6 @@ char	*ft_strtrim_free(char *s1, char *set)
 	return (free(s1), cpy);
 }
 
-
-
-/* void	ft_trimloop(char ***split)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	*sub;
-	char	*result;
-
-	i = 0;
-	while ((*split)[i])
-	{
-		result = NULL;
-		j = 0;
-		while ((*split)[i][j])
-		{
-			k = 0;
-			if ((*split)[i][j] == '\'' || (*split)[i][j] == '\"')
-			{
-				k = ft_handle_quotes((*split)[i], j);
-				sub = ft_substr((*split)[i], j + 1, k - 2);
-				result = ft_strjoin_free(result, sub);
-//				free(sub);
-//				sub = NULL;
-			}
-			else
-			{
-				k = ft_handle_words((*split)[i], j);
-				sub = ft_substr((*split)[i], j, k);
-				result = ft_strjoin_free(result, sub);
-//				free(sub);
-//				sub = NULL;
-			}
-			j += k;
-		}
-		free((*split)[i]);
-		(*split)[i] = ft_strdup(result);
-		free(result);
-		i++;
-	}
-} */
 void	ft_trimloop(char ***split)
 {
 	int		i;

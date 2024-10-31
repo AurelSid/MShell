@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:46:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/16 13:49:08 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:03:39 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	ft_set_cmd_path(t_program_data *data, char *cmd_name, char *path)
 	}
 	return (0);
 }
+
 int	ft_check_absolute_p(t_command *cmd, t_program_data *data)
 {
 	if (cmd->name && access(cmd->name, F_OK) == 0 && access(cmd->name,

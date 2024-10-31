@@ -3,38 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/28 18:59:12 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 16:08:55 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* int	ft_handle_words(t_program_data *data, int index)
-{
-	int	i;
-
-	i = index;
-	while (data->input[i] != ' ' && data->input[i])
-		i++;
-	return (i - index);
-}
-
-int	ft_handle_quotes(char type, t_program_data *data, int index)
-{
-	int	i;
-
-	i = index;
-	while (data->input[i] != type && data->input[i])
-		i++;
-	i++;
-	if (i > (int)ft_strlen(data->input))
-		return (-1);
-	//  ---> no error but skip the command =
-	return (i - index);
-} */
 int	process_redirects(t_program_data *data, int *i)
 {
 	if (data->input[*i] == '>')

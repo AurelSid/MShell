@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/30 16:20:16 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:22:04 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_handle_parent_piped_process(t_program_data *data, int pipe_fd[2],
 	else if (WIFSIGNALED(status))
 	{
 		signal_num = WTERMSIG(status);
-		// data->exit_status = 128 + signal_num;
 	}
 	else
 		data->exit_status = 0;

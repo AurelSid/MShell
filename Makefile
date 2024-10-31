@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
+#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/24 14:13:42 by vpelc            ###   ########.fr        #
+#    Updated: 2024/10/31 15:05:31 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRCS			= debug_utils.c add_token_node.c atol.c \
 				builtins/cd.c builtins/exit.c builtins/unset.c \
 				here_doc.c exec_command.c clear_commands.c \
 				exit.c free.c check_access_utils.c split_args.c \
-				exec_pipe_command.c spchar.c exec_single_command.c
+				exec_pipe_command.c spchar.c exec_single_command.c\
+				commands_fill_list_r.c open_file.c
 
 MAIN			= main.c
 

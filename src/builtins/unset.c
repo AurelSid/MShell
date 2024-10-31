@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/22 14:10:19 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:12:47 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	supp(t_env *prev, t_env *tmp, t_program_data *data)
+{
+	if (prev == NULL)
+		data->env = tmp->next;
+	else
+		prev->next = tmp->next;
+	free(tmp->var_name);
+	free(tmp->content);
+	free(tmp);
+	tmp = NULL;
+}
 
 void	ft_unset(t_command *cmd, t_program_data *data)
 {
@@ -29,14 +41,7 @@ void	ft_unset(t_command *cmd, t_program_data *data)
 		{
 			if (strcmp(tmp->var_name, split_arg[i]) == 0)
 			{
-				if (prev == NULL)
-					data->env = tmp->next;
-				else
-					prev->next = tmp->next;
-				free(tmp->var_name);
-				free(tmp->content);
-				free(tmp);
-				tmp = NULL;
+				supp(prev, tmp, data);
 				break ;
 			}
 			prev = tmp;
@@ -46,16 +51,3 @@ void	ft_unset(t_command *cmd, t_program_data *data)
 	}
 	ft_free_split(split_arg);
 }
-
-/* 	i = 0;
-	while (split_arg[i])
-	{
-		free(split_arg[i]);
-		i++;
-	}
-	free(split_arg);
-	tmp->prev->next = tmp->next;
-	free(tmp->var_name);
-	free(tmp->content);
-	free(tmp);
-	tmp = NULL; */

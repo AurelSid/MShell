@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roko <roko@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:21:50 by asideris          #+#    #+#             */
-/*   Updated: 2024/09/01 15:49:49 by roko             ###   ########.fr       */
+/*   Updated: 2024/10/31 15:01:26 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
-int		ft_len(const char *str);
 
+int		ft_len(const char *str);
 ssize_t	ft_fill_line(char **cache, int fd);
 char	*get_next_line(int fd);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);

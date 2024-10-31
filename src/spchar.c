@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spchar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/24 16:09:40 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:10:53 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*ft_spchar(char *var, t_program_data *data)
 	end = ft_strjoin_free(start, found);
 	end = ft_strjoin_free(end, (tmp + i));
 	free(var);
-	//	free(found);
 	return (end);
 }
 
@@ -108,8 +107,6 @@ int	ft_switchspchar(int i, char **to_check, char *tmp, t_program_data *data)
 		sub = ft_substr(tmp, i, j);
 		*to_check = ft_spcharloop(sub, data);
 	}
-	//*to_check = ft_check_exitsp(*to_check, *data);
-	//free(sub);
 	return (j);
 }
 

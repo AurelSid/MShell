@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/16 17:43:40 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:06:03 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_add_env(t_env **lst, t_env *new)
 	current->next = new;
 	new->prev = current;
 }
+
 char	*ft_check_lvl(char *content)
 {
 	int	val;
@@ -47,6 +48,7 @@ char	*ft_check_lvl(char *content)
 	else
 		return ("");
 }
+
 void	ft_env_copy_supp(int i, t_env *env_node, t_program_data *data)
 {
 	if (i == 0)
@@ -107,7 +109,6 @@ t_env	*ft_env_copy_2(t_env *env)
 	return (env_cpy);
 }
 
-/*	LEAKS ON ENV COPY	*/
 t_env	*ft_env_sort(t_env *env)
 {
 	t_env	*cpy;
@@ -141,6 +142,5 @@ t_env	*ft_env_sort(t_env *env)
 		else
 			ft_add_env(&sort, min);
 	}
-	//free(cpy);
 	return (sort);
 }

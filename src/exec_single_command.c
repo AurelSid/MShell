@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/30 16:20:11 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:10:06 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_handle_child_sig(int err)
 		write(1, "\n", 1);
 	}
 }
+
 int	ft_exec_built_ins_in_pipe(t_command *cmd, t_program_data *data)
 {
 	if (cmd->output_fd != STDOUT_FILENO)
@@ -42,6 +43,7 @@ int	ft_exec_built_ins_in_pipe(t_command *cmd, t_program_data *data)
 	}
 	return (ft_exec_built_ins(cmd, data));
 }
+
 int	ft_fork(pid_t process_id, t_command *cmd, char **env, t_program_data *data)
 {
 	if (process_id == 0)
@@ -100,10 +102,7 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 		if (WIFEXITED(status))
 			data->exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-		{
 			signal_num = WTERMSIG(status);
-			// data->exit_status = 128 + signal_num;
-		}
 		else if (WIFSTOPPED(status))
 		{
 			signal_num = WSTOPSIG(status);
@@ -113,10 +112,7 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 			}
 		}
 		else
-		{
-			printf("wtf");
 			data->exit_status = 0;
-		}
 		ft_handle_child_sig(data->exit_status);
 	}
 }

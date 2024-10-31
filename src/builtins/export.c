@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:09:43 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/25 18:00:34 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:11:22 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_export_var(char *arg, t_program_data *data)
 	{
 		len = ft_strlen(arg) - ft_strlen(ft_strchr(arg, '='));
 		if (len == 0)
-			return ;		/*  ----> ERROR */
+			return ;
 		var_name = ft_substr(arg, 0, len);
 		content = ft_strdup(ft_strchr(arg, '=') + 1);
 		if (var_name)
@@ -98,7 +98,6 @@ void	ft_export_var(char *arg, t_program_data *data)
 		tmp->next = NULL;
 		ft_add_env(&data->env, tmp);
 	}
-
 	else
 	{
 		tmp = ft_env_exist(arg, data);
@@ -117,7 +116,6 @@ void	ft_export_var(char *arg, t_program_data *data)
 		tmp->next = NULL;
 		ft_add_env(&data->env, tmp);
 	}
-	//ft_print_env(*data);
 }
 
 void	ft_export(t_command *cmd, t_program_data *data)

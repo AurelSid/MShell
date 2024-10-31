@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/24 15:07:13 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:13:50 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,9 @@ int	ft_handle_quotes(char *var, int index)
 	i++;
 	if (i > (int)ft_strlen(var))
 		return (-1);
-	/*  ---> error */
 	return (i - index);
 }
 
-/*				/!\	LEAKS IN STRJOIN /!\				*/
-/*					NOT ANYMORE I THINK					*/
 char	*ft_db_quotes(char *token, t_program_data *data)
 {
 	char	*found;
@@ -84,7 +81,5 @@ char	*ft_db_quotes(char *token, t_program_data *data)
 	end = ft_strjoin_free(start, found);
 	end = ft_strjoin_free(end, (tmp + i));
 	free(token);
-//	free(found);
 	return (end);
 }
-

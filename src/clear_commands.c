@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/21 16:41:45 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:04:23 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_free_commands(t_program_data *data)
 		free(to_free);
 	}
 }
+
 void	ft_clean_commands(t_program_data *data)
 {
 	t_command	*tmp_command;
@@ -53,7 +54,7 @@ void	ft_clean_tokens(t_program_data *data)
 	t_token	*tmp_token;
 	t_token	*to_free;
 
-	tmp_token =  data->token_top;
+	tmp_token = data->token_top;
 	while (tmp_token)
 	{
 		to_free = tmp_token;
@@ -64,6 +65,7 @@ void	ft_clean_tokens(t_program_data *data)
 	}
 	data->token_top = NULL;
 }
+
 void	ft_clean_redirections(t_command *cmd)
 {
 	t_redirection	*tmp_red;

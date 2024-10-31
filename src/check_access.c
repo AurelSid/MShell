@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/30 16:27:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:03:10 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_check_access(t_program_data *data, char *cmd_path_2, t_command *cmd,
 	}
 	return (0);
 }
+
 int	ft_while_split_util(t_command *cmd, char **split_paths, char *cmd_path_1,
 		char **cmd_path_2)
 {
@@ -55,6 +56,7 @@ int	ft_while_split_util(t_command *cmd, char **split_paths, char *cmd_path_1,
 	}
 	return (0);
 }
+
 int	ft_while_split(char **split_paths, t_command *cmd, int *found_working_path,
 		t_program_data *data)
 {
@@ -102,7 +104,8 @@ int	ft_while_cmd(t_command *cmd, char **split_paths, t_program_data *data)
 		}
 		if (ft_while_split(split_paths, cmd, &found_working_path, data))
 			return (1);
-		if (cmd->name && !found_working_path && ft_check_built_ins(cmd->name) == 0)
+		if (cmd->name && !found_working_path
+			&& ft_check_built_ins(cmd->name) == 0)
 		{
 			fprintf(stderr, "bash: %s: command not found\n", cmd->name);
 			data->exit_status = 127;

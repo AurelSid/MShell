@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/25 16:19:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:28:51 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,18 @@ char						**ft_split_args(char *args);
 char						**ft_split_args_2(char *args);
 char						*ft_strtrim_args(char *str);
 void						ft_export_trim(char ***args);
+t_token						*ft_commands_fill_list_r(t_program_data *data,
+								t_token *tmp, char **args, char **opt);
+int							ft_check_redir(t_token **tmp, t_redirection **redir,
+								t_program_data *data);
+int							ft_check_opt(t_program_data *data, t_token **tmp,
+								char *cmd_n, char **opt);
+int							ft_check_args(t_program_data *data, t_token **tmp,
+								char *cmd_n, char **args);
+int							ft_open_file(t_command *cmd, t_program_data *data);
+
+int							ft_specific_error(const char *filename,
+								t_program_data *data);
 
 typedef enum s_token_type
 {
