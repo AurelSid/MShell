@@ -10,6 +10,7 @@
 		"typeinfo": "c",
 		"signal.h": "c",
 		"system_error": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"complex": "c"
 	}
 }

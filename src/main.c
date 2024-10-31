@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/30 17:40:00 by asideris         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:54 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	process_command(t_program_data *data, char **env)
 			if (tmp_cmd->ok == 0)
 			{
 				ft_exec(tmp_cmd, env, data);
+				data->exit_status = 0;
 			}
 			else
 			{
