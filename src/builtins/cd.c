@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/25 16:19:23 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/01 19:00:21 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	ft_cd(t_command *cmd, t_program_data *data)
 
 	args = ft_split_args(cmd->args);
 	tmp = args[0];
+	if (!data->env && (!tmp || tmp[0] == '~' || ft_strcmp(tmp, "-") == 0))
+	{
+		write(2, " No env\n", 9);
+		data->exit_status = 1;
+		return ;
+	}
 	if (!tmp || tmp[0] == '~')
 	{
 		tmp = "HOME";
