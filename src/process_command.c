@@ -6,41 +6,41 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:45:54 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 16:47:37 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/01 17:26:15 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	process_command_loop(t_program_data *data)
+static int	process_command_loop(t_program_data *data, t_command **tmp_cmd)
 {
-	t_command	*tmp_cmd;
-
-	tmp_cmd = data->command_top;
-	while (tmp_cmd)
+	while ((*tmp_cmd))
 	{
-		if (tmp_cmd->redirection_list == NULL)
+		if ((*tmp_cmd)->redirection_list == NULL)
 			dup2(data->original_stdout, STDOUT_FILENO);
-		if (ft_apply_redir(tmp_cmd, data))
+		if (ft_apply_redir((*tmp_cmd), data))
 		{
-			if (tmp_cmd->next)
+			if ((*tmp_cmd)->next)
 			{
-				tmp_cmd->ok = -1;
-				tmp_cmd = tmp_cmd->next;
+				(*tmp_cmd)->ok = -1;
+				(*tmp_cmd) = (*tmp_cmd)->next;
 				continue ;
 			}
 			else
-				return ;
+				return (1);
 		}
-		tmp_cmd = tmp_cmd->next;
+		(*tmp_cmd) = (*tmp_cmd)->next;
 	}
+	return (0);
 }
 
 void	process_command(t_program_data *data, char **env)
 {
 	t_command	*tmp_cmd;
 
-	process_command_loop(data);
+	tmp_cmd = data->command_top;
+	if (process_command_loop(data, &tmp_cmd))
+		return ;
 	tmp_cmd = data->command_top;
 	while (tmp_cmd)
 	{
