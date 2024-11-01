@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/24 16:01:19 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 13:23:42 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_valid_opt(char *opt)
 	return (0);
 }
 
-static int	ft_check_opt(char *opt, char *arg)
+static int	ft_check_opts(char *opt, char *arg)
 {
 	int		i;
 	int		result;
@@ -63,7 +63,7 @@ void	ft_echo(t_command *cmd)
 
 	i = 0;
 	args = ft_split_args(cmd->args);
-	opt_i = ft_check_opt(cmd->options, cmd->args);
+	opt_i = ft_check_opts(cmd->options, cmd->args);
 	while (args[i])
 	{
 		if (i != 0)

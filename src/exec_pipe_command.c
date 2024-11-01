@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/21 18:36:12 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:22:04 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,14 @@ void	ft_handle_parent_piped_process(t_program_data *data, int pipe_fd[2],
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);
 	waitpid(process_id, &status, 0);
-	data->exit_status = 0;
 	if (WIFEXITED(status))
 		data->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 	{
 		signal_num = WTERMSIG(status);
-		data->exit_status = 128 + signal_num;
 	}
 	else
-		data->exit_status = 1;
+		data->exit_status = 0;
 }
 
 void	ft_exec_piped_command(t_command *cmd, char **env, t_program_data *data)

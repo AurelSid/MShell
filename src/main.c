@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/24 17:13:26 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:54 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	handle_input(t_program_data *data, char *rl)
 	add_history(rl);
 	data->input = rl;
 	ft_tokens_fill_list(data);
-//	ft_print_tokens_list(*data);
+	//	ft_print_tokens_list(*data);
 	ft_commands_fill_list(data);
-//	ft_print_commands(*data);
+	//	ft_print_commands(*data);
 }
 void	process_command(t_program_data *data, char **env)
 {
@@ -91,8 +91,19 @@ void	process_command(t_program_data *data, char **env)
 	while (tmp_cmd)
 	{
 		ft_last_redir(tmp_cmd->last_in, tmp_cmd->last_out, tmp_cmd, data);
-		if (tmp_cmd->ok == 0)
-			ft_exec(tmp_cmd, env, data);
+		if (tmp_cmd->name != NULL)
+		{
+			if (tmp_cmd->ok == 0)
+			{
+				ft_exec(tmp_cmd, env, data);
+				data->exit_status = 0;
+			}
+			else
+			{
+				setup_pipe_and_redirect();
+				ft_exec(tmp_cmd, env, data);
+			}
+		}
 		tmp_cmd = tmp_cmd->next;
 	}
 }
@@ -117,7 +128,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		rl = readline("$> ");
- 		if (!rl)
+		if (!rl)
 		{
 			ft_free_env(&data);
 			cleanup_and_exit(&data);

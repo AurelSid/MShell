@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/25 16:19:39 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/10/31 16:08:24 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_check_built_ins(char *cmd_name)
 	else
 		return (0);
 }
+
 int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
 {
 	if (!ft_strcmp(cmd->name, "env"))
@@ -42,6 +43,7 @@ int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
 		return (1);
 	return (0);
 }
+
 char	**ft_args_to_line(t_command *cmd)
 {
 	char	*tmp_line_1;
@@ -86,6 +88,7 @@ int	ft_count_envs(t_program_data *data)
 	}
 	return (i);
 }
+
 char	**ft_env_to_tab(t_program_data *data)
 {
 	t_env	*tmp_env;
@@ -112,6 +115,7 @@ char	**ft_env_to_tab(t_program_data *data)
 	}
 	return (tab);
 }
+
 int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
 	char	**tab;
@@ -125,8 +129,6 @@ int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 	{
 		if (cmd->output_fd < 0 && cmd->next->input_fd < 0)
 			ft_exec_piped_command(cmd, tab, data);
-		else if (cmd->next->input_fd > 0)
-			ft_exec_single_command(cmd, tab, data);
 		else if (cmd->output_fd)
 			ft_exec_single_command(cmd, tab, data);
 		else

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/30 18:46:09 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/01 16:25:09 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_handle_child_sig(int err)
 		write(1, "\n", 1);
 	}
 }
+
 int	ft_exec_built_ins_in_pipe(t_command *cmd, t_program_data *data)
 {
 	if (cmd->output_fd != STDOUT_FILENO)
@@ -42,6 +43,7 @@ int	ft_exec_built_ins_in_pipe(t_command *cmd, t_program_data *data)
 	}
 	return (ft_exec_built_ins(cmd, data));
 }
+
 int	ft_fork(pid_t process_id, t_command *cmd, char **env, t_program_data *data)
 {
 	if (process_id == 0)
@@ -80,12 +82,35 @@ void	sigtstp_handler(int signum)
 	}
 }
 
+void	ft_exit_status(pid_t process_id, int status, t_program_data *data,
+		int signal_num)
+{
+	waitpid(process_id, &status, 0);
+	if (WIFEXITED(status))
+		data->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		signal_num = WTERMSIG(status);
+	else if (WIFSTOPPED(status))
+	{
+		signal_num = WSTOPSIG(status);
+		if (signal_num == SIGTSTP)
+		{
+			data->exit_status = 146;
+		}
+	}
+	else
+		data->exit_status = 0;
+	ft_handle_child_sig(data->exit_status);
+}
+
 void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 {
 	pid_t	process_id;
 	int		status;
 	int		signal_num;
 
+	signal_num = 0;
+	status = 0;
 	if (ft_check_built_ins(cmd->name) == 1 && data->command_top->next == NULL)
 	{
 		ft_exec_built_ins(cmd, data);
@@ -96,24 +121,7 @@ void	ft_exec_single_command(t_command *cmd, char **env, t_program_data *data)
 	data->pid = process_id;
 	if (ft_fork(process_id, cmd, env, data))
 	{
-		waitpid(process_id, &status, 0);
-		if (WIFEXITED(status))
-			data->exit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-		{
-			signal_num = WTERMSIG(status);
-			data->exit_status = 128 + signal_num;
-		}
-		else if (WIFSTOPPED(status))
-		{
-			signal_num = WSTOPSIG(status);
-			if (signal_num == SIGTSTP)
-			{
-				data->exit_status = 146;
-			}
-		}
-		else
-			data->exit_status = 1;
+		ft_exit_status(process_id, status, data, signal_num);
 		ft_handle_child_sig(data->exit_status);
 	}
 }

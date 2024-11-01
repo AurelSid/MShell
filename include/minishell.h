@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/25 16:19:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/01 16:20:47 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_program_data
 	pid_t					pid;
 	int						child;
 }							t_program_data;
-extern t_program_data		data;
+//extern t_program_data		data;
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);
@@ -175,6 +175,30 @@ char						**ft_split_args(char *args);
 char						**ft_split_args_2(char *args);
 char						*ft_strtrim_args(char *str);
 void						ft_export_trim(char ***args);
+t_token						*ft_commands_fill_list_r(t_program_data *data,
+								t_token *tmp, char **args, char **opt);
+int							ft_check_redir(t_token **tmp, t_redirection **redir,
+								t_program_data *data);
+int							ft_check_opt(t_program_data *data, t_token **tmp,
+								char *cmd_n, char **opt);
+int							ft_check_args(t_program_data *data, t_token **tmp,
+								char *cmd_n, char **args);
+int							ft_open_file(t_command *cmd, t_program_data *data);
+
+int							ft_specific_error(const char *filename,
+								t_program_data *data);
+void						ft_export_var(char *arg, t_program_data *data);
+t_env						*ft_env_exist(char *var, t_program_data *data);
+int							ft_valid_var(char *var);
+char						*ft_spchar(char *var, t_program_data *data);
+int							ft_handle_words(char *var, int index);
+char						*ft_spcharloop(char *args, t_program_data *data);
+int							ft_while_cmd(t_command *cmd, char **split_paths,
+								t_program_data *data);
+void						ft_while_cmd_supp(t_command *cmd,
+								t_program_data *data, char **split_paths);
+int							ft_while_split(char **split_paths, t_command *cmd,
+								int *found_working_path, t_program_data *data);
 
 typedef enum s_token_type
 {

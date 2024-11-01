@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
+#    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/10/24 14:13:42 by vpelc            ###   ########.fr        #
+#    Updated: 2024/11/01 15:11:23 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,16 @@ INCLUDE_PATH	= ./include
 
 SRCS			= debug_utils.c add_token_node.c atol.c \
 				add_command_node.c add_redirection_node.c token.c \
- 				apply_redirections.c check_access.c command.c env.c \
-				init_data.c quotes.c  utils.c  builtins/env.c\
-				builtins/echo.c builtins/pwd.c builtins/export.c \
-				builtins/cd.c builtins/exit.c builtins/unset.c \
+ 				apply_redirections.c check_access.c command.c env.c env_supp.c \
+				init_data.c quotes.c  utils.c utils_2.c\
+				\
+				 builtins/env.c builtins/echo.c builtins/pwd.c builtins/export.c \
+				builtins/cd.c builtins/exit.c builtins/unset.c  builtins/export_var.c \
+				\
 				here_doc.c exec_command.c clear_commands.c \
 				exit.c free.c check_access_utils.c split_args.c \
-				exec_pipe_command.c spchar.c exec_single_command.c
+				exec_pipe_command.c spchar.c spchar_2.c exec_single_command.c\
+				commands_fill_list_r.c open_file.c
 
 MAIN			= main.c
 
