@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/10/31 17:47:59 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:26:28 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,18 @@ int							ft_open_file(t_command *cmd, t_program_data *data);
 
 int							ft_specific_error(const char *filename,
 								t_program_data *data);
+void						ft_export_var(char *arg, t_program_data *data);
+t_env						*ft_env_exist(char *var, t_program_data *data);
+int							ft_valid_var(char *var);
+char						*ft_spchar(char *var, t_program_data *data);
+int							ft_handle_words(char *var, int index);
+char						*ft_spcharloop(char *args, t_program_data *data);
+int							ft_while_cmd(t_command *cmd, char **split_paths,
+								t_program_data *data);
+void						ft_while_cmd_supp(t_command *cmd,
+								t_program_data *data, char **split_paths);
+int							ft_while_split(char **split_paths, t_command *cmd,
+								int *found_working_path, t_program_data *data);
 
 typedef enum s_token_type
 {

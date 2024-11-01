@@ -1,5 +1,4 @@
-objs/builtins/export.o: src/builtins/export.c \
-  include/../include/minishell.h \
+objs/utils_2.o: src/utils_2.c src/../include/minishell.h \
   include/libft/get_next_line/get_next_line.h include/libft/libft.h \
   /Users/asideris/.brew/opt/readline/include/readline/history.h \
   /Users/asideris/.brew/opt/readline/include/readline/rlstdc.h \
