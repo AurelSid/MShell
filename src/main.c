@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/31 16:39:54 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/01 16:54:01 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 t_program_data	data;
+
 void	setup_pipe_and_redirect(void)
 {
 	int		pipe_fd[2];
@@ -36,21 +37,6 @@ void	setup_pipe_and_redirect(void)
 	}
 }
 
-void	ft_handle_signals(int signal)
-{
-	(void)signal;
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	write(1, "\n", 1);
-	rl_redisplay();
-}
-void	initialize_signals(void)
-{
-	signal(SIGINT, ft_handle_signals);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-}
-
 void	handle_input(t_program_data *data, char *rl)
 {
 	if (rl[0] == '\0')
@@ -61,52 +47,9 @@ void	handle_input(t_program_data *data, char *rl)
 	add_history(rl);
 	data->input = rl;
 	ft_tokens_fill_list(data);
-	//	ft_print_tokens_list(*data);
 	ft_commands_fill_list(data);
-	//	ft_print_commands(*data);
 }
-void	process_command(t_program_data *data, char **env)
-{
-	t_command	*tmp_cmd;
 
-	tmp_cmd = data->command_top;
-	while (tmp_cmd)
-	{
-		if (tmp_cmd->redirection_list == NULL)
-			dup2(data->original_stdout, STDOUT_FILENO);
-		if (ft_apply_redir(tmp_cmd, data))
-		{
-			if (tmp_cmd->next)
-			{
-				tmp_cmd->ok = -1;
-				tmp_cmd = tmp_cmd->next;
-				continue ;
-			}
-			else
-				return ;
-		}
-		tmp_cmd = tmp_cmd->next;
-	}
-	tmp_cmd = data->command_top;
-	while (tmp_cmd)
-	{
-		ft_last_redir(tmp_cmd->last_in, tmp_cmd->last_out, tmp_cmd, data);
-		if (tmp_cmd->name != NULL)
-		{
-			if (tmp_cmd->ok == 0)
-			{
-				ft_exec(tmp_cmd, env, data);
-				data->exit_status = 0;
-			}
-			else
-			{
-				setup_pipe_and_redirect();
-				ft_exec(tmp_cmd, env, data);
-			}
-		}
-		tmp_cmd = tmp_cmd->next;
-	}
-}
 int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 {
 	if (argc != 1 || argv[1])
@@ -119,39 +62,45 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 	return (0);
 }
 
+int	main_loop(t_program_data *data, char *env[])
+{
+	char	*rl;
+
+	rl = readline("$> ");
+	if (!rl)
+	{
+		ft_free_env(data);
+		cleanup_and_exit(data);
+		clear_history();
+		exit(data->exit_status);
+		return (0);
+	}
+	if (rl[0] == '\0')
+		return (1);
+	handle_input(data, rl);
+	if (ft_check_all_access(data))
+	{
+		cleanup_and_exit(data);
+		return (1);
+	}
+	process_command(data, env);
+	cleanup_and_exit(data);
+	if (rl)
+		free(rl);
+	return (1);
+}
+
 int	main(int argc, char **argv, char **env)
 {
-	char			*rl;
+	int				i;
 	t_program_data	data;
 
 	ft_setup_main(argc, argv, &data, env);
-	while (1)
+	i = 1;
+	while (i == 1)
 	{
-		rl = readline("$> ");
-		if (!rl)
-		{
-			ft_free_env(&data);
-			cleanup_and_exit(&data);
-			clear_history();
-			exit(data.exit_status);
-			return (0);
-		}
-		if (rl[0] == '\0')
-			continue ;
-		handle_input(&data, rl);
-		if (rl[0] == '\0')
-			continue ;
-		if (ft_check_all_access(&data))
-		{
-			cleanup_and_exit(&data);
-			continue ;
-		}
-		process_command(&data, env);
-		cleanup_and_exit(&data);
-		if (rl)
-			free(rl);
+		i = main_loop(&data, env);
 	}
-	ft_free_env(&data);
 	return (0);
 }
 

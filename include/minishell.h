@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/01 16:20:47 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/01 16:52:44 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_program_data
 	pid_t					pid;
 	int						child;
 }							t_program_data;
-//extern t_program_data		data;
+extern t_program_data		data;
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);
@@ -148,7 +148,6 @@ void						ft_free_split(char **strs);
 
 void						cleanup_and_exit(t_program_data *data);
 
-void						send_error(char *error);
 int							ft_set_cmd_path(t_program_data *data,
 								char *cmd_name, char *path);
 int							ft_check_absolute_p(t_command *cmd,
@@ -199,6 +198,8 @@ void						ft_while_cmd_supp(t_command *cmd,
 								t_program_data *data, char **split_paths);
 int							ft_while_split(char **split_paths, t_command *cmd,
 								int *found_working_path, t_program_data *data);
+void						process_command(t_program_data *data, char **env);
+void						initialize_signals(void);
 
 typedef enum s_token_type
 {
