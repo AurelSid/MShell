@@ -6,13 +6,11 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 17:19:37 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:58:29 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-
 
 int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
 {
@@ -57,7 +55,6 @@ int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
 	}
 	return (0);
 }
-
 // t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 // 		char **args, char **opt)
 // {

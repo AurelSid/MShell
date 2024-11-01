@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_single_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/01 15:14:29 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:27:45 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	sigtstp_handler(int signum)
 	pid_t	p;
 
 	(void)signum;
-	p = data.pid;
+	p = g_data.pid;
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 17:51:51 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/01 18:00:21 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ void	support_1(t_program_data *data, t_redirection **redir, t_token **tmp)
 	}
 	ft_check_redir(tmp, redir, data);
 }
-void	support_2(t_program_data *data, t_redirection **redir, t_token **tmp, char *cmd_n,
-		char **args)
+
+void	support_2(t_program_data *data, t_redirection **redir, t_token **tmp,
+		char *cmd_n, char **args)
 {
 	while (*tmp && ((*tmp)->type != PIPE))
 	{
@@ -81,7 +82,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		tmp = tmp->next;
 		if (ft_strcmp(cmd_n, "exit"))
 			ft_check_opt(data, &tmp, cmd_n, opt);
-		support_2(data, &redir,&tmp,cmd_n,args);
+		support_2(data, &redir, &tmp, cmd_n, args);
 	}
 	cmd = ft_new_command(cmd_n, data, *args, *opt);
 	cmd->redirection_list = redir;
