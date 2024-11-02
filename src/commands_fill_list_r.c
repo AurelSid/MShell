@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_fill_list_r.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 15:42:09 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:42:55 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 		else
 			return (0);
 		tmp = tmp->next;
-		if (ft_strcmp(cmd_n, "exit"))
+		if (ft_strcmp(cmd_n, "exit") && ft_strcmp(cmd_n, "cd"))
 			ft_check_opt(data, &tmp, cmd_n, opt);
 		while (tmp && (tmp->type != PIPE))
 		{
