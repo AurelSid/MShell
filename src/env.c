@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 15:28:13 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:42:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ char	*ft_check_lvl(char *content)
 		return ("");
 }
 
-void	ft_env_copy_supp(int i, t_env *env_node, t_program_data *data)
+void	ft_env_copy_supp(int i, t_env **env_node, t_program_data *data)
 {
+	(*env_node)->next = NULL;
+	(*env_node)->prev = NULL;
 	if (i == 0)
-		data->env = env_node;
+		data->env = (*env_node);
 	else
-		ft_add_env(&data->env, env_node);
+		ft_add_env(&data->env, (*env_node));
 }
 
 int	ft_env_copy(char **env, t_program_data *data)
@@ -71,15 +73,16 @@ int	ft_env_copy(char **env, t_program_data *data)
 		len = ft_strlen(env[i]) - ft_strlen(ft_strchr(env[i], '='));
 		env_node->var_name = ft_substr(env[i], 0, len);
 		env_node->content = ft_strdup(ft_strchr(env[i], '=') + 1);
+		if (ft_strcmp(env_node->var_name, "PWD") == 0
+			|| ft_strcmp(env_node->var_name, "OLDPWD") == 0)
+			ft_pwd_setup(&env_node, env_node->var_name);
 		if (ft_strcmp(env_node->var_name, "SHLVL") == 0)
 		{
 			tmp = ft_check_lvl(env_node->content);
 			free(env_node->content);
 			env_node->content = tmp;
 		}
-		env_node->next = NULL;
-		env_node->prev = NULL;
-		ft_env_copy_supp(i, env_node, data);
+		ft_env_copy_supp(i, &env_node, data);
 		i++;
 	}
 	return (0);

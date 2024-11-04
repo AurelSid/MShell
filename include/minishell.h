@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/11/01 16:59:21 by vpelc            ###   ########.fr       */
-=======
-/*   Updated: 2024/11/04 12:36:16 by asideris         ###   ########.fr       */
->>>>>>> 99ff848764cacc1ecd836f4e5b3c72309a076708
+/*   Updated: 2024/11/04 14:43:05 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +84,7 @@ typedef struct s_program_data
 	pid_t					pid;
 	int						child;
 }							t_program_data;
-<<<<<<< HEAD
-extern t_program_data		data;
-=======
 extern t_program_data		g_data;
->>>>>>> 99ff848764cacc1ecd836f4e5b3c72309a076708
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);
@@ -224,6 +216,8 @@ int							ft_exec_built_ins(t_command *cmd,
 								t_program_data *data);
 int							ft_exec_built_ins_in_pipe(t_command *cmd,
 								t_program_data *data);
+void						ft_pwd_setup(t_env **env, char *type);
+void						ft_env_empty(t_program_data *data);
 
 typedef enum s_token_type
 {

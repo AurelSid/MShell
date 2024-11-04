@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/01 18:44:43 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:55:32 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 		return (0);
 	initialize_signals();
 	ft_init_data(data);
-	ft_env_copy(env, data);
+	if (!env[0])
+		ft_env_empty(data);
+	else
+		ft_env_copy(env, data);
 	data->original_stdin = dup(STDIN_FILENO);
 	data->original_stdout = dup(STDOUT_FILENO);
 	return (0);
