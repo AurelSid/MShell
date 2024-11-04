@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 18:02:12 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/04 18:18:53 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,78 +65,78 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 	return (0);
 }
 
-// int	main_loop(t_program_data *data, char *env[], char *rl)
-// {
-// 	if (!rl)
-// 	{
-// 		ft_free_env(data);
-// 		cleanup_and_exit(data);
-// 		clear_history();
-// 		exit(data->exit_status);
-// 		return (0);
-// 	}
-// 	if (rl[0] == '\0')
-// 		return (1);
-// 	handle_input(data, rl);
-// 	if (ft_check_all_access(data))
-// 	{
-// 		cleanup_and_exit(data);
-// 		return (1);
-// 	}
-// 	process_command(data, env);
-// 	cleanup_and_exit(data);
-// 	if (rl)
-// 		free(rl);
-// 	return (1);
-// }
-
-// int	main(int argc, char **argv, char **env)
-// {
-// 	int		i;
-// 	char	*rl;
-
-// 	ft_setup_main(argc, argv, &g_data, env);
-// 	i = 1;
-// 	while (i == 1)
-// 	{
-// 		rl = readline("$> ");
-// 		i = main_loop(&g_data, env, rl);
-// 	}
-// 	return (0);
-// }
-
- int	main(int argc, char **argv, char **env)
+int	main_loop(t_program_data *data, char *env[], char *rl)
 {
-	char			*rl;
-	
+	if (!rl)
+	{
+		ft_free_env(data);
+		cleanup_and_exit(data);
+		clear_history();
+		exit(data->exit_status);
+		return (0);
+	}
+	if (rl[0] == '\0')
+		return (1);
+	handle_input(data, rl);
+	if (ft_check_all_access(data))
+	{
+		cleanup_and_exit(data);
+		return (1);
+	}
+	process_command(data, env);
+	cleanup_and_exit(data);
+	if (rl)
+		free(rl);
+	return (1);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	int		i;
+	char	*rl;
 
 	ft_setup_main(argc, argv, &g_data, env);
-	while (1)
+	i = 1;
+	while (i == 1)
 	{
-		rl = "env";
-		if (!rl)
-		{
-			ft_free_env(&g_data);
-			cleanup_and_exit(&g_data);
-			clear_history();
-			exit(g_data.exit_status);
-			return (0);
-		}
-		if (rl[0] == '\0')
-			break ;
-		handle_input(&g_data, rl);
-		if (ft_check_all_access(&g_data))
-		{
-			cleanup_and_exit(&g_data);
-			break ;
-		}
-		process_command(&g_data, env);
-		cleanup_and_exit(&g_data);
-		// if (rl)
-		// 	free(rl);
-		break ;
+		rl = readline("$> ");
+		i = main_loop(&g_data, env, rl);
 	}
-	ft_free_env(&g_data);
-	system("leaks minishell");
 	return (0);
-} 
+}
+
+//  int	main(int argc, char **argv, char **env)
+// {
+// 	char			*rl;
+	
+
+// 	ft_setup_main(argc, argv, &g_data, env);
+// 	while (1)
+// 	{
+// 		rl = "ls -la";
+// 		if (!rl)
+// 		{
+// 			ft_free_env(&g_data);
+// 			cleanup_and_exit(&g_data);
+// 			clear_history();
+// 			exit(g_data.exit_status);
+// 			return (0);
+// 		}
+// 		if (rl[0] == '\0')
+// 			break ;
+// 		handle_input(&g_data, rl);
+// 		if (ft_check_all_access(&g_data))
+// 		{
+// 			cleanup_and_exit(&g_data);
+// 			break ;
+// 		}
+// 		process_command(&g_data, env);
+// 		cleanup_and_exit(&g_data);
+// 		// if (rl)
+// 		// 	free(rl);
+// 		break ;
+// 	}
+// 	ft_free_env(&g_data);
+// 	//system("leaks minishell");
+// 	return (0);
+// } 
