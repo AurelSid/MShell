@@ -6,35 +6,11 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/31 14:17:59 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:58:29 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	ft_check_redir(t_token **tmp, t_redirection **redir, t_program_data *data)
-{
-	if ((*tmp) && (((*tmp)->type == REDIRECT_IN
-				|| (*tmp)->type == REDIRECT_APPEND
-				|| (*tmp)->type == REDIRECT_HEREDOC
-				|| (*tmp)->type == REDIRECT_OUT)) && (!(*tmp)->next
-			|| (*tmp)->next->type != WORD))
-	{
-		*tmp = (*tmp)->next;
-		write(2, "syntax error near unexpected token `newline'\n", 46);
-		data->exit_status = 2;
-	}
-	while ((*tmp) && (((*tmp)->type == REDIRECT_IN
-				|| (*tmp)->type == REDIRECT_APPEND
-				|| (*tmp)->type == REDIRECT_HEREDOC
-				|| (*tmp)->type == REDIRECT_OUT) && (*tmp)->next->type == WORD))
-	{
-		*redir = ft_new_redirection((*tmp)->next->content, *redir,
-				(*tmp)->type);
-		*tmp = (*tmp)->next->next;
-	}
-	return (0);
-}
 
 int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
 {
@@ -79,7 +55,6 @@ int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
 	}
 	return (0);
 }
-
 // t_token	*ft_commands_fill_list_r(t_program_data *data, t_token *tmp,
 // 		char **args, char **opt)
 // {

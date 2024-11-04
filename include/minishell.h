@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/11/01 16:59:21 by vpelc            ###   ########.fr       */
+=======
+/*   Updated: 2024/11/04 12:36:16 by asideris         ###   ########.fr       */
+>>>>>>> 99ff848764cacc1ecd836f4e5b3c72309a076708
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +88,11 @@ typedef struct s_program_data
 	pid_t					pid;
 	int						child;
 }							t_program_data;
+<<<<<<< HEAD
 extern t_program_data		data;
+=======
+extern t_program_data		g_data;
+>>>>>>> 99ff848764cacc1ecd836f4e5b3c72309a076708
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);
@@ -148,7 +156,6 @@ void						ft_free_split(char **strs);
 
 void						cleanup_and_exit(t_program_data *data);
 
-void						send_error(char *error);
 int							ft_set_cmd_path(t_program_data *data,
 								char *cmd_name, char *path);
 int							ft_check_absolute_p(t_command *cmd,
@@ -199,6 +206,24 @@ void						ft_while_cmd_supp(t_command *cmd,
 								t_program_data *data, char **split_paths);
 int							ft_while_split(char **split_paths, t_command *cmd,
 								int *found_working_path, t_program_data *data);
+void						process_command(t_program_data *data, char **env);
+void						initialize_signals(void);
+// OPEN FILES FUNCTIONS
+int							ft_handle_redirect_in(t_command *cmd,
+								t_redirection *redir, t_program_data *data);
+int							ft_handle_redirect_out(t_command *cmd,
+								t_redirection *redir, t_program_data *data);
+int							ft_handle_redirect_append(t_command *cmd,
+								t_redirection *redir, t_program_data *data);
+void						ft_handle_heredoc(t_redirection *redir,
+								t_command *cmd, t_program_data *data);
+void						ft_handle_child_sig(int err);
+//
+int							ft_check_built_ins(char *cmd_name);
+int							ft_exec_built_ins(t_command *cmd,
+								t_program_data *data);
+int							ft_exec_built_ins_in_pipe(t_command *cmd,
+								t_program_data *data);
 
 typedef enum s_token_type
 {

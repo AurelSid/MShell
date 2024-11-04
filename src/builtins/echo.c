@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/31 13:23:42 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:28:16 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ void	ft_echo(t_command *cmd)
 	if (opt_i)
 		printf("\n");
 	ft_free_split(args);
-	data.exit_status = 0;
+	g_data.exit_status = 0;
 }

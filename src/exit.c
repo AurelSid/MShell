@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:09:46 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/16 17:29:03 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:53:30 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_free_env(t_program_data *data)
 
 void	ft_exit_free(t_program_data *data, char *exit_msg)
 {
-	fprintf(stderr, "%s", exit_msg);
+	printf("%s", exit_msg);
 	(void)data;
 	ft_clean_tokens(data);
 	ft_clean_commands(data);
