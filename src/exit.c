@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:09:46 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/04 12:53:30 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:52:18 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ft_free_env(t_program_data *data)
 	while (current_env)
 	{
 		to_free = current_env;
-		current_env = current_env->next;
 		free(to_free->var_name);
 		free(to_free->content);
+		current_env = current_env->next;
 		free(to_free);
 	}
 	data->env = NULL;

@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/11/04 12:35:10 by asideris         ###   ########.fr        #
+#    Updated: 2024/11/04 17:30:46 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME	= minishell
 CC 		= clang -g3 
-CFLAGS	= -Wall -Werror -Wextra -g
+CFLAGS	= -Wall -Werror -Wextra -g #-fsanitize=address
 DFLAGS	= -MMD -MF $(@:.o=.d)
 AUTHOR	= Asideris_Vpelc
 DATE	= 31/05/2024
