@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 17:44:49 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:02:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,6 @@ int	ft_setup_main(int argc, char **argv, t_program_data *data, char **env)
 		break ;
 	}
 	ft_free_env(&g_data);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (0);
 } 
