@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/04 17:18:52 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:12:53 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	process_redirects(t_program_data *data, int *i)
 
 int	process_word(t_program_data *data, int *i)
 {
-	int	j;
-	char *tmp_name;
+	int		j;
+	char	*tmp_name;
+
 	j = *i;
 	while (data->input[j] && (data->input[j] != ' ' && data->input[j] != '>'
 			&& data->input[j] != '<'))

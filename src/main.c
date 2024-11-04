@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 18:07:51 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:11:41 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_input(t_program_data *data, char *rl)
 		ft_exit_free(data, "");
 		return ;
 	}
-	//add_history(rl);
+	add_history(rl);
 	data->input = rl;
 	ft_tokens_fill_list(data);
 	ft_commands_fill_list(data);
@@ -108,12 +108,11 @@ int	main(int argc, char **argv, char **env)
 //  int	main(int argc, char **argv, char **env)
 // {
 // 	char			*rl;
-	
 
 // 	ft_setup_main(argc, argv, &g_data, env);
 // 	while (1)
 // 	{
-// 		rl = "ls -la";
+// 		rl = "echo -n hello";
 // 		if (!rl)
 // 		{
 // 			ft_free_env(&g_data);
@@ -137,6 +136,5 @@ int	main(int argc, char **argv, char **env)
 // 		break ;
 // 	}
 // 	ft_free_env(&g_data);
-// 	//system("leaks minishell");
 // 	return (0);
-// } 
+// }

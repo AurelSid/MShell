@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/30 17:22:04 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:23:34 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_handle_parent_piped_process(t_program_data *data, int pipe_fd[2],
 	int	status;
 	int	signal_num;
 
+	status = 0;
 	close(pipe_fd[1]);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);
