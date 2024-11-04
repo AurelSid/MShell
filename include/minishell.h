@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/04 14:43:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/04 15:58:53 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ char						**ft_split_args(char *args);
 char						**ft_split_args_2(char *args);
 char						*ft_strtrim_args(char *str);
 void						ft_export_trim(char ***args);
-t_token						*ft_commands_fill_list_r(t_program_data *data,
-								t_token *tmp, char **args, char **opt);
+t_token						*ft_commands_fill_list_r(t_token *tmp, char **args,
+								char **opt);
 int							ft_check_redir(t_token **tmp, t_redirection **redir,
 								t_program_data *data);
 int							ft_check_opt(t_program_data *data, t_token **tmp,

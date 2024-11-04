@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 17:58:29 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:58:23 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_commands_fill_list(t_program_data *data)
 	if (!args)
 		return ;
 	tmp = data->token_top;
-	tmp = ft_commands_fill_list_r(data, tmp, &args, &opt);
+	tmp = ft_commands_fill_list_r(tmp, &args, &opt);
 	if ((tmp && tmp->next) && tmp->type == PIPE)
 	{
 		tmp = tmp->next;
