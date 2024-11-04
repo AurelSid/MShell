@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 17:38:38 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:04:40 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,42 @@ char	**ft_env_to_tab(t_program_data *data)
 	char	**tab;
 	int		i;
 	char	*tmp;
+	char	*combined_str;
 
 	i = 0;
 	env_nmbr = ft_count_envs(data);
 	tab = malloc(sizeof(char *) * (env_nmbr + 1));
+	if (!tab)
+		return (NULL);
 	tab[env_nmbr] = NULL;
 	tmp_env = data->env;
 	while (tmp_env)
 	{
 		tmp = ft_strjoin(tmp_env->var_name, "=");
+		if (!tmp)
+		{
+			while (i > 0)
+				free(tab[--i]);
+			free(tab);
+			return (NULL);
+		}
 		if (tmp_env->content)
-			tab[i] = ft_strjoin(tmp, tmp_env->content);
+			combined_str = ft_strjoin(tmp, tmp_env->content);
 		else
-			tab[i] = NULL;
-		free(tmp);
+			combined_str = tmp;
+		if (combined_str)
+			tab[i++] = combined_str;
+		else
+		{
+			free(tmp);
+			while (i > 0)
+				free(tab[--i]);
+			free(tab);
+			return (NULL);
+		}
+		if (tmp_env->content)
+			free(tmp);
 		tmp_env = tmp_env->next;
-		i++;
 	}
 	return (tab);
 }
