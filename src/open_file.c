@@ -6,14 +6,11 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/01 19:04:30 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:51:14 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
 
 int	open_files_loop(t_redirection *redir, t_program_data *data, t_command *cmd)
 {

@@ -11,6 +11,7 @@
 		"signal.h": "c",
 		"system_error": "c",
 		"__locale": "c",
-		"complex": "c"
+		"complex": "c",
+		"ostream": "c"
 	}
 }

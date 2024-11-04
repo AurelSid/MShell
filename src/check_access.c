@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/01 15:27:12 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:52:35 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_check_access(t_program_data *data, char *cmd_path_2, t_command *cmd,
 		{
 			*found_working_path = 2;
 			ft_set_cmd_path(data, cmd->name, cmd_path_2);
-			fprintf(stderr, "bash: %s: Permission denied\n", cmd->name);
+			printf("bash: %s: Permission denied\n", cmd->name);
 			data->exit_status = 2;
 			return (1);
 		}

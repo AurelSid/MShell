@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/01 19:03:08 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:36:16 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,13 @@ int							ft_handle_redirect_append(t_command *cmd,
 								t_redirection *redir, t_program_data *data);
 void						ft_handle_heredoc(t_redirection *redir,
 								t_command *cmd, t_program_data *data);
+void						ft_handle_child_sig(int err);
+//
+int							ft_check_built_ins(char *cmd_name);
+int							ft_exec_built_ins(t_command *cmd,
+								t_program_data *data);
+int							ft_exec_built_ins_in_pipe(t_command *cmd,
+								t_program_data *data);
 
 typedef enum s_token_type
 {

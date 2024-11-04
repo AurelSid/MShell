@@ -6,7 +6,7 @@
 #    By: asideris <asideris@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/11/01 19:03:24 by asideris         ###   ########.fr        #
+#    Updated: 2024/11/04 12:35:10 by asideris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRCS			= debug_utils.c add_token_node.c atol.c \
 				exit.c free.c check_access_utils.c split_args.c \
 				exec_pipe_command.c spchar.c spchar_2.c exec_single_command.c\
 				commands_fill_list_r.c open_file.c signals.c process_command.c\
-				open_files_supp.c
+				open_files_supp.c exec_command_supp.c exec_single_command_supp.c
 
 MAIN			= main.c
 
