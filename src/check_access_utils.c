@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_access_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:46:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/05 17:20:38 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:38:16 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,14 @@ int	ft_while_cmd(t_command *cmd, char **split_paths, t_program_data *data)
 
 int	ft_supp(t_env *env, char **full_path, char ***split_paths)
 {
-	while (env && strcmp(env->var_name, "PATH") != 0)
-		env = env->next;
-	if (!env)
+	t_env	*env_tmp;
+
+	env_tmp = env;
+	while (env_tmp && strcmp(env_tmp->var_name, "PATH") != 0)
+		env_tmp = env_tmp->next;
+	if (!env_tmp)
 		return (-1);
-	*full_path = env->content;
+	*full_path = env_tmp->content;
 	*split_paths = ft_split(*full_path, ':');
 	if (!*split_paths)
 		return (-1);
@@ -83,15 +86,12 @@ int	ft_supp(t_env *env, char **full_path, char ***split_paths)
 
 int	ft_check_all_access(t_program_data *data)
 {
-	t_env		*env;
-	char		*full_path;
-	char		**split_paths;
-	t_command	*cmd;
+	static char		*full_path;
+	char			**split_paths;
+	t_command		*cmd;
 
-	full_path = NULL;
 	split_paths = NULL;
 	cmd = data->command_top;
-	env = data->env;
 	while (cmd)
 	{
 		if (ft_check_absolute_p(cmd, data))
@@ -101,7 +101,7 @@ int	ft_check_all_access(t_program_data *data)
 				cmd = cmd->next;
 				continue ;
 			}
-			if (ft_supp(env, &full_path, &split_paths) == -1)
+			if (ft_supp(data->env, &full_path, &split_paths) == -1)
 				return (-1);
 			if (ft_while_cmd(cmd, split_paths, data))
 				return (1);

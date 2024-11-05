@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:24:19 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/05 16:14:22 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:31:57 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in, t_command *cmd)
 	close(pipe_fd[1]);
 	exit(0);
 }
+
 void	ft_here_sig(int err)
 {
 	(void)err;
@@ -46,6 +47,7 @@ void	ft_here_sig(int err)
 	rl_on_new_line();
 	exit(0);
 }
+
 void	ft_limiter_exec(t_redirection *in, t_command *cmd)
 {
 	int		pipe_fd[2];
