@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:24:19 by asideris          #+#    #+#             */
-/*   Updated: 2024/10/21 16:42:57 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:14:22 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,18 @@ void	ft_gnl_to_fd(int *pipe_fd, t_redirection *in, t_command *cmd)
 	close(pipe_fd[1]);
 	exit(0);
 }
-
+void	ft_here_sig(int err)
+{
+	(void)err;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	exit(0);
+}
 void	ft_limiter_exec(t_redirection *in, t_command *cmd)
 {
 	int		pipe_fd[2];
 	pid_t	process_id;
+	int		status;
 
 	if (pipe(pipe_fd) == -1)
 		exit(1);
@@ -52,13 +59,18 @@ void	ft_limiter_exec(t_redirection *in, t_command *cmd)
 		exit(1);
 	else if (process_id == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		ft_gnl_to_fd(pipe_fd, in, cmd);
 	}
 	else
 	{
-		dup2(pipe_fd[0], 0);
 		close(pipe_fd[1]);
+		dup2(pipe_fd[0], 0);
 		close(pipe_fd[0]);
-		wait(0);
+		waitpid(process_id, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			g_data.sig_int = 1;
+		else
+			g_data.sig_int = 0;
 	}
 }

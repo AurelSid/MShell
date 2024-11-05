@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/05 13:40:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/05 17:25:51 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void	ft_set_redir_direction(t_command *cmd)
 
 int	ft_specific_error(const char *filename, t_program_data *data)
 {
-	char	buffer[256];
-
+	(void)filename;
 	(void)data;
 	if (errno == EACCES)
 	{
@@ -60,12 +59,6 @@ int	ft_specific_error(const char *filename, t_program_data *data)
 		write(2, " No space left on device\n", 24);
 	else if (errno == EROFS)
 		write(2, " Read-only file system\n", 22);
-	else
-	{
-		snprintf(buffer, sizeof(buffer), "Error opening file %s: %s\n",
-			filename, strerror(errno));
-		write(2, buffer, strlen(buffer));
-	}
 	return (-1);
 }
 

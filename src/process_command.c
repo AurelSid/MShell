@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:45:54 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 18:41:28 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:18:37 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,15 @@ void	process_command(t_program_data *data, char **env)
 		{
 			if (tmp_cmd->ok == 0)
 			{
+				if (g_data.sig_int > 0)
+					return ;
 				ft_exec(tmp_cmd, env, data);
 				data->exit_status = 0;
 			}
 			else
 			{
+				if (g_data.sig_int > 0)
+					return ;
 				setup_pipe_and_redirect();
 				ft_exec(tmp_cmd, env, data);
 			}
