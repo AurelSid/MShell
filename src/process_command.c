@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:45:54 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/05 16:18:37 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:45:47 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@ static int	process_command_loop(t_program_data *data, t_command **tmp_cmd)
 	return (0);
 }
 
+int	supp_pc(t_command **tmp_cmd, char **env, t_program_data *data)
+{
+	ft_last_redir((*tmp_cmd)->last_in, (*tmp_cmd)->last_out, *tmp_cmd, data);
+	if ((*tmp_cmd)->name != NULL)
+	{
+		if ((*tmp_cmd)->ok == 0)
+		{
+			if (g_data.sig_int > 0)
+				return (1);
+			ft_exec(*tmp_cmd, env, data);
+			data->exit_status = 0;
+		}
+		else
+		{
+			if (g_data.sig_int > 0)
+				return (1);
+			setup_pipe_and_redirect();
+			ft_exec(*tmp_cmd, env, data);
+		}
+	}
+	return (0);
+}
+
 void	process_command(t_program_data *data, char **env)
 {
 	t_command	*tmp_cmd;
@@ -44,24 +67,8 @@ void	process_command(t_program_data *data, char **env)
 	tmp_cmd = data->command_top;
 	while (tmp_cmd)
 	{
-		ft_last_redir(tmp_cmd->last_in, tmp_cmd->last_out, tmp_cmd, data);
-		if (tmp_cmd->name != NULL)
-		{
-			if (tmp_cmd->ok == 0)
-			{
-				if (g_data.sig_int > 0)
-					return ;
-				ft_exec(tmp_cmd, env, data);
-				data->exit_status = 0;
-			}
-			else
-			{
-				if (g_data.sig_int > 0)
-					return ;
-				setup_pipe_and_redirect();
-				ft_exec(tmp_cmd, env, data);
-			}
-		}
+		if (supp_pc(&tmp_cmd, env, data))
+			return ;
 		tmp_cmd = tmp_cmd->next;
 	}
 }
