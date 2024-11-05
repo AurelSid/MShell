@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/04 15:58:53 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/05 13:36:28 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,7 @@ int							ft_exec_built_ins_in_pipe(t_command *cmd,
 								t_program_data *data);
 void						ft_pwd_setup(t_env **env, char *type);
 void						ft_env_empty(t_program_data *data);
+char						**ft_env_to_tab(char **tab, t_program_data *data);
 
 typedef enum s_token_type
 {

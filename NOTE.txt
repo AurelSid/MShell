@@ -1,9 +1,0 @@
-
-EXPORT
-	--> il ne peut pas y avoir un ?
-	--> il doit y avoir un quelque chose avant le =
-
-CD
-	--> si pwd == home/sub1/sub2 | rm -rf sub1 | cd .. ==> adapter les erre
-
-

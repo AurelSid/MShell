@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 18:04:40 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:36:43 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,74 +39,13 @@ void	ft_setup_child_signals(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
-int	ft_count_envs(t_program_data *data)
-{
-	t_env	*tmp_env;
-	int		i;
-
-	i = 0;
-	tmp_env = data->env;
-	while (tmp_env)
-	{
-		i++;
-		tmp_env = tmp_env->next;
-	}
-	return (i);
-}
-
-char	**ft_env_to_tab(t_program_data *data)
-{
-	t_env	*tmp_env;
-	int		env_nmbr;
-	char	**tab;
-	int		i;
-	char	*tmp;
-	char	*combined_str;
-
-	i = 0;
-	env_nmbr = ft_count_envs(data);
-	tab = malloc(sizeof(char *) * (env_nmbr + 1));
-	if (!tab)
-		return (NULL);
-	tab[env_nmbr] = NULL;
-	tmp_env = data->env;
-	while (tmp_env)
-	{
-		tmp = ft_strjoin(tmp_env->var_name, "=");
-		if (!tmp)
-		{
-			while (i > 0)
-				free(tab[--i]);
-			free(tab);
-			return (NULL);
-		}
-		if (tmp_env->content)
-			combined_str = ft_strjoin(tmp, tmp_env->content);
-		else
-			combined_str = tmp;
-		if (combined_str)
-			tab[i++] = combined_str;
-		else
-		{
-			free(tmp);
-			while (i > 0)
-				free(tab[--i]);
-			free(tab);
-			return (NULL);
-		}
-		if (tmp_env->content)
-			free(tmp);
-		tmp_env = tmp_env->next;
-	}
-	return (tab);
-}
-
 int	ft_exec(t_command *cmd, char **env, t_program_data *data)
 {
 	char	**tab;
 
 	(void)env;
-	tab = ft_env_to_tab(data);
+	tab = NULL;
+	tab = ft_env_to_tab(tab, data);
 	signal(SIGINT, SIG_IGN);
 	if (cmd->next == NULL)
 		ft_exec_single_command(cmd, tab, data);

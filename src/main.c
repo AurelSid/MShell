@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 18:18:53 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/05 13:33:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_input(t_program_data *data, char *rl)
 		ft_exit_free(data, "");
 		return ;
 	}
-	//add_history(rl);
+	add_history(rl);
 	data->input = rl;
 	ft_tokens_fill_list(data);
 	ft_commands_fill_list(data);
@@ -105,38 +105,37 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-//  int	main(int argc, char **argv, char **env)
-// {
-// 	char			*rl;
-	
+/*  int	main(int argc, char **argv, char **env)
+{
+	char			*rl;
 
-// 	ft_setup_main(argc, argv, &g_data, env);
-// 	while (1)
-// 	{
-// 		rl = "ls -la";
-// 		if (!rl)
-// 		{
-// 			ft_free_env(&g_data);
-// 			cleanup_and_exit(&g_data);
-// 			clear_history();
-// 			exit(g_data.exit_status);
-// 			return (0);
-// 		}
-// 		if (rl[0] == '\0')
-// 			break ;
-// 		handle_input(&g_data, rl);
-// 		if (ft_check_all_access(&g_data))
-// 		{
-// 			cleanup_and_exit(&g_data);
-// 			break ;
-// 		}
-// 		process_command(&g_data, env);
-// 		cleanup_and_exit(&g_data);
-// 		// if (rl)
-// 		// 	free(rl);
-// 		break ;
-// 	}
-// 	ft_free_env(&g_data);
-// 	//system("leaks minishell");
-// 	return (0);
-// } 
+	ft_setup_main(argc, argv, &g_data, env);
+	while (1)
+	{
+		rl = "ls -la";
+		if (!rl)
+		{
+			ft_free_env(&g_data);
+			cleanup_and_exit(&g_data);
+			clear_history();
+			exit(g_data.exit_status);
+			return (0);
+		}
+		if (rl[0] == '\0')
+			break ;
+		handle_input(&g_data, rl);
+		if (ft_check_all_access(&g_data))
+		{
+			cleanup_and_exit(&g_data);
+			break ;
+		}
+		process_command(&g_data, env);
+		cleanup_and_exit(&g_data);
+		// if (rl)
+		// 	free(rl);
+		break ;
+	}
+	ft_free_env(&g_data);
+	//system("leaks minishell");
+	return (0);
+} */
