@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/01 14:53:26 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:14:28 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,22 @@ int	supp_1(t_program_data *data, char *arg, char *var_name, t_env *tmp)
 	return (1);
 }
 
-void	supp_2(t_program_data *data, char *content, t_env *tmp, char *var_name)
+/* void	supp_2(t_program_data *data, char *content, t_env *tmp, char *var_name)
 {
 	if (content)
 		ft_checkspchar(&content, data);
 	tmp = ft_env_exist(var_name, data);
 	var_name = ft_strtrim_args(var_name);
 	content = ft_strtrim_args(content);
-}
+} */
 
 void	supp_3(t_env *tmp, char *var_name, char *content, t_program_data *data)
 {
+	if (content)
+		ft_checkspchar(&content, data);
+	tmp = ft_env_exist(var_name, data);
+	var_name = ft_strtrim_args(var_name);
+	content = ft_strtrim_args(content);
 	if (tmp)
 	{
 		free(tmp->content);
@@ -90,7 +95,6 @@ void	ft_export_var(char *arg, t_program_data *data)
 		supp_5(data, arg, &var_name, &content);
 		if (var_name == NULL)
 			return ;
-		supp_2(data, content, tmp, var_name);
 		supp_3(tmp, var_name, content, data);
 	}
 	else if (!supp_1(data, arg, var_name, tmp))
