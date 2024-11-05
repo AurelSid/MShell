@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 12:51:14 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:17:00 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	open_files_loop(t_redirection *redir, t_program_data *data, t_command *cmd)
 		}
 		else if (redir->type == REDIRECT_HEREDOC)
 		{
-			ft_handle_heredoc(redir, cmd, data);
+			if (data->sig_int == 0)
+				ft_handle_heredoc(redir, cmd, data);
 		}
 		redir = redir->next;
 	}

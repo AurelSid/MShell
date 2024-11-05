@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 19:11:41 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:14:22 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int argc, char **argv, char **env)
 	i = 1;
 	while (i == 1)
 	{
+		g_data.sig_int = 0;
 		rl = readline("$> ");
 		i = main_loop(&g_data, env, rl);
 	}

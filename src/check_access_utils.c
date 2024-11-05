@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:46:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/01 18:38:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:20:38 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,20 @@ int	ft_check_all_access(t_program_data *data)
 	env = data->env;
 	while (cmd)
 	{
-		if (cmd->name && ft_check_built_ins(cmd->name))
+		if (ft_check_absolute_p(cmd, data))
 		{
-			cmd = cmd->next;
-			continue ;
+			if (cmd->name && ft_check_built_ins(cmd->name))
+			{
+				cmd = cmd->next;
+				continue ;
+			}
+			if (ft_supp(env, &full_path, &split_paths) == -1)
+				return (-1);
+			if (ft_while_cmd(cmd, split_paths, data))
+				return (1);
+			if (split_paths)
+				ft_free_split(split_paths);
 		}
-		if (ft_supp(env, &full_path, &split_paths) == -1)
-			return (-1);
-		if (ft_while_cmd(cmd, split_paths, data))
-			return (1);
-		if (split_paths)
-			ft_free_split(split_paths);
 		cmd = cmd->next;
 	}
 	return (0);

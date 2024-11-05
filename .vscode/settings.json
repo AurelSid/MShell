@@ -13,6 +13,8 @@
 		"__locale": "c",
 		"complex": "c",
 		"ostream": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"ios": "c",
+		"wait.h": "c"
 	}
 }
