@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 18:21:56 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:49:15 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ int	ft_while_split(char **split_paths, t_command *cmd, int *found_working_path,
 void	ft_while_cmd_supp(t_command *cmd, t_program_data *data,
 		char **split_paths)
 {
-	fprintf(stderr, "bash: %s: command not found\n", cmd->name);
+	write(2, "bash: ", 6);
+	write(2, cmd->name, ft_strlen(cmd->name));
+	write(2, ": command not found\n", 20);
 	data->exit_status = 127;
 	ft_free_split(split_paths);
 }
