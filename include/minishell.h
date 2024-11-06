@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/05 17:25:57 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/05 18:04:25 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
-# include <stdlib.h>
+//# include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
 # include <sys/types.h>
