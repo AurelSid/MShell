@@ -1,0 +1,16 @@
+Makefile
+e
+f
+g
+include
+minishell
+minishell.dSYM
+minishell_tester
+objs
+readline.supp
+src
+t
+test.txt
+tst
+wc
+world

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spchar_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/01 15:19:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:56:39 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	ft_handle_words(char *var, int index)
 
 	i = index;
 	while (var[i] && (var[i] != ' ' && var[i] != '\'' && var[i] != '\"'
-			&& var[i] != '>' && var[i] != '<'))
+			&& var[i] != '>' && var[i] != '<' && var[i] != '|'))
 		i++;
+	// if (var[i] != '>' && var[i] != '<' && var[i] != '|')
+	// 	i--;
 	return (i - index);
 }
 

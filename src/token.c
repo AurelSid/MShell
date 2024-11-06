@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/05 13:45:42 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/06 16:11:05 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	process_word(t_program_data *data, int *i)
 
 	j = *i;
 	while (data->input[j] && (data->input[j] != ' ' && data->input[j] != '>'
-			&& data->input[j] != '<'))
+			&& data->input[j] != '<' && data->input[j] != '|'))
 	{
 		if (data->input[j] == '\'' || data->input[j] == '\"')
 			j += ft_handle_quotes(data->input, j);
@@ -78,9 +78,10 @@ int	ft_tokens_fill_list(t_program_data *data)
 		}
 		else if (data->input[i] != ' ')
 			process_word(data, &i);
+		else
+			i++;
 		if (i + 1 > (int)ft_strlen(data->input))
 			break ;
-		i++;
 	}
 	return (0);
 }
