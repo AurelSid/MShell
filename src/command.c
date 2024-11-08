@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/06 15:45:48 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:11:34 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
 		}
 		*args = ft_strjoin_free(*args, (*tmp)->content);
 		(*tmp) = (*tmp)->next;
-		free_tmp = *args;
-		*args = ft_strjoin(free_tmp, " ");
-		free(free_tmp);
+		if (*args && (*args)[0])
+		{
+			free_tmp = *args;
+			*args = ft_strjoin(free_tmp, " ");
+			free(free_tmp);
+		}
 	}
 	return (0);
 }

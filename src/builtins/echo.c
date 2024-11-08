@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/04 18:50:30 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:12:16 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ void	ft_echo(t_command *cmd)
 	char	**args;
 
 	i = 0;
-	args = ft_split_args(cmd->args);
+	if(cmd->args[i])
+		args = ft_split_args(cmd->args);
+	else
+		args = NULL;
 	opt_i = ft_check_opts(cmd->options, cmd->args);
-	while (args[i])
+	while (args && args[i])
 	{
 		if (i != 0)
 			printf(" ");

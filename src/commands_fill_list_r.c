@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/04 15:57:51 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/08 13:29:51 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_token	*ft_commands_fill_list_r(t_token *tmp,
 		if (tmp->type == WORD)
 		{
 			ft_checkspchar(&tmp->content, &g_data);
-			cmd_n = tmp->content;
+			cmd_n = ft_strtrim_args(tmp->content);
 		}
 		else
 			return (0);
