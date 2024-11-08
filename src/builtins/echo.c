@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:16:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/08 14:12:16 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:39:36 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_echo(t_command *cmd)
 	char	**args;
 
 	i = 0;
-	if(cmd->args[i])
+	if (cmd->args[i])
 		args = ft_split_args(cmd->args);
 	else
 		args = NULL;
