@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/04 15:50:54 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 13:12:52 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	change_env(t_program_data *data)
 
 	curr = ft_search_env_2("PWD", data);
 	old = ft_search_env_2("OLDPWD", data);
-	free(old->content);
 	old->content = curr->content;
 	if (getcwd(cwd, sizeof(cwd)))
 		curr->content = ft_strdup(cwd);

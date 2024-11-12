@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/08 14:11:34 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 11:58:30 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_commands_fill_list(t_program_data *data)
 	char	*opt;
 	char	*args;
 
+	if (!data->token_top)
+		return ;
 	opt = ft_calloc(1, 1);
 	if (!opt)
 		return ;
