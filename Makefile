@@ -6,7 +6,7 @@
 #    By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 10:00:31 by tmatis            #+#    #+#              #
-#    Updated: 2024/11/05 13:37:07 by vpelc            ###   ########.fr        #
+#    Updated: 2024/11/08 16:02:10 by vpelc            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -256,7 +256,7 @@ endif
 
 -include $(DEPS) $(DEPS_MAIN)
 
-$(NAME):	$(LIBFT) ${OBJS} ${OBJ_MAIN}
+$(NAME):	$(LIBFT) $(OBJS) $(OBJ_MAIN)
 			@$(call display_progress_bar)
 #			@echo "$(READLINE_INCLUDE) $(READLINE_LIB)"
 			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I$(READLINE_INCLUDE) -L$(READLINE_LIB) -lreadline -L./include/libft -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} -lft)
