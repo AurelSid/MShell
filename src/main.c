@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/12 13:12:23 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 17:10:34 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	main_loop(t_program_data *data, char *env[], char *rl)
 	cleanup_and_exit(data);
 	if (rl)
 		free(rl);
+	system("leaks minishell");
 	return (1);
 }
 
@@ -106,37 +107,34 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-/*  int	main(int argc, char **argv, char **env)
-{
-	char			*rl;
+// int	main(int argc, char **argv, char **env)
+// {
+// 	char	*rl;
 
-	ft_setup_main(argc, argv, &g_data, env);
-	while (1)
-	{
-		rl = "ls -la";
-		if (!rl)
-		{
-			ft_free_env(&g_data);
-			cleanup_and_exit(&g_data);
-			clear_history();
-			exit(g_data.exit_status);
-			return (0);
-		}
-		if (rl[0] == '\0')
-			break ;
-		handle_input(&g_data, rl);
-		if (ft_check_all_access(&g_data))
-		{
-			cleanup_and_exit(&g_data);
-			break ;
-		}
-		process_command(&g_data, env);
-		cleanup_and_exit(&g_data);
-		// if (rl)
-		// 	free(rl);
-		break ;
-	}
-	ft_free_env(&g_data);
-	//system("leaks minishell");
-	return (0);
-} */
+// 	ft_setup_main(argc, argv, &g_data, env);
+// 	while (1)
+// 	{
+// 		rl = "ls > tst";
+// 		if (!rl)
+// 		{
+// 			ft_free_env(&g_data);
+// 			cleanup_and_exit(&g_data);
+// 			clear_history();
+// 			exit(g_data.exit_status);
+// 			return (0);
+// 		}
+// 		if (rl[0] == '\0')
+// 			break ;
+// 		handle_input(&g_data, rl);
+// 		if (ft_check_all_access(&g_data))
+// 		{
+// 			cleanup_and_exit(&g_data);
+// 			break ;
+// 		}
+// 		process_command(&g_data, env);
+// 		break ;
+// 	}
+// 	cleanup_and_exit(&g_data);
+// 	ft_free_env(&g_data);
+// 	return (0);
+// }

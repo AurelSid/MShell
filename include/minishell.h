@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/05 18:04:25 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 17:34:57 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int							ft_apply_redir_2(t_command *command,
 void						ft_trimloop(char ***split);
 char						**ft_split_args(char *args);
 char						**ft_split_args_2(char *args);
-char						*ft_strtrim_args(char *str);
+char						*ft_strtrim_args(char *str, int i);
 void						ft_export_trim(char ***args);
 t_token						*ft_commands_fill_list_r(t_token *tmp, char **args,
 								char **opt);

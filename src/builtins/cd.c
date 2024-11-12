@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 13:12:52 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 13:34:29 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void	ft_cd(t_command *cmd, t_program_data *data)
 		data->exit_status = 1;
 		perror("cd");
 	}
+	ft_free_split(args);
 	change_env(data);
 }

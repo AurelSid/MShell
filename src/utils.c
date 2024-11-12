@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 14:59:11 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:11:06 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	while (s1 && s1[++i])
 		join[i] = s1[i];
 	j = -1;
-	while (s1 && s2[++j])
+	while (s2 && s2[++j])
 		join[i + j] = s2[j];
 	join[i + j] = '\0';
 	return (free(s1), join);

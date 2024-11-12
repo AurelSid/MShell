@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/06 16:11:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 13:41:59 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	process_word(t_program_data *data, int *i)
 	tmp_name = ft_substr(data->input, *i, (size_t)(j - *i));
 	ft_new_token(tmp_name, data, WORD);
 	free(tmp_name);
+	tmp_name = NULL;
 	*i = j;
 	return (0);
 }

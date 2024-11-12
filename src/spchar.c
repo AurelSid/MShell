@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/01 15:16:25 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:40:03 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	ft_checkspchar(char **var, t_program_data *data)
 		*var = ft_strdup(ft_strjoin_free(*var, to_check));
 		i += j;
 	}
+	free(tmp);
 	free(to_check);
 }

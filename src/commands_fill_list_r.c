@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_fill_list_r.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 11:57:16 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 17:34:26 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_token	*ft_commands_fill_list_r(t_token *tmp,
 		if (tmp->type == WORD)
 		{
 			ft_checkspchar(&tmp->content, &g_data);
-			cmd_n = ft_strtrim_args(tmp->content);
+			cmd_n = ft_strtrim_args(tmp->content, 0);
 		}
 		else
 			return (0);
@@ -86,5 +86,5 @@ t_token	*ft_commands_fill_list_r(t_token *tmp,
 	}
 	cmd = ft_new_command(cmd_n, &g_data, *args, *opt);
 	cmd->redirection_list = redir;
-	return (tmp);
+	return (free(cmd_n), tmp);
 }
