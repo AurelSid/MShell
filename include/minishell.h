@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/13 14:55:31 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 15:00:28 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,20 +88,20 @@ extern t_program_data		g_data;
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);
-//void						ft_print_tokens(void);
-//void						ft_print_tokens_list(void);
+// void						ft_print_tokens(void);
+// void						ft_print_tokens_list(void);
 int							ft_new_token(char *token_name, int type);
 void						ft_add_node(t_token **top, t_token *new);
-//int							ft_fake_list(void);
+// int							ft_fake_list(void);
 t_command					*ft_new_command(char *command_name, char *args,
 								char *options);
-//void						ft_print_commands(void);
-//int							ft_fake_command(char *name, char *options,
+// void						ft_print_commands(void);
+// int							ft_fake_command(char *name, char *options,
 //								char *args);
 int							ft_tokens_fill_list(void);
 int							ft_apply_redir(t_command *command);
 int							ft_check_all_access(void);
-//void						ft_print_env(void);
+// void						ft_print_env(void);
 void						ft_add_env(t_env **lst, t_env *new);
 int							ft_env_copy(char **env);
 t_env						*ft_env_copy_2(t_env *env);
@@ -115,11 +115,11 @@ char						**ft_args_to_line(t_command *cmd);
 
 int							ft_exec(t_command *cmd, char **env);
 void						ft_handle_signals(int signal);
-//void						ft_handle_signals_child(int signal);
+// void						ft_handle_signals_child(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
 void						ft_limiter_exec(t_redirection *in, t_command *cmd);
-//void						list_open_file_descriptors(void);
-//void						check_stdio_fds(void);
+// void						list_open_file_descriptors(void);
+// void						check_stdio_fds(void);
 int							ft_search_env(char **var);
 
 char						*ft_strjoin_free(char *s1, char *s2);
@@ -158,7 +158,7 @@ int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
 int							ft_last_redir(t_redirection *in, t_redirection *out,
 								t_command *cmd);
-//int							ft_apply_redir_2(t_command *command);
+// int							ft_apply_redir_2(t_command *command);
 void						ft_trimloop(char ***split);
 char						**ft_split_args(char *args);
 char						**ft_split_args_2(char *args);
@@ -166,7 +166,8 @@ char						*ft_strtrim_args(char *str, int i);
 void						ft_export_trim(char ***args);
 t_token						*ft_commands_fill_list_r(t_token *tmp, char **args,
 								char **opt);
-int							ft_check_redir(t_token **tmp, t_redirection **redir);
+int							ft_check_redir(t_token **tmp,
+								t_redirection **redir);
 int							ft_check_opt(t_token **tmp, char *cmd_n,
 								char **opt);
 int							ft_check_args(t_token **tmp, char *cmd_n,

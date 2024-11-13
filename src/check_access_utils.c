@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_access_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:46:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/12 15:58:03 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 15:00:08 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_while_cmd(t_command *cmd, char **split_paths)
 		if (cmd->name && !found_working_path
 			&& ft_check_built_ins(cmd->name) == 0)
 		{
-			ft_while_cmd_supp(cmd,split_paths);
+			ft_while_cmd_supp(cmd, split_paths);
 			return (1);
 		}
 		cmd = cmd->next;
@@ -86,9 +86,9 @@ int	ft_supp(t_env *env, char **full_path, char ***split_paths)
 
 int	ft_check_all_access(void)
 {
-	static char		*full_path;
-	char			**split_paths;
-	t_command		*cmd;
+	static char	*full_path;
+	char		**split_paths;
+	t_command	*cmd;
 
 	split_paths = NULL;
 	cmd = g_data.command_top;

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/12 16:07:37 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 15:00:20 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_exec_child_piped_process(t_command *cmd, char **env,
-		int pipe_fd[2])
+void	ft_exec_child_piped_process(t_command *cmd, char **env, int pipe_fd[2])
 {
 	pid_t	process_id;
 
@@ -35,8 +34,7 @@ void	ft_exec_child_piped_process(t_command *cmd, char **env,
 	}
 }
 
-void	ft_handle_parent_piped_process(int pipe_fd[2],
-		pid_t process_id)
+void	ft_handle_parent_piped_process(int pipe_fd[2], pid_t process_id)
 {
 	int	status;
 	int	signal_num;
@@ -62,6 +60,6 @@ void	ft_exec_piped_command(t_command *cmd, char **env)
 
 	if (pipe(pipe_fd) == -1)
 		exit(0);
-	ft_exec_child_piped_process(cmd, env,pipe_fd);
+	ft_exec_child_piped_process(cmd, env, pipe_fd);
 	ft_handle_parent_piped_process(pipe_fd, getpid());
 }
