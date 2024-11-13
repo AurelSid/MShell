@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/12 16:17:12 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 14:51:55 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	supp_1(char *arg, char *var_name, t_env *tmp)
 	tmp = ft_env_exist(arg);
 	if (tmp)
 		return (0);
-	var_name = ft_strtrim_args(arg);
+	var_name = ft_strtrim_args(arg, 0);
 	if (!ft_valid_var(var_name))
 	{
 		write(2, " not a valid identifier\n", 24);
@@ -37,8 +37,8 @@ void	supp_3(t_env *tmp, char *var_name, char *content)
 	if (content)
 		ft_checkspchar(&content);
 	tmp = ft_env_exist(var_name);
-	var_name = ft_strtrim_args(var_name);
-	content = ft_strtrim_args(content);
+	var_name = ft_strtrim_args(var_name, 0);
+	content = ft_strtrim_args(content, 0);
 	if (tmp)
 	{
 		free(tmp->content);

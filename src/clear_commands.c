@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/12 16:00:29 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 14:51:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,25 @@ void	ft_free_commands(void)
 void	ft_clean_commands(void)
 {
 	t_command	*tmp_command;
+	t_command	*to_free;
 
 	tmp_command = g_data.command_top;
 	while (tmp_command)
 	{
-		ft_clean_redirections(tmp_command);
-		free(tmp_command->path);
-		tmp_command->path = NULL;
-		if (tmp_command->name)
-			free(tmp_command->name);
-		tmp_command->name = NULL;
-		free(tmp_command->args);
-		tmp_command->args = NULL;
-		free(tmp_command->options);
-		tmp_command->options = NULL;
+		to_free = tmp_command;
 		tmp_command = tmp_command->next;
+		ft_clean_redirections(to_free);
+		free(to_free->path);
+		to_free->path = NULL;
+		free(to_free->name);
+		to_free->name = NULL;
+		free(to_free->args);
+		to_free->args = NULL;
+		free(to_free->options);
+		to_free->options = NULL;
+		free(to_free);
+		to_free = NULL;
 	}
-	ft_free_commands();
 	g_data.command_top = NULL;
 }
 

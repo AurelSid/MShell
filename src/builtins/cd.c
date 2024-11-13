@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 16:15:04 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 14:52:20 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void	ft_cd(t_command *cmd)
 		g_data.exit_status = 1;
 		perror("cd");
 	}
+	ft_free_split(args);
 	change_env();
 }

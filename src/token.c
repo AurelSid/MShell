@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 16:28:08 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 14:49:55 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	process_word(int *i)
 	tmp_name = ft_substr(g_data.input, *i, (size_t)(j - *i));
 	ft_new_token(tmp_name, WORD);
 	free(tmp_name);
+	tmp_name = NULL;
 	*i = j;
 	return (0);
 }
