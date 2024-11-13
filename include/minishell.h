@@ -6,14 +6,13 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/05 18:04:25 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:06:23 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/get_next_line/get_next_line.h"
 # include "libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -89,87 +88,77 @@ extern t_program_data		g_data;
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);
-void						ft_print_tokens(t_program_data *data);
-void						ft_print_tokens_list(t_program_data data);
-int							ft_new_token(char *token_name, t_program_data *data,
-								int type);
+void						ft_print_tokens(void);
+void						ft_print_tokens_list();
+int							ft_new_token(char *token_name, int type);
 void						ft_add_node(t_token **top, t_token *new);
-int							ft_fake_list(t_program_data *data);
-t_command					*ft_new_command(char *command_name,
-								t_program_data *data, char *args,
+int							ft_fake_list(void);
+t_command					*ft_new_command(char *command_name, char *args,
 								char *options);
-void						ft_print_commands(t_program_data data);
-int							ft_fake_command(t_program_data *data, char *name,
-								char *options, char *args);
-int							ft_tokens_fill_list(t_program_data *data);
-int							ft_apply_redir(t_command *command,
-								t_program_data *data);
-int							ft_check_all_access(t_program_data *data);
-void						ft_print_env(t_program_data data);
+void						ft_print_commands();
+int							ft_fake_command(char *name, char *options,
+								char *args);
+int							ft_tokens_fill_list(void);
+int							ft_apply_redir(t_command *command);
+int							ft_check_all_access(void);
+void						ft_print_env();
 void						ft_add_env(t_env **lst, t_env *new);
-int							ft_env_copy(char **env, t_program_data *data);
+int							ft_env_copy(char **env);
 t_env						*ft_env_copy_2(t_env *env);
 t_env						*ft_env_sort(t_env *env);
-void						ft_commands_fill_list(t_program_data *data);
-int							ft_init_data(t_program_data *data);
-char						*ft_db_quotes(char *token, t_program_data *data);
-char						*ft_spchar(char *token, t_program_data *data);
+void						ft_commands_fill_list(void);
+int							ft_init_data(void);
+char						*ft_db_quotes(char *token);
+char						*ft_spchar(char *token);
 char						**ft_args_to_line(t_command *cmd);
 // void						ft_checkspchar(char **var, int trim);
 
-int							ft_exec(t_command *cmd, char **env,
-								t_program_data *data);
+int							ft_exec(t_command *cmd, char **env);
 void						ft_handle_signals(int signal);
 void						ft_handle_signals_child(int signal);
 int							ft_strcmp(const char *s1, const char *s2);
 void						ft_limiter_exec(t_redirection *in, t_command *cmd);
 void						list_open_file_descriptors(void);
 void						check_stdio_fds(void);
-int							ft_search_env(char **var, t_program_data data);
+int							ft_search_env(char **var);
 
 char						*ft_strjoin_free(char *s1, char *s2);
 void						ft_free_split(char **tab);
-void						ft_free_env(t_program_data *data);
+void						ft_free_env(void);
 char						*ft_strtrim_free(char *s1, char *set);
 long						ft_atol(const char *str);
 
-void						ft_env(t_command *cmd, t_program_data data);
-void						ft_cd(t_command *cmd, t_program_data *data);
+void						ft_env(t_command *cmd);
+void						ft_cd(t_command *cmd);
 void						ft_echo(t_command *cmd);
-void						ft_export(t_command *cmd, t_program_data *data);
+void						ft_export(t_command *cmd);
 void						ft_pwd(t_command *cmd);
-void						ft_unset(t_command *cmd, t_program_data *data);
-void						ft_exit(t_command *cmd, t_program_data data);
+void						ft_unset(t_command *cmd);
+void						ft_exit(t_command *cmd);
 
-void						ft_clean_tokens(t_program_data *data);
-void						ft_clean_commands(t_program_data *data);
+void						ft_clean_tokens(void);
+void						ft_clean_commands(void);
 void						ft_clean_redirections(t_command *cmd);
-void						ft_exit_free(t_program_data *data, char *exit_msg);
+void						ft_exit_free(char *exit_msg);
 void						ft_free_split(char **strs);
 
-void						cleanup_and_exit(t_program_data *data);
+void						cleanup_and_exit(void);
 
-int							ft_set_cmd_path(t_program_data *data,
-								char *cmd_name, char *path);
-int							ft_check_absolute_p(t_command *cmd,
-								t_program_data *data);
+int							ft_set_cmd_path(char *cmd_name, char *path);
+int							ft_check_absolute_p(t_command *cmd);
 
-void						ft_exec_single_command(t_command *cmd, char **env,
-								t_program_data *data);
-void						ft_exec_piped_command(t_command *cmd, char **env,
-								t_program_data *data);
+void						ft_exec_single_command(t_command *cmd, char **env);
+void						ft_exec_piped_command(t_command *cmd, char **env);
 int							ft_check_built_ins(char *cmd_name);
-int							ft_exec_built_ins(t_command *cmd,
-								t_program_data *data);
+int							ft_exec_built_ins(t_command *cmd);
 void						setup_pipe_and_redirect(void);
-void						ft_checkspchar(char **var, t_program_data *data);
-char						*ft_check_exitsp(char *arg, t_program_data data);
+void						ft_checkspchar(char **var);
+char						*ft_check_exitsp(char *arg);
 int							ft_handle_words(char *data, int index);
 int							ft_handle_quotes(char *data, int index);
 int							ft_last_redir(t_redirection *in, t_redirection *out,
-								t_command *cmd, t_program_data *data);
-int							ft_apply_redir_2(t_command *command,
-								t_program_data *data);
+								t_command *cmd);
+int							ft_apply_redir_2(t_command *command);
 void						ft_trimloop(char ***split);
 char						**ft_split_args(char *args);
 char						**ft_split_args_2(char *args);
@@ -177,49 +166,44 @@ char						*ft_strtrim_args(char *str);
 void						ft_export_trim(char ***args);
 t_token						*ft_commands_fill_list_r(t_token *tmp, char **args,
 								char **opt);
-int							ft_check_redir(t_token **tmp, t_redirection **redir,
-								t_program_data *data);
-int							ft_check_opt(t_program_data *data, t_token **tmp,
-								char *cmd_n, char **opt);
-int							ft_check_args(t_program_data *data, t_token **tmp,
-								char *cmd_n, char **args);
-int							ft_open_file(t_command *cmd, t_program_data *data);
+int							ft_check_redir(t_token **tmp, t_redirection **redir);
+int							ft_check_opt(t_token **tmp, char *cmd_n,
+								char **opt);
+int							ft_check_args(t_token **tmp, char *cmd_n,
+								char **args);
+int							ft_open_file(t_command *cmd);
 
-int							ft_specific_error(const char *filename,
-								t_program_data *data);
-void						ft_export_var(char *arg, t_program_data *data);
-t_env						*ft_env_exist(char *var, t_program_data *data);
+int							ft_specific_error(const char *filename);
+void						ft_export_var(char *arg);
+t_env						*ft_env_exist(char *var);
 int							ft_valid_var(char *var);
-char						*ft_spchar(char *var, t_program_data *data);
+char						*ft_spchar(char *var);
 int							ft_handle_words(char *var, int index);
-char						*ft_spcharloop(char *args, t_program_data *data);
-int							ft_while_cmd(t_command *cmd, char **split_paths,
-								t_program_data *data);
+char						*ft_spcharloop(char *args);
+int							ft_while_cmd(t_command *cmd, char **split_paths);
 void						ft_while_cmd_supp(t_command *cmd,
-								t_program_data *data, char **split_paths);
+								char **split_paths);
 int							ft_while_split(char **split_paths, t_command *cmd,
-								int *found_working_path, t_program_data *data);
-void						process_command(t_program_data *data, char **env);
+								int *found_working_path);
+void						process_command(char **env);
 void						initialize_signals(void);
 // OPEN FILES FUNCTIONS
 int							ft_handle_redirect_in(t_command *cmd,
-								t_redirection *redir, t_program_data *data);
+								t_redirection *redir);
 int							ft_handle_redirect_out(t_command *cmd,
-								t_redirection *redir, t_program_data *data);
+								t_redirection *redir);
 int							ft_handle_redirect_append(t_command *cmd,
-								t_redirection *redir, t_program_data *data);
+								t_redirection *redir);
 void						ft_handle_heredoc(t_redirection *redir,
-								t_command *cmd, t_program_data *data);
+								t_command *cmd);
 void						ft_handle_child_sig(int err);
 //
 int							ft_check_built_ins(char *cmd_name);
-int							ft_exec_built_ins(t_command *cmd,
-								t_program_data *data);
-int							ft_exec_built_ins_in_pipe(t_command *cmd,
-								t_program_data *data);
+int							ft_exec_built_ins(t_command *cmd);
+int							ft_exec_built_ins_in_pipe(t_command *cmd);
 void						ft_pwd_setup(t_env **env, char *type);
-void						ft_env_empty(t_program_data *data);
-char						**ft_env_to_tab(char **tab, t_program_data *data);
+void						ft_env_empty(void);
+char						**ft_env_to_tab(char **tab);
 
 typedef enum s_token_type
 {

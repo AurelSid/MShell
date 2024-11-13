@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command_supp.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:16:20 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/04 12:18:50 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:05:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ int	ft_check_built_ins(char *cmd_name)
 		return (0);
 }
 
-int	ft_exec_built_ins(t_command *cmd, t_program_data *data)
+int	ft_exec_built_ins(t_command *cmd)
 {
 	if (!ft_strcmp(cmd->name, "env"))
-		ft_env(cmd, *data);
+		ft_env(cmd);
 	else if (!ft_strcmp(cmd->name, "echo"))
 		ft_echo(cmd);
 	else if (!ft_strcmp(cmd->name, "cd"))
-		ft_cd(cmd, data);
+		ft_cd(cmd);
 	else if (!ft_strcmp(cmd->name, "pwd"))
 		ft_pwd(cmd);
 	else if (!ft_strcmp(cmd->name, "export"))
-		ft_export(cmd, data);
+		ft_export(cmd);
 	else if (!ft_strcmp(cmd->name, "unset"))
-		ft_unset(cmd, data);
+		ft_unset(cmd);
 	else if (!ft_strcmp(cmd->name, "exit"))
-		ft_exit(cmd, *data);
+		ft_exit(cmd);
 	else
 		return (1);
 	return (0);

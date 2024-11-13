@@ -6,19 +6,19 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:35:06 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/05 13:37:49 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:04:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_count_envs(t_program_data *data)
+int	ft_count_envs(void)
 {
 	t_env	*tmp_env;
 	int		i;
 
 	i = 0;
-	tmp_env = data->env;
+	tmp_env = g_data.env;
 	while (tmp_env)
 	{
 		i++;
@@ -27,11 +27,11 @@ int	ft_count_envs(t_program_data *data)
 	return (i);
 }
 
-char	**ft_env_to_tab_init(char **tab, t_program_data *data)
+char	**ft_env_to_tab_init(char **tab)
 {
 	int		env_nmbr;
 
-	env_nmbr = ft_count_envs(data);
+	env_nmbr = ft_count_envs();
 	tab = malloc(sizeof(char *) * (env_nmbr + 1));
 	if (!tab)
 		return (NULL);
@@ -50,7 +50,7 @@ void	ft_env_free_tab(int i, char ***tab, char **tmp)
 	free((*tab));
 }
 
-char	**ft_env_to_tab(char **tab, t_program_data *data)
+char	**ft_env_to_tab(char **tab)
 {
 	t_env	*tmp_env;
 	int		i;
@@ -58,8 +58,8 @@ char	**ft_env_to_tab(char **tab, t_program_data *data)
 	char	*combined_str;
 
 	i = 0;
-	tab = ft_env_to_tab_init(tab, data);
-	tmp_env = data->env;
+	tab = ft_env_to_tab_init(tab);
+	tmp_env = g_data.env;
 	while (tmp_env)
 	{
 		tmp = ft_strjoin(tmp_env->var_name, "=");

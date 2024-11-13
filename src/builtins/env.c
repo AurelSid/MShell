@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:10:50 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/04 17:54:11 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:15:16 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_env(t_command *cmd, t_program_data data)
+void	ft_env(t_command *cmd)
 {
 	t_env	*env;
 	char	**args;
 	int		i;
 
-	env = data.env;
+	env = g_data.env;
 	args = NULL;
 	if (cmd->args)
 		args = ft_split(cmd->args, ' ');

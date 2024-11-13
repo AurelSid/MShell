@@ -6,13 +6,13 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 11:57:16 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:02:57 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_check_redir(t_token **tmp, t_redirection **redir, t_program_data *data)
+int	ft_check_redir(t_token **tmp, t_redirection **redir)
 {
 	if ((*tmp) && (((*tmp)->type == REDIRECT_IN
 				|| (*tmp)->type == REDIRECT_APPEND
@@ -22,7 +22,7 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir, t_program_data *data)
 	{
 		*tmp = (*tmp)->next;
 		write(2, "syntax error near unexpected token `newline'\n", 46);
-		data->exit_status = 2;
+		g_data.exit_status = 2;
 	}
 	while ((*tmp) && (((*tmp)->type == REDIRECT_IN
 				|| (*tmp)->type == REDIRECT_APPEND
@@ -36,14 +36,14 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir, t_program_data *data)
 	return (0);
 }
 
-void	support_1(t_program_data *data, t_redirection **redir, t_token **tmp)
+void	support_1(t_redirection **redir, t_token **tmp)
 {
-	if (data->token_top->type == PIPE)
+	if (g_data.token_top->type == PIPE)
 	{
 		write(2, " syntax error near unexpected token `|'\n", 41);
-		data->exit_status = 2;
+		g_data.exit_status = 2;
 	}
-	ft_check_redir(tmp, redir, data);
+	ft_check_redir(tmp, redir);
 }
 
 void	support_2(t_redirection **redir, t_token **tmp,
@@ -53,9 +53,9 @@ void	support_2(t_redirection **redir, t_token **tmp,
 	{
 		if ((*tmp)->type == REDIRECT_IN || (*tmp)->type == REDIRECT_APPEND
 			|| (*tmp)->type == REDIRECT_HEREDOC || (*tmp)->type == REDIRECT_OUT)
-			ft_check_redir(tmp, redir, &g_data);
+			ft_check_redir(tmp, redir);
 		else if ((*tmp)->type == WORD)
-			ft_check_args(&g_data, tmp, cmd_n, args);
+			ft_check_args(tmp, cmd_n, args);
 	}
 }
 
@@ -67,24 +67,24 @@ t_token	*ft_commands_fill_list_r(t_token *tmp,
 	char			*cmd_n;
 
 	redir = NULL;
-	support_1(&g_data, &redir, &tmp);
+	support_1(&redir, &tmp);
 	if (!tmp || tmp->type == PIPE)
 		cmd_n = NULL;
 	else
 	{
 		if (tmp->type == WORD)
 		{
-			ft_checkspchar(&tmp->content, &g_data);
+			ft_checkspchar(&tmp->content);
 			cmd_n = ft_strtrim_args(tmp->content);
 		}
 		else
 			return (0);
 		tmp = tmp->next;
 		if (ft_strcmp(cmd_n, "exit") && ft_strcmp(cmd_n, "cd"))
-			ft_check_opt(&g_data, &tmp, cmd_n, opt);
+			ft_check_opt(&tmp, cmd_n, opt);
 		support_2(&redir, &tmp, cmd_n, args);
 	}
-	cmd = ft_new_command(cmd_n, &g_data, *args, *opt);
+	cmd = ft_new_command(cmd_n, *args, *opt);
 	cmd->redirection_list = redir;
-	return (tmp);
+	return (free(cmd_n), tmp);
 }

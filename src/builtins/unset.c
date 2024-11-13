@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/10/31 15:12:47 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:27:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	supp(t_env *prev, t_env *tmp, t_program_data *data)
+void	supp(t_env *prev, t_env *tmp)
 {
 	if (prev == NULL)
-		data->env = tmp->next;
+		g_data.env = tmp->next;
 	else
 		prev->next = tmp->next;
 	free(tmp->var_name);
@@ -24,7 +24,7 @@ void	supp(t_env *prev, t_env *tmp, t_program_data *data)
 	tmp = NULL;
 }
 
-void	ft_unset(t_command *cmd, t_program_data *data)
+void	ft_unset(t_command *cmd)
 {
 	t_env	*tmp;
 	t_env	*prev;
@@ -35,13 +35,13 @@ void	ft_unset(t_command *cmd, t_program_data *data)
 	i = 0;
 	while (split_arg[i])
 	{
-		tmp = data->env;
+		tmp = g_data.env;
 		prev = NULL;
 		while (tmp)
 		{
 			if (strcmp(tmp->var_name, split_arg[i]) == 0)
 			{
-				supp(prev, tmp, data);
+				supp(prev, tmp);
 				break ;
 			}
 			prev = tmp;

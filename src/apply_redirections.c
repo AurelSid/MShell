@@ -6,21 +6,20 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/05 17:25:51 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 15:56:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_last_redir(t_redirection *in, t_redirection *out, t_command *cmd,
-		t_program_data *data)
+int	ft_last_redir(t_redirection *in, t_redirection *out, t_command *cmd)
 {
 	if (in && in->type == REDIRECT_IN)
 		dup2(cmd->input_fd, STDIN_FILENO);
 	if (out && (out->type == REDIRECT_APPEND || out->type == REDIRECT_OUT))
 		dup2(cmd->output_fd, STDOUT_FILENO);
 	else
-		dup2(data->original_stdout, STDOUT_FILENO);
+		dup2(g_data.original_stdout, STDOUT_FILENO);
 	return (0);
 }
 
@@ -43,10 +42,9 @@ void	ft_set_redir_direction(t_command *cmd)
 	}
 }
 
-int	ft_specific_error(const char *filename, t_program_data *data)
+int	ft_specific_error(const char *filename)
 {
 	(void)filename;
-	(void)data;
 	if (errno == EACCES)
 	{
 		write(2, " Permission denied\n", 19);
@@ -62,7 +60,7 @@ int	ft_specific_error(const char *filename, t_program_data *data)
 	return (-1);
 }
 
-int	ft_apply_redir(t_command *command, t_program_data *data)
+int	ft_apply_redir(t_command *command)
 {
 	t_redirection	*redir;
 
@@ -80,9 +78,9 @@ int	ft_apply_redir(t_command *command, t_program_data *data)
 			command->last_out = redir;
 		redir = redir->next;
 	}
-	if (ft_open_file(command, data) == -1)
+	if (ft_open_file(command) == -1)
 	{
-		data->exit_status = 1;
+		g_data.exit_status = 1;
 		return (1);
 	}
 	return (0);

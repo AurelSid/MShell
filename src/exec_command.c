@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/05 13:36:43 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:06:42 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,24 @@ void	ft_setup_child_signals(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
-int	ft_exec(t_command *cmd, char **env, t_program_data *data)
+int	ft_exec(t_command *cmd, char **env)
 {
 	char	**tab;
 
 	(void)env;
 	tab = NULL;
-	tab = ft_env_to_tab(tab, data);
+	tab = ft_env_to_tab(tab);
 	signal(SIGINT, SIG_IGN);
 	if (cmd->next == NULL)
-		ft_exec_single_command(cmd, tab, data);
+		ft_exec_single_command(cmd, tab);
 	else
 	{
 		if (cmd->output_fd < 0 && cmd->next->input_fd < 0)
-			ft_exec_piped_command(cmd, tab, data);
+			ft_exec_piped_command(cmd, tab);
 		else if (cmd->output_fd)
-			ft_exec_single_command(cmd, tab, data);
+			ft_exec_single_command(cmd, tab);
 		else
-			ft_exec_piped_command(cmd, tab, data);
+			ft_exec_piped_command(cmd, tab);
 	}
 	ft_free_split(tab);
 	signal(SIGINT, ft_handle_signals);

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/04 14:42:24 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:05:22 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ char	*ft_check_lvl(char *content)
 		return ("");
 }
 
-void	ft_env_copy_supp(int i, t_env **env_node, t_program_data *data)
+void	ft_env_copy_supp(int i, t_env **env_node)
 {
 	(*env_node)->next = NULL;
 	(*env_node)->prev = NULL;
 	if (i == 0)
-		data->env = (*env_node);
+		g_data.env = (*env_node);
 	else
-		ft_add_env(&data->env, (*env_node));
+		ft_add_env(&g_data.env, (*env_node));
 }
 
-int	ft_env_copy(char **env, t_program_data *data)
+int	ft_env_copy(char **env)
 {
 	t_env	*env_node;
 	int		i;
@@ -82,7 +82,7 @@ int	ft_env_copy(char **env, t_program_data *data)
 			free(env_node->content);
 			env_node->content = tmp;
 		}
-		ft_env_copy_supp(i, &env_node, data);
+		ft_env_copy_supp(i, &env_node);
 		i++;
 	}
 	return (0);

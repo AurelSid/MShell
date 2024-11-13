@@ -6,13 +6,13 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 11:58:30 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:01:42 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
+int	ft_check_opt(t_token **tmp, char *cmd_n, char **opt)
 {
 	char	*tmp_str;
 	char	*free_tmp;
@@ -21,7 +21,7 @@ int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
 	{
 		if (ft_strcmp(cmd_n, "export"))
 		{
-			ft_checkspchar(&(*tmp)->content, data);
+			ft_checkspchar(&(*tmp)->content);
 			tmp_str = (*tmp)->content;
 		}
 		free_tmp = *opt;
@@ -35,7 +35,7 @@ int	ft_check_opt(t_program_data *data, t_token **tmp, char *cmd_n, char **opt)
 	return (0);
 }
 
-int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
+int	ft_check_args(t_token **tmp, char *cmd_n, char **args)
 {
 	char	*tmp_str;
 	char	*free_tmp;
@@ -44,7 +44,7 @@ int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
 	{
 		if (ft_strcmp(cmd_n, "export"))
 		{
-			ft_checkspchar(&(*tmp)->content, data);
+			ft_checkspchar(&(*tmp)->content);
 			tmp_str = (*tmp)->content;
 		}
 		*args = ft_strjoin_free(*args, (*tmp)->content);
@@ -59,13 +59,13 @@ int	ft_check_args(t_program_data *data, t_token **tmp, char *cmd_n, char **args)
 	return (0);
 }
 
-void	ft_commands_fill_list(t_program_data *data)
+void	ft_commands_fill_list(void)
 {
 	t_token	*tmp;
 	char	*opt;
 	char	*args;
 
-	if (!data->token_top)
+	if (!g_data.token_top)
 		return ;
 	opt = ft_calloc(1, 1);
 	if (!opt)
@@ -73,13 +73,13 @@ void	ft_commands_fill_list(t_program_data *data)
 	args = ft_calloc(1, 1);
 	if (!args)
 		return ;
-	tmp = data->token_top;
+	tmp = g_data.token_top;
 	tmp = ft_commands_fill_list_r(tmp, &args, &opt);
 	if ((tmp && tmp->next) && tmp->type == PIPE)
 	{
 		tmp = tmp->next;
-		data->token_top = tmp;
-		ft_commands_fill_list(data);
+		g_data.token_top = tmp;
+		ft_commands_fill_list();
 	}
 	if (opt)
 		free(opt);

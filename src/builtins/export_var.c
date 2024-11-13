@@ -6,37 +6,37 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/05 18:01:07 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:17:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	supp_1(t_program_data *data, char *arg, char *var_name, t_env *tmp)
+int	supp_1(char *arg, char *var_name, t_env *tmp)
 {
-	tmp = ft_env_exist(arg, data);
+	tmp = ft_env_exist(arg);
 	if (tmp)
 		return (0);
 	var_name = ft_strtrim_args(arg);
 	if (!ft_valid_var(var_name))
 	{
 		write(2, " not a valid identifier\n", 24);
-		data->exit_status = 1;
+		g_data.exit_status = 1;
 		return (0);
 	}
 	tmp = malloc(sizeof(t_env));
 	tmp->var_name = var_name;
 	tmp->content = NULL;
 	tmp->next = NULL;
-	ft_add_env(&data->env, tmp);
+	ft_add_env(&g_data.env, tmp);
 	return (1);
 }
 
-void	supp_3(t_env *tmp, char *var_name, char *content, t_program_data *data)
+void	supp_3(t_env *tmp, char *var_name, char *content)
 {
 	if (content)
-		ft_checkspchar(&content, data);
-	tmp = ft_env_exist(var_name, data);
+		ft_checkspchar(&content);
+	tmp = ft_env_exist(var_name);
 	var_name = ft_strtrim_args(var_name);
 	content = ft_strtrim_args(content);
 	if (tmp)
@@ -49,10 +49,10 @@ void	supp_3(t_env *tmp, char *var_name, char *content, t_program_data *data)
 	tmp->var_name = var_name;
 	tmp->content = content;
 	tmp->next = NULL;
-	ft_add_env(&data->env, tmp);
+	ft_add_env(&g_data.env, tmp);
 }
 
-void	supp_5(t_program_data *data, char *arg, char **var_name, char **content)
+void	supp_5(char *arg, char **var_name, char **content)
 {
 	int	len;
 
@@ -62,17 +62,17 @@ void	supp_5(t_program_data *data, char *arg, char **var_name, char **content)
 	*var_name = ft_substr(arg, 0, len);
 	*content = ft_strdup(ft_strchr(arg, '=') + 1);
 	if (*var_name)
-		ft_checkspchar(var_name, data);
+		ft_checkspchar(var_name);
 	if (!ft_valid_var(*var_name))
 	{
 		write(2, "  not a valid identifier\n", 25);
-		data->exit_status = 1;
+		g_data.exit_status = 1;
 		free(*var_name);
 		*var_name = NULL;
 	}
 }
 
-void	ft_export_var(char *arg, t_program_data *data)
+void	ft_export_var(char *arg)
 {
 	char	*var_name;
 	char	*content;
@@ -83,11 +83,11 @@ void	ft_export_var(char *arg, t_program_data *data)
 	content = NULL;
 	if (ft_strchr(arg, '='))
 	{
-		supp_5(data, arg, &var_name, &content);
+		supp_5(arg, &var_name, &content);
 		if (var_name == NULL)
 			return ;
-		supp_3(tmp, var_name, content, data);
+		supp_3(tmp, var_name, content);
 	}
-	else if (!supp_1(data, arg, var_name, tmp))
+	else if (!supp_1(arg, var_name, tmp))
 		return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_single_command_supp.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 12:55:51 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:07:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_handle_child_sig(int err)
 	}
 }
 
-int	ft_exec_built_ins_in_pipe(t_command *cmd, t_program_data *data)
+int	ft_exec_built_ins_in_pipe(t_command *cmd)
 {
 	if (cmd->output_fd != STDOUT_FILENO)
 	{
@@ -41,5 +41,5 @@ int	ft_exec_built_ins_in_pipe(t_command *cmd, t_program_data *data)
 		dup2(cmd->input_fd, STDIN_FILENO);
 		close(cmd->input_fd);
 	}
-	return (ft_exec_built_ins(cmd, data));
+	return (ft_exec_built_ins(cmd));
 }

@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   clear_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/04 19:07:22 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:00:29 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_free_commands(t_program_data *data)
+void	ft_free_commands(void)
 {
 	t_command	*cmd;
 	t_command	*to_free;
 
-	cmd = data->command_top;
+	cmd = g_data.command_top;
 	while (cmd)
 	{
 		to_free = cmd;
@@ -26,11 +26,11 @@ void	ft_free_commands(t_program_data *data)
 	}
 }
 
-void	ft_clean_commands(t_program_data *data)
+void	ft_clean_commands(void)
 {
 	t_command	*tmp_command;
 
-	tmp_command = data->command_top;
+	tmp_command = g_data.command_top;
 	while (tmp_command)
 	{
 		ft_clean_redirections(tmp_command);
@@ -45,16 +45,16 @@ void	ft_clean_commands(t_program_data *data)
 		tmp_command->options = NULL;
 		tmp_command = tmp_command->next;
 	}
-	ft_free_commands(data);
-	data->command_top = NULL;
+	ft_free_commands();
+	g_data.command_top = NULL;
 }
 
-void	ft_clean_tokens(t_program_data *data)
+void	ft_clean_tokens(void)
 {
 	t_token	*tmp_token;
 	t_token	*to_free;
 
-	tmp_token = data->token_top;
+	tmp_token = g_data.token_top;
 	while (tmp_token)
 	{
 		to_free = tmp_token;
@@ -63,7 +63,7 @@ void	ft_clean_tokens(t_program_data *data)
 		free(to_free);
 		to_free = NULL;
 	}
-	data->token_top = NULL;
+	g_data.token_top = NULL;
 }
 
 void	ft_clean_redirections(t_command *cmd)

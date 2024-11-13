@@ -6,13 +6,13 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/08 14:39:20 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:14:00 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_spcharloop(char *args, t_program_data *data)
+char	*ft_spcharloop(char *args)
 {
 	char	*sub;
 	char	*tmp;
@@ -23,10 +23,10 @@ char	*ft_spcharloop(char *args, t_program_data *data)
 	{
 		tmp = sub;
 		if (args[0] == '\"')
-			args = ft_db_quotes(args, data);
+			args = ft_db_quotes(args);
 		else
-			args = ft_spchar(args, data);
-		args = ft_check_exitsp(args, *data);
+			args = ft_spchar(args);
+		args = ft_check_exitsp(args);
 		sub = ft_strchr(args, '$');
 	}
 	return (args);
@@ -43,7 +43,7 @@ int	ft_handle_words(char *var, int index)
 	return (i - index);
 }
 
-char	*ft_spchar(char *var, t_program_data *data)
+char	*ft_spchar(char *var)
 {
 	char	*found;
 	char	*start;
@@ -61,7 +61,7 @@ char	*ft_spchar(char *var, t_program_data *data)
 	while (tmp[i] && tmp[i] != ' ' && tmp[i] != '$')
 		i++;
 	found = ft_substr(tmp, 0, i);
-	if (ft_search_env(&found, *data) == 0)
+	if (ft_search_env(&found) == 0)
 		found = NULL;
 	start = ft_substr(var, 0, ft_strlen(var) - (ft_strlen(tmp) + 1));
 	end = ft_strjoin_free(start, found);

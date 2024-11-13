@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/06 16:04:33 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:13:37 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
 }
 
-int	ft_search_env(char **var, t_program_data data)
+int	ft_search_env(char **var)
 {
 	t_env	*tmp;
 
-	tmp = data.env;
+	tmp = g_data.env;
 	while (tmp)
 	{
 		if ((ft_strcmp(*var, tmp->var_name) == 0))
@@ -57,7 +57,7 @@ int	ft_handle_quotes(char *var, int index)
 	return (i - index);
 }
 
-char	*ft_db_quotes(char *token, t_program_data *data)
+char	*ft_db_quotes(char *token)
 {
 	char	*found;
 	char	*start;
@@ -75,7 +75,7 @@ char	*ft_db_quotes(char *token, t_program_data *data)
 	while (tmp[i] && tmp[i] != ' ' && tmp[i] != '\"' && tmp[i] != '$')
 		i++;
 	found = ft_substr(tmp, 0, i);
-	if (ft_search_env(&found, *data) == 0)
+	if (ft_search_env(&found) == 0)
 		found = NULL;
 	start = ft_substr(token, 0, ft_strlen(token) - (ft_strlen(tmp) + 1));
 	end = ft_strjoin_free(start, found);

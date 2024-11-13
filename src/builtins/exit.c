@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:17:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/05 17:58:24 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:15:28 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_split_count(char **split)
 	return (i);
 }
 
-void	ft_exit(t_command *cmd, t_program_data data)
+void	ft_exit(t_command *cmd)
 {
 	int		code;
 	char	**args;
@@ -33,7 +33,7 @@ void	ft_exit(t_command *cmd, t_program_data data)
 		write(2, " too many arguments\n", 20);
 		exit(1);
 	}
-	if (data.command_top->next == NULL && data.child == 0)
+	if (g_data.command_top->next == NULL && g_data.child == 0)
 		printf("exit\n");
 	if (cmd->args[0])
 		code = ft_atol(args[0]);

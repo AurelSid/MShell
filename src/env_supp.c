@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/04 15:00:59 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:03:52 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_pwd_setup(t_env	**env, char *type)
 	}
 }
 
-void	ft_env_empty(t_program_data *data)
+void	ft_env_empty(void)
 {
 	t_env	*env_node;
 	char	cwd[PATH_MAX];
@@ -88,7 +88,7 @@ void	ft_env_empty(t_program_data *data)
 	env_node->content = ft_strdup("1");
 	env_node->next = NULL;
 	env_node->prev = NULL;
-	ft_add_env(&data->env, env_node);
+	ft_add_env(&g_data.env, env_node);
 	env_node = malloc(sizeof(t_env));
 	env_node->var_name = ft_strdup("PWD");
 	if (getcwd(cwd, sizeof(cwd)))
@@ -97,11 +97,11 @@ void	ft_env_empty(t_program_data *data)
 		perror("pwd");
 	env_node->next = NULL;
 	env_node->prev = NULL;
-	ft_add_env(&data->env, env_node);
+	ft_add_env(&g_data.env, env_node);
 	env_node = malloc(sizeof(t_env));
 	env_node->var_name = ft_strdup("OLDPWD");
 	env_node->content = NULL;
 	env_node->next = NULL;
 	env_node->prev = NULL;
-	ft_add_env(&data->env, env_node);
+	ft_add_env(&g_data.env, env_node);
 }

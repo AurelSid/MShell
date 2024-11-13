@@ -6,17 +6,17 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 13:12:52 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:15:04 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_env	*ft_search_env_2(char *var, t_program_data *data)
+t_env	*ft_search_env_2(char *var)
 {
 	t_env	*tmp;
 
-	tmp = data->env;
+	tmp = g_data.env;
 	while (tmp)
 	{
 		if ((ft_strcmp(var, tmp->var_name) == 0))
@@ -28,14 +28,14 @@ t_env	*ft_search_env_2(char *var, t_program_data *data)
 	return (NULL);
 }
 
-void	change_env(t_program_data *data)
+void	change_env(void)
 {
 	char	cwd[PATH_MAX];
 	t_env	*curr;
 	t_env	*old;
 
-	curr = ft_search_env_2("PWD", data);
-	old = ft_search_env_2("OLDPWD", data);
+	curr = ft_search_env_2("PWD");
+	old = ft_search_env_2("OLDPWD");
 	old->content = curr->content;
 	if (getcwd(cwd, sizeof(cwd)))
 		curr->content = ft_strdup(cwd);
@@ -43,7 +43,7 @@ void	change_env(t_program_data *data)
 		perror("pwd");
 }
 
-void	ft_cd(t_command *cmd, t_program_data *data)
+void	ft_cd(t_command *cmd)
 {
 	char	*tmp;
 	char	**args;
@@ -53,17 +53,17 @@ void	ft_cd(t_command *cmd, t_program_data *data)
 	if (!tmp || tmp[0] == '~')
 	{
 		tmp = "HOME";
-		ft_search_env(&tmp, *data);
+		ft_search_env(&tmp);
 	}
 	if (ft_strcmp(tmp, "-") == 0)
 	{
 		tmp = "OLDPWD";
-		ft_search_env(&tmp, *data);
+		ft_search_env(&tmp);
 	}
 	if (chdir(tmp) == -1)
 	{
-		data->exit_status = 1;
+		g_data.exit_status = 1;
 		perror("cd");
 	}
-	change_env(data);
+	change_env();
 }

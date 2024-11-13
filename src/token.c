@@ -6,81 +6,81 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:39:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/06 16:11:05 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/12 16:28:08 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	process_redirects(t_program_data *data, int *i)
+int	process_redirects(int *i)
 {
-	if (data->input[*i] == '>')
+	if (g_data.input[*i] == '>')
 	{
-		if (data->input[*i + 1] == '>')
+		if (g_data.input[*i + 1] == '>')
 		{
-			ft_new_token(">>", data, REDIRECT_APPEND);
+			ft_new_token(">>", REDIRECT_APPEND);
 			(*i)++;
 		}
 		else
-			ft_new_token(">", data, REDIRECT_OUT);
+			ft_new_token(">", REDIRECT_OUT);
 	}
-	else if (data->input[*i] == '<')
+	else if (g_data.input[*i] == '<')
 	{
-		if (data->input[*i + 1] == '<')
+		if (g_data.input[*i + 1] == '<')
 		{
-			ft_new_token("<<", data, REDIRECT_HEREDOC);
+			ft_new_token("<<", REDIRECT_HEREDOC);
 			(*i)++;
 		}
 		else
-			ft_new_token("<", data, REDIRECT_IN);
+			ft_new_token("<", REDIRECT_IN);
 	}
-	else if (data->input[*i] == '|')
-		ft_new_token("|", data, PIPE);
+	else if (g_data.input[*i] == '|')
+		ft_new_token("|", PIPE);
 	else
 		return (0);
 	return (1);
 }
 
-int	process_word(t_program_data *data, int *i)
+int	process_word(int *i)
 {
 	int		j;
 	char	*tmp_name;
 
 	j = *i;
-	while (data->input[j] && (data->input[j] != ' ' && data->input[j] != '>'
-			&& data->input[j] != '<' && data->input[j] != '|'))
+	while (g_data.input[j] && (g_data.input[j] != ' ' && g_data.input[j] != '>'
+			&& g_data.input[j] != '<' && g_data.input[j] != '|'))
 	{
-		if (data->input[j] == '\'' || data->input[j] == '\"')
-			j += ft_handle_quotes(data->input, j);
+		if (g_data.input[j] == '\'' || g_data.input[j] == '\"')
+			j += ft_handle_quotes(g_data.input, j);
 		else
-			j += ft_handle_words(data->input, j);
+			j += ft_handle_words(g_data.input, j);
 	}
-	tmp_name = ft_substr(data->input, *i, (size_t)(j - *i));
-	ft_new_token(tmp_name, data, WORD);
+	tmp_name = ft_substr(g_data.input, *i, (size_t)(j - *i));
+	ft_new_token(tmp_name, WORD);
 	free(tmp_name);
 	*i = j;
 	return (0);
 }
 
-int	ft_tokens_fill_list(t_program_data *data)
+int	ft_tokens_fill_list(void)
 {
 	int	i;
 
 	i = 0;
-	if (!data || !data->input)
+	if (!g_data.input)
 		return (-1);
-	while (data->input[i])
+	while (g_data.input[i])
 	{
-		if (process_redirects(data, &i))
+		if (process_redirects(&i))
 		{
 			i++;
 			continue ;
 		}
-		else if (data->input[i] != ' ')
-			process_word(data, &i);
+		else if (g_data.input[i] != ' ')
+			process_word(&i);
 		else
 			i++;
-		if (i + 1 > (int)ft_strlen(data->input))
+		if (i + 1 > (int)ft_strlen(g_data.input))
 			break ;
 	}
 	return (0);

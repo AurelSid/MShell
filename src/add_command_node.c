@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_command_node.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/31 14:59:12 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:54:53 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_add_command(t_command **top, t_command *new)
 	current->next = new;
 }
 
-t_command	*ft_new_command(char *command_name, t_program_data *data,
+t_command	*ft_new_command(char *command_name,
 		char *args, char *options)
 {
 	t_command	*new_command;
@@ -49,9 +49,9 @@ t_command	*ft_new_command(char *command_name, t_program_data *data,
 	new_command->input_fd = -100;
 	new_command->output_fd = -100;
 	new_command->ok = 0;
-	if (data->command_top == NULL)
-		data->command_top = new_command;
+	if (g_data.command_top == NULL)
+		g_data.command_top = new_command;
 	else
-		ft_add_command(&data->command_top, new_command);
+		ft_add_command(&g_data.command_top, new_command);
 	return (new_command);
 }
