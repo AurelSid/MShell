@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/12 17:34:49 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:32:41 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	supp_1(t_program_data *data, char *arg, char *var_name, t_env *tmp)
 	tmp = ft_env_exist(arg, data);
 	if (tmp)
 		return (0);
-	var_name = ft_strtrim_args(arg, 0);
+	var_name = ft_strtrim_args(arg, 0, 0);
 	if (!ft_valid_var(var_name))
 	{
 		write(2, " not a valid identifier\n", 24);
@@ -37,8 +37,8 @@ void	supp_3(t_env *tmp, char *var_name, char *content, t_program_data *data)
 	if (content)
 		ft_checkspchar(&content, data);
 	tmp = ft_env_exist(var_name, data);
-	var_name = ft_strtrim_args(var_name, 0);
-	content = ft_strtrim_args(content, 0);
+	var_name = ft_strtrim_args(var_name, 0, 0);
+	content = ft_strtrim_args(content, 0, 0);
 	if (tmp)
 	{
 		free(tmp->content);

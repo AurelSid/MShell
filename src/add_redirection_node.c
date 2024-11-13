@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_redirection_node.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/10/31 15:02:21 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:32:09 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_redirection	*ft_new_redirection(char *redirection_filename,
 	new_redirection = malloc(sizeof(t_redirection));
 	if (new_redirection == NULL)
 		return (NULL);
-	new_redirection->filename = ft_strtrim_args(redirection_filename);
+	new_redirection->filename = ft_strtrim_args(redirection_filename, 0, 0);
 	new_redirection->type = type;
 	new_redirection->next = NULL;
 	new_redirection->prev = NULL;
