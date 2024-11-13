@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:16:14 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/13 15:15:08 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:45:44 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_trimloop(char ***split)
 	i = 0;
 	while ((*split)[i])
 	{
-		result = ft_strtrim_args((*split)[i], 0);
+		result = ft_strtrim_args((*split)[i], 0, 0);
 		free((*split)[i]);
 		(*split)[i] = ft_strdup(result);
 		free(result);
@@ -28,12 +28,12 @@ void	ft_trimloop(char ***split)
 	}
 }
 
-char	*ft_strtrim_args(char *str, int i)
+char	*ft_strtrim_args(char *str, int i, int j)
 {
-	char		*trim;
-	static char	*result;
-	int			j;
+	char	*result;
+	char	*trim;
 
+	result = NULL;
 	while (str && str[i])
 	{
 		j = 0;
