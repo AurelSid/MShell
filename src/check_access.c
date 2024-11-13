@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 14:51:31 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 17:07:34 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_while_split(char **split_paths, t_command *cmd, int *found_working_path)
 			return (1);
 		ft_check_access(cmd_path_2, cmd, found_working_path);
 		if (*found_working_path == 1)
-			break ;
+			return (0);
 		else if (*found_working_path == 2)
 			return (free(cmd_path_2), 1);
 		free(cmd_path_2);

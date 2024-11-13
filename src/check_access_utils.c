@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:46:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/13 15:00:08 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:20:25 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_set_cmd_path(char *cmd_name, char *path)
 	{
 		if (cmd->name == cmd_name)
 		{
+			free(cmd->path);
 			cmd->path = path;
 			return (0);
 		}

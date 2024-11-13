@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/13 14:51:24 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/13 17:21:50 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_clean_tokens(void)
 	while (tmp_token)
 	{
 		to_free = tmp_token;
-		tmp_token = tmp_token->next;
+		tmp_token = tmp_token->prev;
 		free(to_free->content);
 		free(to_free);
 		to_free = NULL;
