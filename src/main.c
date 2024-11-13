@@ -6,7 +6,11 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/11/13 16:05:25 by vpelc            ###   ########.fr       */
+=======
+/*   Updated: 2024/11/13 17:21:23 by asideris         ###   ########.fr       */
+>>>>>>> ed2148c318dbba67e43cf70835bdd31447c1f446
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +91,6 @@ int	main_loop(char *env[], char *rl)
 	cleanup_and_exit();
 	if (rl)
 		free(rl);
-	system("leaks minishell");
 	return (1);
 }
 
@@ -107,34 +110,35 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-// int	main(int argc, char **argv, char **env)
-// {
-// 	char	*rl;
+/* int	main(int argc, char **argv, char **env)
+{
+	char	*rl;
 
-// 	ft_setup_main(argc, argv, &g_data, env);
-// 	while (1)
-// 	{
-// 		rl = "ls > tst";
-// 		if (!rl)
-// 		{
-// 			ft_free_env(&g_data);
-// 			cleanup_and_exit(&g_data);
-// 			clear_history();
-// 			exit(g_data.exit_status);
-// 			return (0);
-// 		}
-// 		if (rl[0] == '\0')
-// 			break ;
-// 		handle_input(&g_data, rl);
-// 		if (ft_check_all_access(&g_data))
-// 		{
-// 			cleanup_and_exit(&g_data);
-// 			break ;
-// 		}
-// 		process_command(&g_data, env);
-// 		break ;
-// 	}
-// 	cleanup_and_exit(&g_data);
-// 	ft_free_env(&g_data);
-// 	return (0);
-// }
+	ft_setup_main(argc, argv,env);
+	while (1)
+	{
+		rl = "ls | wc";
+		if (!rl)
+		{
+			ft_free_env();
+			cleanup_and_exit();
+			clear_history();
+			exit(g_data.exit_status);
+			return (0);
+		}
+		if (rl[0] == '\0')
+			break ;
+		handle_input(rl);
+		if (ft_check_all_access())
+		{
+			cleanup_and_exit();
+			break ;
+		}
+		process_command(env);
+		break ;
+	}
+	cleanup_and_exit();
+	system("leaks minishell");
+	ft_free_env();
+	return (0);
+} */

@@ -6,7 +6,11 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:46:32 by asideris          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/11/13 16:09:28 by vpelc            ###   ########.fr       */
+=======
+/*   Updated: 2024/11/13 17:20:25 by asideris         ###   ########.fr       */
+>>>>>>> ed2148c318dbba67e43cf70835bdd31447c1f446
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +25,7 @@ int	ft_set_cmd_path(char *cmd_name, char *path)
 	{
 		if (cmd->name == cmd_name)
 		{
+			free(cmd->path);
 			cmd->path = path;
 			return (0);
 		}
