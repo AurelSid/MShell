@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 15:00:20 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_exec_child_piped_process(t_command *cmd, char **env, int pipe_fd[2])
 			else
 				execve(cmd->path, ft_args_to_line(cmd), env);
 		}
-		exit(g_data.exit_status);
+		exit(ft_return_data()->exit_status);
 	}
 }
 
@@ -45,13 +45,13 @@ void	ft_handle_parent_piped_process(int pipe_fd[2], pid_t process_id)
 	close(pipe_fd[0]);
 	waitpid(process_id, &status, 0);
 	if (WIFEXITED(status))
-		g_data.exit_status = WEXITSTATUS(status);
+		ft_return_data()->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 	{
 		signal_num = WTERMSIG(status);
 	}
 	else
-		g_data.exit_status = 0;
+		ft_return_data()->exit_status = 0;
 }
 
 void	ft_exec_piped_command(t_command *cmd, char **env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/12 16:11:04 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	open_files_loop(t_redirection *redir, t_command *cmd)
 		}
 		else if (redir->type == REDIRECT_HEREDOC)
 		{
-			if (g_data.sig_int == 0)
+			if (ft_return_data()->sig_int == 0)
 				ft_handle_heredoc(redir, cmd);
 		}
 		redir = redir->next;

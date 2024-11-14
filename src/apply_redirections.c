@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 15:00:03 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_last_redir(t_redirection *in, t_redirection *out, t_command *cmd)
 	if (out && (out->type == REDIRECT_APPEND || out->type == REDIRECT_OUT))
 		dup2(cmd->output_fd, STDOUT_FILENO);
 	else
-		dup2(g_data.original_stdout, STDOUT_FILENO);
+		dup2(ft_return_data()->original_stdout, STDOUT_FILENO);
 	return (0);
 }
 
@@ -80,7 +80,7 @@ int	ft_apply_redir(t_command *command)
 	}
 	if (ft_open_file(command) == -1)
 	{
-		g_data.exit_status = 1;
+		ft_return_data()->exit_status = 1;
 		return (1);
 	}
 	return (0);

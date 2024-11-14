@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_tab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:35:06 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 16:04:48 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_count_envs(void)
 	int		i;
 
 	i = 0;
-	tmp_env = g_data.env;
+	tmp_env = ft_return_data()->env;
 	while (tmp_env)
 	{
 		i++;
@@ -29,7 +29,7 @@ int	ft_count_envs(void)
 
 char	**ft_env_to_tab_init(char **tab)
 {
-	int		env_nmbr;
+	int	env_nmbr;
 
 	env_nmbr = ft_count_envs();
 	tab = malloc(sizeof(char *) * (env_nmbr + 1));
@@ -59,7 +59,7 @@ char	**ft_env_to_tab(char **tab)
 
 	i = 0;
 	tab = ft_env_to_tab_init(tab);
-	tmp_env = g_data.env;
+	tmp_env = ft_return_data()->env;
 	while (tmp_env)
 	{
 		tmp = ft_strjoin(tmp_env->var_name, "=");

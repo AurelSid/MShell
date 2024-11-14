@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files_supp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 16:11:35 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int	ft_handle_redirect_append(t_command *cmd, t_redirection *redir)
 
 void	ft_handle_heredoc(t_redirection *redir, t_command *cmd)
 {
-	dup2(g_data.original_stdin, STDIN_FILENO);
+	dup2(ft_return_data()->original_stdin, STDIN_FILENO);
 	ft_limiter_exec(redir, cmd);
 }

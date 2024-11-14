@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 15:48:46 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	supp_1(char *arg, char *var_name, t_env *tmp)
 	if (!ft_valid_var(var_name))
 	{
 		write(2, " not a valid identifier\n", 24);
-		g_data.exit_status = 1;
+		ft_return_data()->exit_status = 1;
 		return (0);
 	}
 	tmp = malloc(sizeof(t_env));
 	tmp->var_name = var_name;
 	tmp->content = NULL;
 	tmp->next = NULL;
-	ft_add_env(&g_data.env, tmp);
+	ft_add_env(&ft_return_data()->env, tmp);
 	return (1);
 }
 
@@ -49,7 +49,7 @@ void	supp_3(t_env *tmp, char *var_name, char *content)
 	tmp->var_name = var_name;
 	tmp->content = content;
 	tmp->next = NULL;
-	ft_add_env(&g_data.env, tmp);
+	ft_add_env(&ft_return_data()->env, tmp);
 }
 
 void	supp_5(char *arg, char **var_name, char **content)
@@ -66,7 +66,7 @@ void	supp_5(char *arg, char **var_name, char **content)
 	if (!ft_valid_var(*var_name))
 	{
 		write(2, "  not a valid identifier\n", 25);
-		g_data.exit_status = 1;
+		ft_return_data()->exit_status = 1;
 		free(*var_name);
 		*var_name = NULL;
 	}

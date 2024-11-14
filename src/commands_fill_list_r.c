@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:18:21 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/13 15:47:47 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir)
 	{
 		*tmp = (*tmp)->next;
 		write(2, "syntax error near unexpected token `newline'\n", 46);
-		g_data.exit_status = 2;
+		ft_return_data()->exit_status = 2;
 	}
 	while ((*tmp) && (((*tmp)->type == REDIRECT_IN
 				|| (*tmp)->type == REDIRECT_APPEND
@@ -38,16 +38,16 @@ int	ft_check_redir(t_token **tmp, t_redirection **redir)
 
 void	support_1(t_redirection **redir, t_token **tmp)
 {
-	if (g_data.token_top->type == PIPE)
+	if (ft_return_data()->token_top->type == PIPE)
 	{
 		write(2, " syntax error near unexpected token `|'\n", 41);
-		g_data.exit_status = 2;
+		ft_return_data()->exit_status = 2;
 	}
 	ft_check_redir(tmp, redir);
 }
 
-void	support_2(t_redirection **redir, t_token **tmp,
-		char *cmd_n, char **args)
+void	support_2(t_redirection **redir, t_token **tmp, char *cmd_n,
+		char **args)
 {
 	while (*tmp && ((*tmp)->type != PIPE))
 	{
@@ -59,8 +59,7 @@ void	support_2(t_redirection **redir, t_token **tmp,
 	}
 }
 
-t_token	*ft_commands_fill_list_r(t_token *tmp,
-		char **args, char **opt)
+t_token	*ft_commands_fill_list_r(t_token *tmp, char **args, char **opt)
 {
 	t_command		*cmd;
 	t_redirection	*redir;

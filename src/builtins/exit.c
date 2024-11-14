@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:17:09 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/13 14:52:01 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:30:43 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	ft_exit(t_command *cmd)
 		write(2, " too many arguments\n", 20);
 		exit(1);
 	}
-	if (g_data.command_top->next == NULL && g_data.child == 0)
+	if (ft_return_data()->command_top->next == NULL
+		&& ft_return_data()->child == 0)
 		printf("exit\n");
 	if (cmd->args[0])
 		code = ft_atol(args[0]);

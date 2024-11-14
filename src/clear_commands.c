@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:34:10 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/13 17:21:50 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_commands(void)
 	t_command	*cmd;
 	t_command	*to_free;
 
-	cmd = g_data.command_top;
+	cmd = ft_return_data()->command_top;
 	while (cmd)
 	{
 		to_free = cmd;
@@ -31,7 +31,7 @@ void	ft_clean_commands(void)
 	t_command	*tmp_command;
 	t_command	*to_free;
 
-	tmp_command = g_data.command_top;
+	tmp_command = ft_return_data()->command_top;
 	while (tmp_command)
 	{
 		to_free = tmp_command;
@@ -48,7 +48,7 @@ void	ft_clean_commands(void)
 		free(to_free);
 		to_free = NULL;
 	}
-	g_data.command_top = NULL;
+	ft_return_data()->command_top = NULL;
 }
 
 void	ft_clean_tokens(void)
@@ -56,7 +56,7 @@ void	ft_clean_tokens(void)
 	t_token	*tmp_token;
 	t_token	*to_free;
 
-	tmp_token = g_data.token_top;
+	tmp_token = ft_return_data()->token_top;
 	while (tmp_token)
 	{
 		to_free = tmp_token;
@@ -65,7 +65,7 @@ void	ft_clean_tokens(void)
 		free(to_free);
 		to_free = NULL;
 	}
-	g_data.token_top = NULL;
+	ft_return_data()->token_top = NULL;
 }
 
 void	ft_clean_redirections(t_command *cmd)

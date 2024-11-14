@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/13 15:46:58 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:30:11 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_program_data
 	int						child;
 	int						sig_int;
 }							t_program_data;
-extern t_program_data		g_data;
 
 t_redirection				*ft_new_redirection(char *redirection_filename,
 								t_redirection *r_list, int type);
@@ -205,6 +204,7 @@ int							ft_exec_built_ins_in_pipe(t_command *cmd);
 void						ft_pwd_setup(t_env **env, char *type);
 void						ft_env_empty(void);
 char						**ft_env_to_tab(char **tab);
+t_program_data				*ft_return_data(void);
 
 typedef enum s_token_type
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_token_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 14:51:34 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	ft_new_token(char *token_name, int type)
 	new_token->type = type;
 	new_token->next = NULL;
 	new_token->prev = NULL;
-	if (g_data.token_top == NULL)
-		g_data.token_top = new_token;
+	if (ft_return_data()->token_top == NULL)
+		ft_return_data()->token_top = new_token;
 	else
-		ft_add_node(&g_data.token_top, new_token);
+		ft_add_node(&ft_return_data()->token_top, new_token);
 	return (0);
 }

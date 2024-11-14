@@ -2,7 +2,7 @@ NAME = minishell
 
 DIR_SOURCES = src/
 
-MY_SOURCES 		= main.c debug_utils.c add_token_node.c atol.c \
+MY_SOURCES 		= main.c add_token_node.c atol.c \
 				add_command_node.c add_redirection_node.c token.c \
  				apply_redirections.c check_access.c command.c env.c env_supp.c \
 				init_data.c quotes.c  utils.c utils_2.c\
