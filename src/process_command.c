@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:45:54 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:01:32 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	supp_pc(t_command **tmp_cmd, char **env)
 			if (ft_return_data()->sig_int > 0)
 				return (1);
 			ft_exec(*tmp_cmd, env);
-			ft_return_data()->exit_status = 0;
 		}
 		else
 		{
