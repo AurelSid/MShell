@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 16:27:12 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:52:55 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void	supp(t_env *prev, t_env *tmp)
 
 void	ft_unset(t_command *cmd)
 {
-	t_env	*tmp;
-	t_env	*prev;
-	char	**split_arg;
+	t_env			*tmp;
+	t_env			*prev;
+	char			**split_arg;
 	int		i;
 
+	if (cmd->options[0])
+		return ((void)printf("invalid option\n"));
 	split_arg = ft_split(cmd->args, ' ');
-	i = 0;
-	while (split_arg[i])
+	i = -1;
+	while (split_arg[++i])
 	{
 		tmp = g_data.env;
 		prev = NULL;
@@ -47,7 +49,6 @@ void	ft_unset(t_command *cmd)
 			prev = tmp;
 			tmp = tmp->next;
 		}
-		i++;
 	}
 	ft_free_split(split_arg);
 }

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/12 16:26:51 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:52:41 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,27 @@ void	ft_export_empty(void)
 
 void	ft_export(t_command *cmd)
 {
-	char	**split;
+	char			**split;
 	int		i;
 
+	if (cmd->options[0])
+		return ((void)printf("invalid option\n"));
 	if (!cmd->args[0])
 		ft_export_empty();
 	else
 	{
-		i = 0;
 		split = ft_split_args_2(cmd->args);
 		ft_export_trim(&split);
-		while (split[i])
+		i = -1;
+		while (split[++i])
 		{
 			if (!ft_strcmp(split[i], "="))
 			{
 				write(2, " not a valid identifier\n", 24);
 				g_data.exit_status = 1;
-				i++;
 				continue ;
 			}
 			ft_export_var(split[i]);
-			i++;
 		}
 		ft_free_split(split);
 	}
