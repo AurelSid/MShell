@@ -6,7 +6,7 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 18:16:44 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:01:50 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	main_loop(char *env[], char *rl)
 	cleanup_and_exit();
 	if (rl)
 		free(rl);
-	system("leaks minishell");
 	return (1);
 }
 
