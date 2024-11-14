@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 13:52:41 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:02:07 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_env	*ft_env_exist(char *var)
 {
 	t_env	*tmp;
 
-	tmp = g_data.env;
+	tmp = ft_return_data()->env;
 	while (tmp)
 	{
 		if (strcmp(tmp->var_name, var) == 0)
@@ -47,7 +47,7 @@ void	ft_export_empty(void)
 {
 	t_env	*tmp;
 
-	tmp = ft_env_sort(g_data.env);
+	tmp = ft_env_sort(ft_return_data()->env);
 	while (tmp)
 	{
 		printf("declare -x %s", tmp->var_name);
@@ -77,7 +77,7 @@ void	ft_export(t_command *cmd)
 			if (!ft_strcmp(split[i], "="))
 			{
 				write(2, " not a valid identifier\n", 24);
-				g_data.exit_status = 1;
+				ft_return_data()->exit_status = 1;
 				continue ;
 			}
 			ft_export_var(split[i]);

@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:45:54 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/12 16:12:26 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:23:49 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	process_command_loop(t_command **tmp_cmd)
 	while ((*tmp_cmd))
 	{
 		if ((*tmp_cmd)->redirection_list == NULL)
-			dup2(g_data.original_stdout, STDOUT_FILENO);
+			dup2(ft_return_data()->original_stdout, STDOUT_FILENO);
 		if (ft_apply_redir((*tmp_cmd)))
 		{
 			if ((*tmp_cmd)->next)
@@ -41,14 +41,13 @@ int	supp_pc(t_command **tmp_cmd, char **env)
 	{
 		if ((*tmp_cmd)->ok == 0)
 		{
-			if (g_data.sig_int > 0)
+			if (ft_return_data()->sig_int > 0)
 				return (1);
 			ft_exec(*tmp_cmd, env);
-			g_data.exit_status = 0;
 		}
 		else
 		{
-			if (g_data.sig_int > 0)
+			if (ft_return_data()->sig_int > 0)
 				return (1);
 			setup_pipe_and_redirect();
 			ft_exec(*tmp_cmd, env);
@@ -61,10 +60,10 @@ void	process_command(char **env)
 {
 	t_command	*tmp_cmd;
 
-	tmp_cmd = g_data.command_top;
+	tmp_cmd = ft_return_data()->command_top;
 	if (process_command_loop(&tmp_cmd))
 		return ;
-	tmp_cmd = g_data.command_top;
+	tmp_cmd = ft_return_data()->command_top;
 	while (tmp_cmd)
 	{
 		if (supp_pc(&tmp_cmd, env))

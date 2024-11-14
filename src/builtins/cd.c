@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/13 14:52:20 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*ft_search_env_2(char *var)
 {
 	t_env	*tmp;
 
-	tmp = g_data.env;
+	tmp = ft_return_data()->env;
 	while (tmp)
 	{
 		if ((ft_strcmp(var, tmp->var_name) == 0))
@@ -62,7 +62,7 @@ void	ft_cd(t_command *cmd)
 	}
 	if (chdir(tmp) == -1)
 	{
-		g_data.exit_status = 1;
+		ft_return_data()->exit_status = 1;
 		perror("cd");
 	}
 	ft_free_split(args);

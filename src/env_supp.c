@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_supp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 14:50:33 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_env	*ft_env_sort(t_env *env)
 	return (sort);
 }
 
-void	ft_pwd_setup(t_env	**env, char *type)
+void	ft_pwd_setup(t_env **env, char *type)
 {
 	char	cwd[PATH_MAX];
 	char	*tmp;
@@ -88,7 +88,7 @@ void	ft_env_empty(void)
 	env_node->content = ft_strdup("1");
 	env_node->next = NULL;
 	env_node->prev = NULL;
-	ft_add_env(&g_data.env, env_node);
+	ft_add_env(&ft_return_data()->env, env_node);
 	env_node = malloc(sizeof(t_env));
 	env_node->var_name = ft_strdup("PWD");
 	if (getcwd(cwd, sizeof(cwd)))
@@ -97,11 +97,11 @@ void	ft_env_empty(void)
 		perror("pwd");
 	env_node->next = NULL;
 	env_node->prev = NULL;
-	ft_add_env(&g_data.env, env_node);
+	ft_add_env(&ft_return_data()->env, env_node);
 	env_node = malloc(sizeof(t_env));
 	env_node->var_name = ft_strdup("OLDPWD");
 	env_node->content = NULL;
 	env_node->next = NULL;
 	env_node->prev = NULL;
-	ft_add_env(&g_data.env, env_node);
+	ft_add_env(&ft_return_data()->env, env_node);
 }

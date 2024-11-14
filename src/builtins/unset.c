@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/14 13:52:55 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:02:12 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	supp(t_env *prev, t_env *tmp)
 {
 	if (prev == NULL)
-		g_data.env = tmp->next;
+		ft_return_data()->env = tmp->next;
 	else
 		prev->next = tmp->next;
 	free(tmp->var_name);
@@ -37,7 +37,7 @@ void	ft_unset(t_command *cmd)
 	i = -1;
 	while (split_arg[++i])
 	{
-		tmp = g_data.env;
+		tmp = ft_return_data()->env;
 		prev = NULL;
 		while (tmp)
 		{

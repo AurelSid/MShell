@@ -6,14 +6,13 @@
 /*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 17:07:34 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_check_access(char *cmd_path_2, t_command *cmd,
-		int *found_working_path)
+int	ft_check_access(char *cmd_path_2, t_command *cmd, int *found_working_path)
 {
 	if (access(cmd_path_2, F_OK) == 0)
 	{
@@ -23,7 +22,7 @@ int	ft_check_access(char *cmd_path_2, t_command *cmd,
 			*found_working_path = 2;
 			ft_set_cmd_path(cmd->name, cmd_path_2);
 			printf("bash: %s: Permission denied\n", cmd->name);
-			g_data.exit_status = 2;
+			ft_return_data()->exit_status = 2;
 			return (1);
 		}
 		ft_set_cmd_path(cmd->name, cmd_path_2);
@@ -91,6 +90,6 @@ void	ft_while_cmd_supp(t_command *cmd, char **split_paths)
 	write(2, "bash: ", 6);
 	write(2, cmd->name, ft_strlen(cmd->name));
 	write(2, ": command not found\n", 20);
-	g_data.exit_status = 127;
+	ft_return_data()->exit_status = 127;
 	ft_free_split(split_paths);
 }

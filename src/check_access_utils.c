@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:46:32 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/13 17:31:07 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:02:23 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_set_cmd_path(char *cmd_name, char *path)
 {
 	t_command	*cmd;
 
-	cmd = g_data.command_top;
+	cmd = ft_return_data()->command_top;
 	while (cmd)
 	{
 		if (cmd->name == cmd_name)
@@ -92,7 +92,7 @@ int	ft_check_all_access(void)
 	t_command	*cmd;
 
 	split_paths = NULL;
-	cmd = g_data.command_top;
+	cmd = ft_return_data()->command_top;
 	while (cmd)
 	{
 		if (ft_check_absolute_p(cmd))
@@ -102,7 +102,7 @@ int	ft_check_all_access(void)
 				cmd = cmd->next;
 				continue ;
 			}
-			if (ft_supp(g_data.env, &full_path, &split_paths) == -1)
+			if (ft_supp(ft_return_data()->env, &full_path, &split_paths) == -1)
 				return (-1);
 			if (ft_while_cmd(cmd, split_paths))
 				return (1);

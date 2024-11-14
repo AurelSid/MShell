@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:24:19 by asideris          #+#    #+#             */
-/*   Updated: 2024/11/05 17:31:57 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	ft_limiter_exec(t_redirection *in, t_command *cmd)
 		close(pipe_fd[0]);
 		waitpid(process_id, &status, 0);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			g_data.sig_int = 1;
+			ft_return_data()->sig_int = 1;
 		else
-			g_data.sig_int = 0;
+			ft_return_data()->sig_int = 0;
 	}
 }

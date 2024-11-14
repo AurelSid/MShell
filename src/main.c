@@ -6,13 +6,11 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 13:41:38 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:27:54 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-t_program_data	g_data;
 
 void	setup_pipe_and_redirect(void)
 {
@@ -45,7 +43,7 @@ void	handle_input(char *rl)
 		return ;
 	}
 	add_history(rl);
-	g_data.input = rl;
+	ft_return_data()->input = rl;
 	ft_tokens_fill_list();
 	ft_commands_fill_list();
 }
@@ -60,8 +58,8 @@ int	ft_setup_main(int argc, char **argv, char **env)
 		ft_env_empty();
 	else
 		ft_env_copy(env);
-	g_data.original_stdin = dup(STDIN_FILENO);
-	g_data.original_stdout = dup(STDOUT_FILENO);
+	ft_return_data()->original_stdin = dup(STDIN_FILENO);
+	ft_return_data()->original_stdout = dup(STDOUT_FILENO);
 	return (0);
 }
 
@@ -72,7 +70,7 @@ int	main_loop(char *env[], char *rl)
 		ft_free_env();
 		cleanup_and_exit();
 		clear_history();
-		exit(g_data.exit_status);
+		exit(ft_return_data()->exit_status);
 		return (0);
 	}
 	if (rl[0] == '\0')
@@ -87,6 +85,7 @@ int	main_loop(char *env[], char *rl)
 	cleanup_and_exit();
 	if (rl)
 		free(rl);
+	system("leaks minishell");
 	return (1);
 }
 
@@ -95,46 +94,52 @@ int	main(int argc, char **argv, char **env)
 	int		i;
 	char	*rl;
 
+	ft_return_data();
+	if (argc != 1)
+	{
+		write(2, "args error\n", 11);
+		return (0);
+	}
 	ft_setup_main(argc, argv, env);
 	i = 1;
 	while (i == 1)
 	{
-		g_data.sig_int = 0;
+		ft_return_data()->sig_int = 0;
 		rl = readline("$> ");
 		i = main_loop(env, rl);
 	}
 	return (0);
 }
 
-/* int	main(int argc, char **argv, char **env)
-{
-	char	*rl;
+// int	main(int argc, char **argv, char **env)
+// {
+// 	char	*rl;
 
-	ft_setup_main(argc, argv,env);
-	while (1)
-	{
-		rl = "ls | wc";
-		if (!rl)
-		{
-			ft_free_env();
-			cleanup_and_exit();
-			clear_history();
-			exit(g_data.exit_status);
-			return (0);
-		}
-		if (rl[0] == '\0')
-			break ;
-		handle_input(rl);
-		if (ft_check_all_access())
-		{
-			cleanup_and_exit();
-			break ;
-		}
-		process_command(env);
-		break ;
-	}
-	cleanup_and_exit();
-	system("leaks minishell");
-	ft_free_env();
-	return (0);
-} */
+// 	ft_setup_main(argc, argv,env);
+// 	while (1)
+// 	{
+// 		rl = "ls ll";
+// 		if (!rl)
+// 		{
+// 			ft_free_env();
+// 			cleanup_and_exit();
+// 			clear_history();
+// 			exit(ft_return_data()->exit_status);
+// 			return (0);
+// 		}
+// 		if (rl[0] == '\0')
+// 			break ;
+// 		handle_input(rl);
+// 		if (ft_check_all_access())
+// 		{
+// 			cleanup_and_exit();
+// 			break ;
+// 		}
+// 		process_command(env);
+// 		break ;
+// 	}
+// 	cleanup_and_exit();
+// 	system("leaks minishell");
+// 	ft_free_env();
+// 	return (0);
+// } 

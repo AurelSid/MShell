@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spchar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
+/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:30:37 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/13 14:49:59 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_check_exitsp(char *arg)
 	if (!tmp || (tmp[1]) != '?')
 		return (arg);
 	start = ft_substr(arg, 0, ft_strlen(arg) - (ft_strlen(tmp)));
-	end = ft_strjoin(start, ft_itoa(g_data.exit_status));
+	end = ft_strjoin(start, ft_itoa(ft_return_data()->exit_status));
 	end = ft_strjoin(end, (tmp + 2));
 	free(arg);
 	free(start);
