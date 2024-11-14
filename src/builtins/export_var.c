@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/13 15:48:46 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:37:18 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	supp_1(char *arg, char *var_name, t_env *tmp)
 	var_name = ft_strtrim_args(arg, 0, 0);
 	if (!ft_valid_var(var_name))
 	{
-		write(2, " not a valid identifier\n", 24);
+		write(2, " not a valid identifier\n", 25);
 		g_data.exit_status = 1;
 		return (0);
 	}
