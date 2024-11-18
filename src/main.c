@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/18 14:05:58 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/18 15:52:39 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,12 @@ void	handle_input(char *rl)
 	}
 	add_history(rl);
 	ft_return_data()->input = rl;
-	ft_tokens_fill_list();
+	if (ft_tokens_fill_list() == -1)
+	{
+		printf("Quotes not closed\n");
+		ft_return_data()->exit_status = 1;
+		return ;
+	}
 	ft_commands_fill_list();
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:17:00 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:47:40 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	ft_handle_quotes(char *var, int index)
 	i++;
 	while (var[i] != type && var[i])
 		i++;
+	if (var[i] != type)
+		return (-1);
 	i++;
 	if (i > (int)ft_strlen(var))
 		return (-1);
