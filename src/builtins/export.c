@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 17:02:07 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/18 14:06:19 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_export_empty(void)
 
 void	ft_export(t_command *cmd)
 {
-	char			**split;
+	char	**split;
 	int		i;
 
 	if (cmd->options[0])

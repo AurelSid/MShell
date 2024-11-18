@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 17:27:54 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/18 14:05:58 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	main_loop(char *env[], char *rl)
 	cleanup_and_exit();
 	if (rl)
 		free(rl);
-	system("leaks minishell");
 	return (1);
 }
 

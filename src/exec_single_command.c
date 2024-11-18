@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 17:19:28 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/18 14:07:14 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,15 @@ int	ft_fork(pid_t process_id, t_command *cmd, char **env)
 				ft_exec_built_ins_in_pipe(cmd);
 				exit(ft_return_data()->exit_status);
 			}
-			else
-				execve(cmd->path, ft_args_to_line(cmd), env);
+			else if (execve(cmd->path, ft_args_to_line(cmd), env) == -1)
+			{
+				if (!ft_strcmp(cmd->path, cmd->name))
+				{
+					printf("%s: command not found\n", cmd->name);
+					ft_return_data()->exit_status = 127;
+					exit(127);
+				}
+			}
 		}
 	}
 	return (1);

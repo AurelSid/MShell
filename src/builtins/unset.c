@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:45:11 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/14 17:02:12 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/18 14:06:28 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_unset(t_command *cmd)
 	t_env			*tmp;
 	t_env			*prev;
 	char			**split_arg;
-	int		i;
+	int				i;
 
 	if (cmd->options[0])
 		return ((void)printf("invalid option\n"));
