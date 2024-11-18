@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:53:08 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:21:24 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_cd(t_command *cmd)
 {
 	char	*tmp;
 	char	**args;
+	int		i;
 
 	args = ft_split_args(cmd->args);
 	tmp = args[0];
@@ -60,11 +61,13 @@ void	ft_cd(t_command *cmd)
 		tmp = "OLDPWD";
 		ft_search_env(&tmp);
 	}
-	if (chdir(tmp) == -1)
+	i = chdir(tmp);
+	if (i == -1)
 	{
 		ft_return_data()->exit_status = 1;
 		perror("cd");
 	}
 	ft_free_split(args);
-	change_env();
+	if (i != -1)
+		change_env();
 }
