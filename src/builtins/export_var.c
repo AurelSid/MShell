@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 17:02:01 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/18 18:18:49 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ int	supp_1(char *arg, char *var_name, t_env *tmp)
 
 void	supp_3(t_env *tmp, char *var_name, char *content)
 {
-	if (content)
+	if (content && content[0])
 		ft_checkspchar(&content);
 	tmp = ft_env_exist(var_name);
 	var_name = ft_strtrim_args(var_name, 0, 0);
-	content = ft_strtrim_args(content, 0, 0);
+	if (content[0])
+		content = ft_strtrim_args(content, 0, 0);
 	if (tmp)
 	{
 		free(tmp->content);

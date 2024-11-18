@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:02:06 by brahimb           #+#    #+#             */
-/*   Updated: 2024/11/14 13:30:11 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:38:19 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,11 @@ void						ft_pwd_setup(t_env **env, char *type);
 void						ft_env_empty(void);
 char						**ft_env_to_tab(char **tab);
 t_program_data				*ft_return_data(void);
+
+void						add_shlvl(void);
+void						add_pwd(void);
+void						add_oldpwd(void);
+t_env						*ft_search_env_2(char *var);
 
 typedef enum s_token_type
 {

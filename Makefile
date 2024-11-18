@@ -3,7 +3,7 @@ NAME = minishell
 DIR_SOURCES = src/
 
 MY_SOURCES 		= main.c add_token_node.c atol.c \
-				add_command_node.c add_redirection_node.c token.c \
+				add_command_node.c add_redirection_node.c token.c env_supp_2.c\
  				apply_redirections.c check_access.c command.c env.c env_supp.c \
 				init_data.c quotes.c  utils.c utils_2.c\
 				\
@@ -33,7 +33,7 @@ C_END =	\033[0m
 
 CFLAGS = -Wall -Werror -Wextra
 
-# ifeq "$(USER)" "lvodak"
+# ifeq "$(USER)" ""
 READLINE_PATH = $(HOME)/.brew/Cellar/readline/8.2.13/
 # else
 # 	#READLINE_PATH = /opt/homebrew/Cellar/readline/8.2.10/

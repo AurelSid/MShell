@@ -6,7 +6,7 @@
 /*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/18 14:05:37 by vpelc            ###   ########.fr       */
+/*   Updated: 2024/11/18 19:26:36 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	ft_apply_redir(t_command *command)
 	}
 	if (ft_open_file(command) == -1)
 	{
+		command->output_fd = -1;
+		command->input_fd = -1;
 		ft_return_data()->exit_status = 1;
 		return (1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:51:33 by vpelc             #+#    #+#             */
-/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:35:54 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	ft_env_copy(char **env)
 	int		len;
 	char	*tmp;
 
-	i = 0;
-	while (env[i])
+	i = -1;
+	while (env[++i])
 	{
 		env_node = malloc(sizeof(t_env));
 		len = ft_strlen(env[i]) - ft_strlen(ft_strchr(env[i], '='));
@@ -83,8 +83,8 @@ int	ft_env_copy(char **env)
 			env_node->content = tmp;
 		}
 		ft_env_copy_supp(i, &env_node);
-		i++;
 	}
+	ft_env_empty();
 	return (0);
 }
 

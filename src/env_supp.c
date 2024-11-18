@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_supp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asideris <asideris@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpelc <vpelc@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:34:08 by roko              #+#    #+#             */
-/*   Updated: 2024/11/14 13:27:19 by asideris         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:39:48 by vpelc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,10 @@ void	ft_pwd_setup(t_env **env, char *type)
 
 void	ft_env_empty(void)
 {
-	t_env	*env_node;
-	char	cwd[PATH_MAX];
-
-	env_node = malloc(sizeof(t_env));
-	env_node->var_name = ft_strdup("SHLVL");
-	env_node->content = ft_strdup("1");
-	env_node->next = NULL;
-	env_node->prev = NULL;
-	ft_add_env(&ft_return_data()->env, env_node);
-	env_node = malloc(sizeof(t_env));
-	env_node->var_name = ft_strdup("PWD");
-	if (getcwd(cwd, sizeof(cwd)))
-		env_node->content = ft_strdup(cwd);
-	else
-		perror("pwd");
-	env_node->next = NULL;
-	env_node->prev = NULL;
-	ft_add_env(&ft_return_data()->env, env_node);
-	env_node = malloc(sizeof(t_env));
-	env_node->var_name = ft_strdup("OLDPWD");
-	env_node->content = NULL;
-	env_node->next = NULL;
-	env_node->prev = NULL;
-	ft_add_env(&ft_return_data()->env, env_node);
+	if (!ft_search_env_2("SHLVL"))
+		add_shlvl();
+	if (!ft_search_env_2("PWD"))	
+		add_pwd();
+	if (!ft_search_env_2("OLDPWD"))
+		add_oldpwd();
 }
